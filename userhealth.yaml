@@ -1,0 +1,230 @@
+# this ChongHongIt Guanhutong user-health-service API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: User-Health
+  description: Move your app forward with the ChongHongIt Guanhutong user-health-service API
+  version: "1.0.0"
+# the domain of the service
+host: 172.28.4.220:8086
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+produces:
+  - application/hal+json
+paths:
+  /bloodpressures:
+    get:
+      summary: Find Bloodpressures
+      description: Find Bloodpressures
+      parameters:
+        - name: imei
+          in: query
+          description: IMEI终端编号.
+          required: false
+          type: string
+          format: string
+        - name: startTime
+          in: query
+          description: 血压的开始时间.
+          required: false
+          type: string
+          format: string
+        - name: endTime
+          in: query
+          description: 血压的结束时间.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: double
+        - name: pageSize
+          in: query
+          description: 每页显示多少条血压数据.
+          required: false
+          type: number
+          format: double  
+      tags:
+        - Bloodpressures
+      responses:
+        '200':
+          description: 返回血压列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bloodpressure'
+        '204':
+          description: 没有血压信息返回
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Add a Bloodpressure
+      description: Add a Bloodpressure.
+      parameters:
+        - name: createBloodpressure
+          in: body
+          description: 添加血压的JSON数据
+          schema:
+            $ref: '#/definitions/createBloodpressure'
+          required: true
+      tags:
+        - Bloodpressures
+      responses:
+        '200':
+          description: 添加一条血压数据成功
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'  
+  /bloodpressures/{id}:
+    get:
+      summary: Find a Bloodpressre by id
+      description: find a bloodpressure by id
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: 血压的ID
+      tags:
+        - Bloodpressures
+      responses:
+        '200':
+          description: 返回一条血压详情
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bloodpressure'
+        '204':
+          description: 没有找到对应的血压信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: delete a Bloodpressre by id
+      description: delete a Bloodpressre by id
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: 血压的ID
+      tags:
+        - Bloodpressures
+      responses:
+        '200':
+          description: 返回一条血压信息
+        '404':
+          description: 没有找到对应的血压信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+  /bloodpressuresbyimei/{imei}:
+    get:
+      summary: Find a nearest Bloodpressre by IMEI
+      description: Find a nearest Bloodpressre by IMEI
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          required: true
+          description: 血压的IMEI编号  允许范围值为[0-9].
+      tags:
+        - Bloodpressures
+      responses:
+        '200':
+          description: 返回一条IMEI编号下最新的血压详情
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bloodpressure'
+        '404':
+          description: 没有找到对应的血压信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+  
+definitions:
+  createBloodpressure:
+    properties:
+      imei:
+        type: string
+        description: 终端号 允许范围值为[0-9].
+      dector:
+        type: object
+        properties:
+          id:
+            type: string
+            description: 终端设备编号.
+          type:
+            type: string
+            description: 终端设备类型
+          value:
+            type: string
+            description: 终端设备描述
+      timestamp:
+        type: string
+        description: 血压时间 时间格式类似：2015-08-01T22:23:33.343Z
+      systolic:
+        type: string
+        format: number
+        description: 血压收缩值 数值格式类似：90.00
+      diastolic:
+        type: string
+        format: number
+        description: 血压舒张值 数值格式类似：90.00
+      pulse:
+        type: string
+        format: number
+        description: 血压脉冲值 数值格式类似：73.00
+  bloodpressure:
+    properties:
+      imei:
+        type: string
+        description: 终端号 允许范围值为[0-9].
+      dector:
+        type: object
+        properties:
+          id:
+            type: string
+            description: 终端设备编号.
+          type:
+            type: string
+            description: 终端设备类型
+          value:
+            type: string
+            description: 终端设备描述
+      timestamp:
+        type: string
+        description: 血压时间 时间格式类似：2015-08-01T22:23:33.343Z
+      systolic:
+        type: string
+        format: number
+        description: 血压收缩值 数值格式类似：90.00
+      diastolic:
+        type: string
+        format: number
+        description: 血压舒张值 数值格式类似：90.00
+      pulse:
+        type: string
+        format: number
+        description: 血压脉冲值 数值格式类似：73.00
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
