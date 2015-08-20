@@ -1,0 +1,99 @@
+spring:
+  profiles: dev
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.28.4.220:8761/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.company.service
+
+server:
+  port: 29269
+
+cassandra:
+  contactpoints: 172.28.4.220
+  port: 9042
+  keyspace: pois_dev
+
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+elasticsearch:
+  clusterName: changhongit_dev
+  host: 172.28.4.220
+  port: 9300
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+#kafka
+zookeeper:
+  connect: 172.28.4.220:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+group:
+  id: changhongit-company-es-group-dev
+
+auto:
+  commit:
+    nterval:
+      ms: 1000
+  offset:
+    reset: smallest
+
+kafka:
+  topic: COMPANY-INFO
+
+checkToken:
+  endpoint: http://172.28.4.220:8086/security/oauth/check_token?token=%s
+
+userRegister:
+  endpoint: http://172.28.4.220:8086/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://172.28.4.220:8086/security/users/password.update
+
+---
+
+spring:
+  profiles: qa
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.28.4.220:8761/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.company.service
+
+server:
+  port: 19224
+
+cassandra:
+  contactpoints: 172.28.4.220
+  port: 9042
+  keyspace: pois_qa
+
+checkToken:
+  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+companydetail:
+  points: http://172.28.4.220:8087/companies/{uuid}
+
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
