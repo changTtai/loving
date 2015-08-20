@@ -1,0 +1,339 @@
+swagger: '2.0'
+info:
+  title:  Order
+  description: Order application API 
+  version: 1.0.0
+host: '172.28.4.220:8088'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /orders:
+    post:
+      parameters:
+        - name: addOrderRequest
+          in: body
+          description: The add order you want to post
+          schema:
+            $ref: '#/definitions/addOrderRequest'
+          required: true
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          required: true
+          type: string          
+      responses:
+        '201':
+          description: Make a new order
+    get:
+      summary: search orders with page
+      description: |
+        According to user's search params return orders page.
+      parameters:
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          required: true
+          type: string
+        - name: size
+          in: query
+          default: 2
+          description: number each page shows article data.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: current page number.
+          required: false
+          type: number
+        - name: next_id
+          in: query
+          description: "next page need the current page's last id ."
+          required: false
+          type: string
+        - name: previous_id
+          in: query
+          description: "previous page need the current page's first id ."
+          required: false
+          type: string
+        - name: employee_id
+          in: query
+          description: query orders by employeeid .
+          required: false
+          type: string
+        - name: company_id
+          in: query
+          description: query orders by companyid .
+          required: false
+          type: string
+      tags:
+        - orders
+      responses:
+        '200':
+          description: orders page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/orders'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/orders/{id}':
+    get:
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the order
+          required: true
+          format: uuid
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          required: true
+          type: string          
+      responses:
+        '200':
+          description: get order detail
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/orderSummaryResponse'
+    patch:
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the order
+          required: true
+          format: uuid
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          required: true
+          type: string          
+        - name: productUpdateRequest
+          in: body
+          description: The update order summary JSON you want to post
+          schema:
+            $ref: '#/definitions/updateOrderRequest'
+          required: true
+      responses:
+        '201':
+          description: update order
+    delete:
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the order
+          required: true
+          format: uuid
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          required: true
+          type: string          
+      responses:
+        '200':
+          description: delete one order
+definitions:
+  orders:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: current page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: previous page url.
+      _embedded:
+        properties:
+          productpriceResponses:
+            type: array
+            items:
+              $ref: '#/definitions/orderSummaryResponse'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: page total
+  orderSummaryResponse:
+    properties:
+      customerName:
+        type: string
+        description: customer_name of order.
+      customerPhone:
+        type: string
+        description: customer_phone of order.
+      address:
+        type: string
+        description: address of order.
+      price:
+        type: number
+        description: price of order.
+      oderTime:
+        type: string
+        description: oder_time of order.
+        format: date
+      needTime:
+        type: string
+        description: need_time of order.
+        format: date
+      needLevel:
+        type: number
+        description: need_level of order.
+      employeeId:
+        type: string
+        description: employeeid of order.
+        format: uuid
+      companyId:
+        type: string
+        description: companyid of order.
+        format: uuid
+      startTime:
+        type: string
+        description: start_time of order.
+        format: date
+      status:
+        type: number
+        description: status of order.
+      items:
+        description: companyid of order.
+        $ref: '#/definitions/orderItemResponse'
+  addOrderRequest:
+    properties:
+      orderId:
+        type: string
+        description: orderid of order.
+      customerName:
+        type: string
+        description: customer_name of order.
+      customerPhone:
+        type: string
+        description: customer_phone of order.
+      address:
+        type: string
+        description: address of order.
+      price:
+        type: number
+        description: price of order.
+      oderTime:
+        type: string
+        description: oder_time of order.
+        format: date
+      needTime:
+        type: string
+        description: need_time of order.
+        format: date
+      needLevel:
+        type: number
+        description: need_level of order.
+      employeeId:
+        type: string
+        description: employeeid of order.
+        format: uuid
+      companyId:
+        type: string
+        description: companyid of order.
+        format: uuid
+      startTime:
+        type: string
+        description: start_time of order.
+        format: date
+      status:
+        type: number
+        description: status of order.
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/orderItemRequest'
+        description: companyid of order.
+  orderItemRequest:
+    properties:
+      productPriceId:
+        type: string
+        description: product_price_id of orderIem.
+        format: uuid
+      productPrice:
+        type: number
+        description: product_price of orderIem.
+      productName:
+        type: string
+        description: product_name of orderIem.
+      count:
+        type: number
+        description: count of orderIem.
+  orderItemResponse:
+    properties:
+      productPriceId:
+        type: string
+        description: product_price_id of orderIem.
+        format: uuid
+      productPrice:
+        type: number
+        description: product_price of orderIem.
+      productName:
+        type: string
+        description: product_name of orderIem.
+      count:
+        type: number
+        description: count of orderIem.
+  updateOrderRequest:
+    properties:
+      customerName:
+        type: string
+        description: customer_name of order.
+      serviceContent:
+        type: string
+        description: customer_phone of order.
+      customerPhone:
+        type: string
+        description: customer_phone of order.
+      address:
+        type: string
+        description: address of order.
+      price:
+        type: number
+        description: price of order.
+      needLevel:
+        type: number
+        description: need_level of order.
+      employeeid:
+        type: string
+        description: employeeid of order.
+        format: uuid
+      status:
+        type: number
+        description: status of order.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

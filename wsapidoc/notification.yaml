@@ -1,0 +1,166 @@
+swagger: '2.0'
+info:
+  title: notification
+  description: loing-user-location-service application API 
+  version: 1.0.0
+host: 'localhost:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /mylocations:
+    post:
+      parameters:
+        - name: locationAddRequest
+          in: body
+          description: The add location you want to post
+          schema:
+            $ref: '#/definitions/locationAddRequest'
+          required: true
+      responses:
+        '201':
+          description: Make a new location
+    get:
+      summary: search my locations with page
+      description:
+        According to user's search params return locations page.
+      parameters:
+        - name: size
+          in: query
+          description: number each page shows article data.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: current page number.
+          required: false
+          type: number
+        - name: updated_time
+          in: query
+          description: next page need the current page's last updated_time .
+          required: false
+          type: string
+      tags:
+        - locationsResponse
+      responses:
+        '200':
+          description: locations page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/locationsResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/users/{id}/locations':
+    get:
+      summary: search user locations with page
+      description:
+        According to user's search params return locations page.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the user.
+          required: true
+          format: uuid
+        - name: size
+          in: query
+          description: number each page shows article data.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: current page number.
+          required: false
+          type: number
+        - name: updated_time
+          in: query
+          description: next page need the current page's last updated_time .
+          required: false
+          type: string
+      tags:
+        - locationsResponse
+      responses:
+        '200':
+          description: locations page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/locationsResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  locationsResponse:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: current page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: previous page url.
+      _embedded:
+        properties:
+          updated_time:
+            type: string
+            description: updated_time of user locaion.
+          location:
+            properties:
+              lat:
+                type: string
+                description: lat of user locaion.
+              lon:
+                type: string
+                description: lon of user location.
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: page total
+
+  locationAddRequest:
+    properties:
+      lat:
+        type: string
+        description: lat of user location.
+      lon:
+        type: string
+        description: lon of user location.
+      channelId:
+        type: string
+        description: baidu push channel id.
+
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

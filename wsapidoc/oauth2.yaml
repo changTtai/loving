@@ -1,0 +1,185 @@
+swagger: '2.0'
+info:
+  title: Oauth2
+  description: Oauth2 description
+
+  version: 1.0.0
+host: '103.245.128.220:8087'
+schemes:
+  - http
+basePath: /security
+produces:
+  - application/json
+paths:
+  '/oauth/accesstoken':
+    post:
+      summary: 获取Access token
+      description: 通过用户账号密码快速获取Access token
+      parameters:
+        - name: Auth2Request
+          in: body
+          description: The Auth2Request JSON you want to post
+          schema:
+            $ref: '#/definitions/Auth2Request'
+          required: true
+          
+      tags:
+        - accesstoken
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /users:
+    get:
+      summary: 查询用户
+      description: 查询用户
+      parameters:
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          type: string
+          description: The Auth2Request JSON you want to post
+          required: true
+      
+      tags:
+        - users
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: 新增用户
+      description: 新增用户
+      parameters:
+        - name: Auth2AddRequest
+          in: body
+          schema:
+            $ref: '#/definitions/Auth2AddRequest'
+          required: true
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          type: string
+          description: The Auth2Request JSON you want to post
+          required: true
+      
+      tags:
+        - users
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /users/myInfo:
+    get:
+      summary: Access token获取用户uuid
+      description: 使用Access token获取用户uuid
+      parameters:
+        - name: X-Token
+          default: {X-Token}
+          in: header
+          type: string
+          description: The Auth2Request JSON you want to post
+          required: true
+      
+      tags:
+        - users
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /users/userInfo:
+    get:
+      summary: 通过用户名获取用户uuid
+      description: 通过户获取用户uuid
+      parameters:
+        - name: username
+          in: query
+          type: string
+          description: The Auth2Request JSON you want to post
+          required: true
+      
+      tags:
+        - users
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+definitions:
+  Activity:
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the activity
+  Activities:
+    properties:
+      offset:
+        type: integer
+        format: int32
+        description: Position in pagination.
+      limit:
+        type: integer
+        format: int32
+        description: Number of items to retrieve (100 max).
+      count:
+        type: integer
+        format: int32
+        description: Total number of items available.
+      history:
+        type: array
+        items:
+          $ref: '#/definitions/Activity'
+  Auth2Request:
+    properties:
+      loginName:
+        type: string
+        description: Description of auth2.
+      password:
+        type: string
+        description: Display name of auth2.
+  Auth2AddRequest:
+    properties:
+      loginName:
+        type: string
+        description: Description of auth2.
+      password:
+        type: string
+        description: Display name of auth2.
+      roles:
+        type: string
+        description: Display name of auth2.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

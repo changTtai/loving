@@ -1,0 +1,1213 @@
+swagger: '2.0'
+info:
+  title: Pois
+  description: Move your app forward with the POIS API 
+  version: 1.0.0
+host: '103.245.128.220:8087'
+schemes:
+  - http
+  - https
+consumes:
+  - application/hal+json
+produces:
+  - application/hal+json
+paths:
+  /home:
+    get:
+      summary: find home information.
+      description: find home information.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - home
+      responses:
+        '200':
+          description: home information
+          schema:
+            $ref: '#/definitions/home'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /pois:
+    get:
+      summary: find pois information.
+      description: find pois information.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: type_code
+          in: query
+          description: type code.
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: false
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      tags:
+        - Pois
+      responses:
+        '200':
+          description: pois information
+          schema:
+            $ref: '#/definitions/pois'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+        - Pois
+      summary: add a new poi.
+      description: add a new poi.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: pois
+          in: body
+          description: need to save object
+          schema:
+            $ref: '#/definitions/savePoi'
+          required: true
+      responses:
+        '201':
+          description: return stats code after success to create a poi.
+  /pois/upsert:
+    post:
+      tags:
+        - Pois
+      summary: add a new poi or update an existing  poi.
+      description: add a new poi or update an existing  poi.
+      consumes:
+      - application/vnd.jiahua.commands.upsert+json 
+      produces:
+      - application/vnd.jiahua.commands.upsert+json 
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: pois
+          in: body
+          description: need to save object
+          schema:
+            $ref: '#/definitions/poi'
+          required: true
+      responses:
+        '201':
+          description:  return stats code '201' if create a new poi. 
+        '200':
+          description: return stats code '200' if update an existing poi.
+          
+  /pois/ByCompany/{comapnyId}:
+    get:
+      tags:
+        - Pois
+      summary: find pois by companyId.
+      description: find pois by companyId.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: comapnyId
+          in: path
+          description: comapnyId of poi.
+          required: true
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: true
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: true
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: pois information
+          schema:
+            $ref: '#/definitions/pois'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /pois/{uuid}:
+    delete:
+      tags:
+        - Pois
+      summary: delete poi by uuid.
+      description: delete poi by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of poi.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: success to delete poi by id
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    patch:
+      tags:
+        - Pois
+      summary: update an existing poi.
+      description: update an existing poi.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of poi.
+          required: true
+          type: string
+        - name: pois
+          in: body
+          description: The pet JSON you want to post
+          schema:
+            $ref: '#/definitions/savePoi'
+          required: true
+      responses:
+        '200':
+          description: success to update poi
+    get:
+      tags:
+        - Pois
+      summary: find a poi information by uuid.
+      description: find a poi information by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token  code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of poi.
+          required: true
+          type: string
+      # Expected responses for this operation:
+      responses:
+        '200':
+          description: poi information
+          schema:
+            $ref: '#/definitions/poi'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /companies/{companyId}/maps:
+    post:
+      tags:
+        - maps
+      summary: add a new map.
+      description: add a new map.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: companyId
+          in: path
+          description: companyId of map.
+          required: true
+          type: string
+        - name: map
+          in: body
+          description: The map JSON you want to post
+          schema:
+            $ref: '#/definitions/addmap'
+          required: true
+      responses:
+        '201':
+          description: return stats code after success to create a map
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      tags:
+        - maps
+      summary: find  maps by companyId.
+      description: find  maps by companyId.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: companyId
+          in: path
+          description: companyId of map.
+          required: true
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: true
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: true
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: return data
+          schema:
+            $ref: '#/definitions/maps'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /maps/{uuid}:
+    get:
+      tags:
+        - maps
+      summary: find a map by uuid.
+      description: find a map by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of map.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: return stats code after success to get a map
+          schema:
+            $ref: '#/definitions/getmap'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    patch:
+      tags:
+        - maps
+      summary: update an existing  map by uuid.
+      description: update an existing  map by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of map.
+          required: true
+          type: string
+        - name: map
+          in: body
+          description: The map JSON you want to post
+          schema:
+            $ref: '#/definitions/updatemap'
+          required: true
+      responses:
+        '200':
+          description: return stats code after success to update a map
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+        - maps
+      summary: delete a map by uuid.
+      description: delete a map by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of map.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: return stats code after success to delete a map
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /companies/{companyId}/menus:
+    post:
+      tags:
+        - menus
+      summary: add a new menu.
+      description: add a new menu.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: companyId
+          in: path
+          description: companyId of menu.
+          required: true
+          type: string
+        - name: menu
+          in: body
+          description: The menu JSON you want to post
+          schema:
+            $ref: '#/definitions/addmenu'
+          required: true
+      responses:
+        '201':
+          description: return stats code after success to create a menu
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      tags:
+        - menus
+      summary: find menus by companyId.
+      description: find menus by companyId.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: companyId
+          in: path
+          description: companyId of map.
+          required: true
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: true
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: true
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: return menus data
+          schema:
+            $ref: '#/definitions/menus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /menus/{sequence}:
+    get:
+      tags:
+        - menus
+      summary: find menu by sequence.
+      description: find menu by sequence.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: sequence
+          in: path
+          description: sequence of menu.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: return stats code after success to get a menu
+          schema:
+            $ref: '#/definitions/getmenu'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    patch:
+      tags:
+        - menus
+      summary: update an existing menu by sequence.
+      description: update an existing menu by sequence.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: sequence
+          in: path
+          description: sequence of menu.
+          required: true
+          type: string
+        - name: menu
+          in: body
+          description: The pet JSON you want to post
+          schema:
+            $ref: '#/definitions/updatemenu'
+          required: true
+      responses:
+        '200':
+          description: return stats code after success to update a menu
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+        - menus
+      summary: delete a  menu by sequence.
+      description: delete a  menu by sequence.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: sequence
+          in: path
+          description: sequence of menu.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: return stats code after success to delete a menu
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  pois:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+          poisResponses:
+            type: array
+            items:
+              $ref: '#/definitions/poi'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: current page 
+  poi:
+    properties:
+      uuid:
+        type: string
+        description: uuid of poi.
+      companyId:
+        type: string
+        description: companyId of poi.
+      name:
+        type: string
+        description: name of poi.
+      createTime:
+        type: string
+        description: createTime of poi.
+      lastUpdateDate:
+        type: string
+        description: lastUpdateDate of poi.
+      lon:
+        type: string
+        description: longitude of poi.
+      lat:
+        type: string
+        description: latitude of poi.
+      description:
+        type: string
+        description: description of poi.
+      typeCd:
+        type: string
+        description: typeCode of poi.
+      typeDesc:
+        type: string
+        description: typeDesc of poi.
+      categoryCd:
+        type: string
+        description: categoryCd of poi.
+      subCategoryCd:
+        type: string
+        description: subCategoryCd of poi.
+      pageUrl:
+        type: string
+        description: pageUrl of poi.
+      detail:
+        properties:
+          shortDesc:
+            type: string
+            description: shortDesc of poi.
+          statusCd:
+            type: string
+            description: statusCdof poi.
+          statusDesc:
+            type: string
+            description: statusDesc of poi
+          address:
+            type: string
+            description: address of poi.
+          length:
+            type: string
+            description: length of poi.
+          width:
+            type: string
+            description: width of poi.
+          areaSqm:
+            type: string
+            description: areaSqm of poi.
+          areaMu:
+            type: string
+            description: areaMu of poi.
+          areaHectare:
+            type: string
+            description: areaMu of poi.
+          capacity:
+            type: string
+            description: capacity  of poi.
+          thumbnailUrl:
+            type: string
+            description: thumbnailUrl of poi.
+          landVolumeRatio:
+            type: string
+            description: landVolumeRatio of poi.
+          landBuildingScale:
+            type: string
+            description: landBuildingScale of poi.
+          landBuildingDensity:
+            type: string
+            description: landBuildingDensity of poi.
+          landHighLimit:
+            type: string
+            description: landHighLimit of poi.
+          landGreenRatio:
+            type: string
+            description: landGreenRatio of poi.
+  
+  savePoi:
+    properties:
+      companyId:
+        type: string
+        description: companyId of poi.
+      name:
+        type: string
+        description: name of poi.
+      createTime:
+        type: string
+        description: createTime of poi.
+      lastUpdateDate:
+        type: string
+        description: lastUpdateDate of poi.
+      lon:
+        type: string
+        description: longitude of poi.
+      lat:
+        type: string
+        description: latitude of poi.
+      description:
+        type: string
+        description: description of poi.
+      typeCd:
+        type: string
+        description: typeCode of poi.
+      typeDesc:
+        type: string
+        description: typeDesc of poi.
+      categoryCd:
+        type: string
+        description: categoryCd of poi.
+      subCategoryCd:
+        type: string
+        description: subCategoryCd of poi.
+      pageUrl:
+        type: string
+        description: pageUrl of poi.
+      detail:
+        properties:
+          shortDesc:
+            type: string
+            description: shortDesc of poi.
+          statusCd:
+            type: string
+            description: statusCdof poi.
+          statusDesc:
+            type: string
+            description: statusDesc of poi
+          address:
+            type: string
+            description: address of poi.
+          length:
+            type: string
+            description: length of poi.
+          width:
+            type: string
+            description: width of poi.
+          areaSqm:
+            type: string
+            description: areaSqm of poi.
+          areaMu:
+            type: string
+            description: areaMu of poi.
+          areaHectare:
+            type: string
+            description: areaMu of poi.
+          capacity:
+            type: string
+            description: capacity  of poi.
+          thumbnailUrl:
+            type: string
+            description: thumbnailUrl of poi.
+          landVolumeRatio:
+            type: string
+            description: landVolumeRatio of poi.
+          landBuildingScale:
+            type: string
+            description: landBuildingScale of poi.
+          landBuildingDensity:
+            type: string
+            description: landBuildingDensity of poi.
+          landHighLimit:
+            type: string
+            description: landHighLimit of poi.
+          landGreenRatio:
+            type: string
+            description: landGreenRatio of poi.
+  maps:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+           mapResponses:
+            type: array
+            items:
+              $ref: '#/definitions/getmap'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: current page 
+  addmap:
+    properties:
+      mapSatelliteUrl:
+        type: string
+        description: mapSatelliteUrl of map.
+      mapSatelliteLabelUrl:
+        type: string
+        description: mapSatelliteLabelUrl of map.
+      mapNormalUrl:
+        type: string
+        description: mapNormalUrl of map.
+      mapRoadNetworkUrl:
+        type: string
+        description: mapRoadNetworkUrl of map.
+      mapControlChartUrl:
+        type: string
+        description: mapControlChartUrl of map.
+      envelope:
+        properties:
+          xmin:
+            type: string
+            description: xmin of map envelope.
+          ymin:
+            type: string
+            description: ymin of map envelope.
+          xmax:
+            type: string
+            description: xmax of map envelope
+          ymax:
+            type: string
+            description: ymax of map envelope.
+      detail:
+        properties:
+          mapAltitudeUrl:
+            type: string
+            description: mapAltitudeUrl of map detail.
+  updatemap:
+    properties:
+      companyId:
+        type: string
+        description: companyId of map. 
+      mapSatelliteLabelUrl:
+        type: string
+        description: mapSatelliteLabelUrl of map.
+      mapSatelliteUrl:
+        type: string
+        description: mapSatelliteUrl of map.
+      mapNormalUrl:
+        type: string
+        description: mapNormalUrl of map.
+      mapRoadNetworkUrl:
+        type: string
+        description: mapRoadNetworkUrl of map.
+      mapControlChartUrl:
+        type: string
+        description: mapControlChartUrl of map.
+      envelope:
+        properties:
+          xmin:
+            type: string
+            description: xmin of map envelope.
+          ymin:
+            type: string
+            description: ymin of map envelope.
+          xmax:
+            type: string
+            description: xmax of map envelope
+          ymax:
+            type: string
+            description: ymax of map envelope.
+      detail:
+        properties:
+          mapAltitudeUrl:
+            type: string
+            description: mapAltitudeUrl of map detail.
+  getmap:
+    properties:
+      uuid:
+        type: string
+        description: uuid of map.
+      companyId:
+        type: string
+        description: companyId of map.
+      mapSatelliteUrl:
+        type: string
+        description: mapSatelliteUrl of map.
+      mapNormalUrl:
+        type: string
+        description: mapNormalUrl of map.
+      mapRoadNetworkUrl:
+        type: string
+        description: mapRoadNetworkUrl of map.
+      mapControlChartUrl:
+        type: string
+        description: mapControlChartUrl of map.
+      envelope:
+        properties:
+          xmin:
+            type: string
+            description: xmin of map envelope.
+          ymin:
+            type: string
+            description: ymin of map envelope.
+          xmax:
+            type: string
+            description: xmax of map envelope
+          ymax:
+            type: string
+            description: ymax of map envelope.
+      detail:
+        properties:
+          mapAltitudeUrl:
+            type: string
+            description: mapAltitudeUrl of map detail.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: get current map information url link.
+  menus:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+         companyMenuResponses:
+            type: array
+            items:
+              $ref: '#/definitions/getmenu'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: current page 
+  addmenu:
+    properties:
+      sequence:
+        type: string
+        description: sequence of menu.
+      name:
+        type: string
+        description: name of menu.
+      resourceUrl:
+        type: string
+        description: resourceUrl of menu.
+      poiCategoryCode:
+        type: string
+        description: poiCategoryCode of menu. 
+      isFunc:
+        type: string
+        description: isFunc of menu.
+      poiSubCategoryCodes:
+        properties:
+          PSC30:
+            type: string
+            description:  code of menu.
+          PSC31:
+            type: string
+            description:  code of menu.
+  updatemenu:
+    properties:
+      companyId:
+        type: string
+        description: companyId of menu.
+      name:
+        type: string
+        description: name of menu.
+      resourceUrl:
+        type: string
+        description: resourceUrl of menu.
+      poiCategoryCode:
+        type: string
+        description: poiCategoryCode of menu. 
+      isFunc:
+        type: string
+        description: isFunc of menu.
+      poiSubCategoryCodes:
+        properties:
+          PSC30:
+            type: string
+            description:  code of menu.
+          PSC31:
+            type: string
+            description:  code of menu.
+  getmenu:
+    properties:
+      sequence:
+        type: string
+        description: sequence of menu.    
+      companyId:
+        type: string
+        description: companyId of menu.
+      name:
+        type: string
+        description: name of menu.
+      resourceUrl:
+        type: string
+        description: resourceUrl of menu.
+      poiCategoryCode:
+        type: string
+        description: poiCategoryCode of menu. 
+      isFunc:
+        type: string
+        description: isFunc of menu.
+      poiSubCategoryCodes:
+        properties:
+          PSC30:
+            type: string
+            description:  code of menu.
+          PSC31:
+            type: string
+            description:  code of menu.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: get current menu detail information url link.
+  home:
+    properties:
+      _links:
+        properties:
+          poi:
+            properties:
+              href:
+                type: string
+                description: get poi information url link.
+      company:
+        properties:
+         id:
+           type: string
+           description: id of company. 
+         shortName:
+           type: string
+           description: shortName of company.        
+         pageUrl:
+           type: string
+           description: pageUrl of company. 
+         _links:
+           properties:
+             self:
+               properties:
+                 href:
+                   type: string
+                   description: get company information url link.
+      user:
+        properties:
+         shortName:
+           type: string
+           description: shortName of user.  
+         profileUrl:
+           type: string
+           description: profileUrl of user. 
+         marketingUrl:
+           type: string
+           description: marketingUrl of user. 
+         feedbackUrl:
+           type: string
+           description: feedbackUrl of user. 
+         supportInfo:
+           type: string
+           description: supportInfo of user. 
+         _links:
+           properties:
+             self:
+               properties:
+                 href:
+                   type: string
+                   description: get current user detail information url link.   
+      map:
+        properties:
+         uuid:
+           type: string
+           description: uuid of map.  
+         companyId:
+           type: string
+           description: companyId of map. 
+         mapSatelliteLabelUrl:
+           type: string
+           description: mapSatelliteLabelUrl of map.
+         mapSatelliteUrl:
+           type: string
+           description: mapSatelliteUrl of map. 
+         mapNormalUrl:
+           type: string
+           description: mapNormalUrl of map. 
+         mapRoadNetworkUrl:
+           type: string
+           description: mapRoadNetworkUrl of map. 
+         mapControlChartUrl:
+           type: string
+           description: mapControlChartUrl of map. 
+         envelope:
+          properties:
+            xmin:
+              type: string
+              description: xmin of map envelope.
+            ymin:
+              type: string
+              description: ymin of map envelope.
+         detail:
+          properties:
+            mapAltitudeUrl:
+              type: string
+              description: mapAltitudeUrl of map detail.
+         _links:
+           properties:
+             self:
+               properties:
+                 href:
+                   type: string
+                   description: get current map detail information url link. 
+
+      menus:
+        type: array
+        items:
+          $ref: '#/definitions/getmenu'
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

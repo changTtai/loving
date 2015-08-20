@@ -1,0 +1,172 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Location
+  description: Move your app forward with the Location API
+  version: "1.0.0"
+# the domain of the service
+host: '114.112.173.95:9095'
+# array of all schemes that your API supports
+schemes:
+  - http
+  - https
+# will be prefixed to all paths
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /geolocate:
+    post:
+      tags:
+        - geolocateRequest
+      summary: Geolocate
+      description: |
+        The service APIs accept data submission for geolocation stumbling as well as           reporting a location based on IP addresses, cell or WiFi networks.
+      parameters:
+        - name: geolocateRequest
+          in: body
+          description: requst data.
+          schema:
+           $ref: '#/definitions/geolocateRequest'
+          required: true
+      responses:
+        200:
+          description: success 
+          schema:
+            $ref: '#/definitions/geolocateResponse'
+        default:
+          description: example 
+          schema:
+            $ref: '#/definitions/geolocateResponse'
+            
+  /geosubmit:
+    post:
+      tags:
+        - geosubmitRequest
+      summary: geosubmit
+      description: |
+        Submit data about nearby Bluetooth beacons, cell or WiFi networks.
+      parameters:
+        - name: geosubmitRequest
+          in: body
+          description: requst data.
+          schema:
+           $ref: '#/definitions/geosubmitRequest'
+          required: true
+      responses:
+        200:
+          description: success
+          
+definitions:
+  geolocateRequest:
+    properties:
+      carrier:
+        type: string
+        default: 'Telecom'
+      homeMobileCountryCode:
+        type: number
+        default: 208
+      homeMobileNetworkCode:
+        type: number
+        default: 1
+      cellTowers:
+        type: array
+        items:
+          $ref: '#/definitions/cellTowers'
+  
+  cellTowers:
+    properties:
+      radioType:
+        type: string
+        default: 'wcdma'
+      mobileCountryCode:
+        type: number
+        default: 208
+      mobileNetworkCode:
+        type: number
+        default: 1
+      locationAreaCode:
+        type: number
+        default: 2
+      cellId:
+        type: number
+        default: 123567
+      age:
+        type: number
+        default: 1
+      psc:
+        type: number
+        default: 3
+      signalStrength:
+        type: number
+        default: -60
+      timingAdvance:
+        type: number
+        default: 1
+        
+  geolocateResponse:
+    properties:
+      location:
+        properties:
+          lat:
+            type: number
+            default: -22.7539192
+          lon:
+            type: number
+            default: -43.4371081
+      accuracy:
+        type: number
+        default: 100
+        
+  geosubmitRequest:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/entry'
+  entry:
+    properties:
+      timestamp:
+        type: number
+        default: 1405602028568
+      position:
+        properties:
+          latitude:
+            type: number
+            default: -22.7539192
+          longitude:
+            type: number
+            default: -43.4371081
+          accuracy:
+            type: number
+            default: -10
+          age:
+            type: number
+            default: 1000
+          altitude:
+            type: number
+            default: 100
+          altitudeAccuracy:
+            type: number
+            default: 50
+          heading:
+            type: number
+            default: 45
+          pressure:
+            type: number
+            default: 1013.25
+          speed:
+            type: number
+            default: 3.
+          source:
+            type: string
+            default: 'gps'
+      cellTowers:
+        type: array
+        items:
+          $ref: '#/definitions/cellTowers'
+        
+
+      
