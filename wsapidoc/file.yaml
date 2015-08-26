@@ -3,7 +3,7 @@ info:
   title: Product
   description: Product application API 
   version: 1.0.0
-host: '172.28.4.220:8088'
+host: '172.28.4.220:8087'
 schemes:
   - http
 basePath: /
