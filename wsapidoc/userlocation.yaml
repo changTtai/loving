@@ -26,7 +26,7 @@ paths:
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -68,7 +68,7 @@ paths:
           type: string
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -105,7 +105,7 @@ paths:
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -140,7 +140,7 @@ paths:
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -168,7 +168,7 @@ paths:
             required: true
           - name: X-Token
             in: header
-            default: {X-Token}
+            default: '{X-Token}'
             description: Oauth token code.
             required: true  
             type: string
@@ -195,7 +195,7 @@ paths:
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -221,7 +221,7 @@ paths:
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -238,7 +238,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -269,7 +269,7 @@ paths:
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -294,7 +294,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -316,7 +316,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -366,7 +366,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true  
           type: string
@@ -421,7 +421,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
@@ -451,7 +451,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
@@ -515,7 +515,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
@@ -544,7 +544,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
@@ -595,7 +595,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
@@ -623,7 +623,7 @@ paths:
       parameters:
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
           required: true
           type: string
