@@ -11,27 +11,27 @@ produces:
 paths:
   /mylocations:
     get:
-      summary: ²éÑ¯ÓÃ»§×Ô¼ºÄ³ÌìµÄÎ»ÖÃ¹ì¼£ĞÅÏ¢.
+      summary: æŸ¥è¯¢ç”¨æˆ·è‡ªå·±æŸå¤©çš„ä½ç½®è½¨è¿¹ä¿¡æ¯.
       description:
-        ²éÑ¯ÓÃ»§×Ô¼ºÄ³ÌìµÄÎ»ÖÃ¹ì¼£ĞÅÏ¢.
+        æŸ¥è¯¢ç”¨æˆ·è‡ªå·±æŸå¤©çš„ä½ç½®è½¨è¿¹ä¿¡æ¯.
       parameters:
         - name: size
           in: query
-          description: Ã¿Ò³ÏÔÊ¾¶àÉÙÌõÊı¾İ.
+          description: æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡æ•°æ®.
           required: false
           type: number
         - name: page
           in: query
-          description: ÏÔÊ¾µÚ¼¸Ò³.
+          description: æ˜¾ç¤ºç¬¬å‡ é¡µ.
           required: false
           type: number
         - name: updatedDate
           in: query
-          description: ²éÑ¯ÈÕÆÚ(ÀıÈç£º2015-08-15).
+          description: æŸ¥è¯¢æ—¥æœŸ(ä¾‹å¦‚ï¼š2015-08-15).
           required: false
           type: string
       tags:
-        - ÓÃ»§Î»ÖÃµÚ¶ş²¿·Ö
+        - ç”¨æˆ·ä½ç½®ç¬¬äºŒéƒ¨åˆ†
       responses:
         '200':
           description: locations page list
@@ -45,33 +45,33 @@ paths:
             $ref: '#/definitions/Error'
   '/users/{userId}/locations':
     get:
-      summary: ²éÑ¯Ä³¸öÓÃ»§Ä³¸öÈÕÆÚµÄÎ»ÖÃ¹ì¼£ĞÅÏ¢
+      summary: æŸ¥è¯¢æŸä¸ªç”¨æˆ·æŸä¸ªæ—¥æœŸçš„ä½ç½®è½¨è¿¹ä¿¡æ¯
       description:
-        ²éÑ¯Ä³¸öÓÃ»§Ä³¸öÈÕÆÚµÄÎ»ÖÃ¹ì¼£ĞÅÏ¢.
+        æŸ¥è¯¢æŸä¸ªç”¨æˆ·æŸä¸ªæ—¥æœŸçš„ä½ç½®è½¨è¿¹ä¿¡æ¯.
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: size
           in: query
-          description: Ã¿Ò³ÏÔÊ¾¶àÉÙÌõÊı¾İ.
+          description: æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡æ•°æ®.
           required: false
           type: number
         - name: page
           in: query
-          description: ÏÔÊ¾µÚ¼¸Ò³.
+          description: æ˜¾ç¤ºç¬¬å‡ é¡µ.
           required: false
           type: number
         - name: updatedDate
           in: query
-          description: ²éÑ¯ÈÕÆÚ(ÀıÈç:2015-08-15).
+          description: æŸ¥è¯¢æ—¥æœŸ(ä¾‹å¦‚:2015-08-15).
           required: false
           type: string
       tags:
-        - ÓÃ»§Î»ÖÃµÚ¶ş²¿·Ö
+        - ç”¨æˆ·ä½ç½®ç¬¬äºŒéƒ¨åˆ†
       responses:
         '200':
           description: locations page list
@@ -86,8 +86,8 @@ paths:
             
   /users/lastestlocation/byfence:
     get:
-      summary: ²éÑ¯×î½üÔÚµç×ÓÎ§À¸ÖĞµÄËùÓĞÓÃ»§ÁĞ±í.
-      description: ²éÑ¯×î½üÔÚµç×ÓÎ§À¸ÖĞµÄËùÓĞÓÃ»§ÁĞ±í.
+      summary: æŸ¥è¯¢æœ€è¿‘åœ¨ç”µå­å›´æ ä¸­çš„æ‰€æœ‰ç”¨æˆ·åˆ—è¡¨.
+      description: æŸ¥è¯¢æœ€è¿‘åœ¨ç”µå­å›´æ ä¸­çš„æ‰€æœ‰ç”¨æˆ·åˆ—è¡¨.
       parameters:
         - name: X-Token
           in: header
@@ -98,42 +98,42 @@ paths:
           format: double
         - name: topLeftLat
           in: query
-          description: ¾ØĞÎµç×ÓÎ§À¸×óÉÏ½ÇµãµÄÎ³¶È.
+          description: çŸ©å½¢ç”µå­å›´æ å·¦ä¸Šè§’ç‚¹çš„çº¬åº¦.
           required: true
           type: string
           format: double      
         - name: topLeftLon
           in: query
-          description: ¾ØĞÎµç×ÓÎ§À¸×óÉÏ½ÇµãµÄ¾­¶È.
+          description: çŸ©å½¢ç”µå­å›´æ å·¦ä¸Šè§’ç‚¹çš„ç»åº¦.
           required: true
           type: string
           format: double
         - name: bottomRightLat
           in: query
-          description: ¾ØĞÎµç×ÓÎ§À¸ÓÒÏÂ½ÇµãµÄÎ³¶È.
+          description: çŸ©å½¢ç”µå­å›´æ å³ä¸‹è§’ç‚¹çš„çº¬åº¦.
           required: true
           type: string
           format: double
         - name: bottomRightLon
           in: query
-          description: ¾ØĞÎµç×ÓÎ§À¸ÓÒÏÂ½ÇµãµÄ¾­¶È.
+          description: çŸ©å½¢ç”µå­å›´æ å³ä¸‹è§’ç‚¹çš„ç»åº¦.
           required: true
           type: string
           format: double 
         - name: page
           in: query
-          description: ÏÔÊ¾µÚ¼¸Ò³.
+          description: æ˜¾ç¤ºç¬¬å‡ é¡µ.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: Ã¿Ò³ÏÔÊ¾¶àÉÙÌõÊı¾İ.
+          description: æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡æ•°æ®.
           required: false
           type: number
           format: int
       tags:
-        - ÓÃ»§Î»ÖÃµÚ¶ş²¿·Ö 
+        - ç”¨æˆ·ä½ç½®ç¬¬äºŒéƒ¨åˆ† 
       responses:
         '200':
           description: return status code after find user location success.
@@ -146,8 +146,8 @@ paths:
             
   /users/{userId}/history/bytime:
     get:
-      summary: ²éÑ¯Ä³¸öÓÃ»§Ä³¸öÊ±¼ä¶ÎµÄÀúÊ·¹ì¼£.
-      description: ²éÑ¯Ä³¸öÓÃ»§Ä³¸öÊ±¼ä¶ÎµÄÀúÊ·¹ì¼£.
+      summary: æŸ¥è¯¢æŸä¸ªç”¨æˆ·æŸä¸ªæ—¶é—´æ®µçš„å†å²è½¨è¿¹.
+      description: æŸ¥è¯¢æŸä¸ªç”¨æˆ·æŸä¸ªæ—¶é—´æ®µçš„å†å²è½¨è¿¹.
       parameters:
         - name: X-Token
           in: header
@@ -158,33 +158,33 @@ paths:
           format: double
         - name: userId
           in: path
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           type: string
         - name: start
           in: query
-          description: ²éÑ¯¿ªÊ¼Ê±¼ä(ÀıÈç:"2015-08-15T02:03:05").
+          description: æŸ¥è¯¢å¼€å§‹æ—¶é—´(ä¾‹å¦‚:"2015-08-15T02:03:05").
           required: false
           type: string
         - name: end
           in: query
-          description: ²éÑ¯¿ªÊ¼Ê±¼ä(ÀıÈç:"2015-08-20T02:03:05").
+          description: æŸ¥è¯¢ç»“æŸæ—¶é—´(ä¾‹å¦‚:"2015-08-20T02:03:05").
           required: false
           type: string
         - name: page
           in: query
-          description: ÏÔÊ¾µÚ¼¸Ò³.
+          description: æ˜¾ç¤ºç¬¬å‡ é¡µ.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: Ã¿Ò³ÏÔÊ¾¶àÉÙÌõÊı¾İ.
+          description: æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡æ•°æ®.
           required: false
           type: number
           format: int      
       tags:
-        - ÓÃ»§Î»ÖÃµÚ¶ş²¿·Ö 
+        - ç”¨æˆ·ä½ç½®ç¬¬äºŒéƒ¨åˆ† 
       responses:
         '200':
           description: return status code after find user location success.
@@ -197,14 +197,14 @@ paths:
   
   /users/{userId}/locationsubscribers:
     post:
-      summary: ¶©ÔÄ.
+      summary: è®¢é˜….
       description:
-        ¶©ÔÄÎÒ¹Ø×¢µÄÓÃ»§.
+        è®¢é˜…æˆ‘å…³æ³¨çš„ç”¨æˆ·.
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: X-Token
@@ -215,39 +215,39 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '201':
-          description: Ìí¼Ó¶©ÔÄ¹ØÏµ³É¹¦.
+          description: æ·»åŠ è®¢é˜…å…³ç³»æˆåŠŸ.
     get:
-      summary: ²éÑ¯ÓÃ»§Î»ÖÃ¶©ÔÄÕßÁĞ±í.
+      summary: æŸ¥è¯¢ç”¨æˆ·ä½ç½®è®¢é˜…è€…åˆ—è¡¨.
       description:
-        ²éÑ¯Ö¸¶¨ÓÃ»§µÄ¶©ÔÄÕßÁĞ±í.
+        æŸ¥è¯¢æŒ‡å®šç”¨æˆ·çš„è®¢é˜…è€…åˆ—è¡¨.
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: size
           in: query
-          description: Ã¿Ò³ÏÔÊ¾¶àÉÙÌõÊı¾İ.
+          description: æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡æ•°æ®.
           required: false
           type: number
         - name: page
           in: query
-          description: ÏÔÊ¾µÚ¼¸Ò³.
+          description: æ˜¾ç¤ºç¬¬å‡ é¡µ.
           required: false
           type: number
         - name: nextId
           in: query
-          description: ÏÂÒ»¸öÒ³ĞèÒªµ±Ç°Ò³µÄid.
+          description: ä¸‹ä¸€ä¸ªé¡µéœ€è¦å½“å‰é¡µçš„id.
           required: false
           type: string
         - name: previousId
           in: query
-          description: Ç°Ò»Ò³ĞèÒªµ±Ç°Ò³ÃæµÄµÚÒ»¸öid.
+          description: å‰ä¸€é¡µéœ€è¦å½“å‰é¡µé¢çš„ç¬¬ä¸€ä¸ªid.
           required: false
           type: string
         - name: X-Token
@@ -258,34 +258,34 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '200':
-          description: ²éÑ¯³É¹¦.
+          description: æŸ¥è¯¢æˆåŠŸ.
           schema:
             type: array
             items:
               $ref: '#/definitions/subscribers'
         default:
-          description: ²éÑ¯´íÎó.
+          description: æŸ¥è¯¢é”™è¯¯.
           schema:
             $ref: '#/definitions/Error'
   /users/{userId}/locationsubscribers/{subscriberId}:
     get:
-      summary: ²éÑ¯ÓÃ»§Î»ÖÃ¶©ÔÄÕß.
+      summary: æŸ¥è¯¢ç”¨æˆ·ä½ç½®è®¢é˜…è€….
       description:
         search subscribers by id.
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: subscriberId
           in: path
           type: string
-          description: ¶©ÔÄÕßID.
+          description: è®¢é˜…è€…ID.
           required: true
           format: uuid
         - name: X-Token
@@ -296,32 +296,32 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '200':
-          description: ²éÑ¯³É¹¦.
+          description: æŸ¥è¯¢æˆåŠŸ.
           schema:
             type: array
             items:
               $ref: '#/definitions/subscribersDetails'
         default:
-          description: ²éÑ¯´íÎó.
+          description: æŸ¥è¯¢é”™è¯¯.
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: É¾³ıÓÃ»§Î»ÖÃ¶©ÔÄÕß.
-      description: É¾³ıÓÃ»§Î»ÖÃ¶©ÔÄÕß.
+      summary: åˆ é™¤ç”¨æˆ·ä½ç½®è®¢é˜…è€….
+      description: åˆ é™¤ç”¨æˆ·ä½ç½®è®¢é˜…è€….
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: subscriberId
           in: path
           type: string
-          description: ¶©ÔÄÕßID.
+          description: è®¢é˜…è€…ID.
           required: true
           format: uuid
         - name: X-Token
@@ -332,10 +332,10 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
-        '204':
-          description: pet deleted
+        '200':
+          description: locationsubscribers deleted
         default:
           description: unexpected error
           schema:
@@ -343,9 +343,9 @@ paths:
             
   /mysettings:
      post:
-        summary: Ìí¼ÓÓÃ»§µÄ°Ù¶ÈÍ¨µÀ.
+        summary: æ·»åŠ ç”¨æˆ·çš„ç™¾åº¦é€šé“.
         description:
-          Ìí¼ÓÓÃ»§µÄ°Ù¶ÈÍ¨µÀ.
+          æ·»åŠ ç”¨æˆ·çš„ç™¾åº¦é€šé“.
         parameters:
           - name: channel
             in: body
@@ -361,21 +361,21 @@ paths:
             type: string
             format: double
         tags:
-         - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+         - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
         responses:
           '201':
-           description: Ìí¼ÓÓÃ»§µÄ°Ù¶ÈÍ¨µÀ³É¹¦.            
+           description: æ·»åŠ ç”¨æˆ·çš„ç™¾åº¦é€šé“æˆåŠŸ.            
   /myobservables.onoffsome:
     post:
-      summary: ÅúÁ¿¸ü¸ÄÎÒµÄ½ÓÊÕ×´Ì¬.
+      summary: æ‰¹é‡æ›´æ”¹æˆ‘çš„æ¥æ”¶çŠ¶æ€.
       description:
-         ÅúÁ¿¸ü¸ÄÎÒµÄ½ÓÊÕ×´Ì¬.
+         æ‰¹é‡æ›´æ”¹æˆ‘çš„æ¥æ”¶çŠ¶æ€.
       consumes:
       - application/vnd.jiahua.commands.onoffsome+json
       parameters:
         - name: onoffsome
           in: body
-          description: ×´Ì¬.
+          description: çŠ¶æ€.
           schema:
             type: array
             items:
@@ -389,15 +389,15 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '202':
           description: Modify the monitoring status of success     
   /myobservables.onoffall:
     post:
-      summary: ĞŞ¸ÄÎÒµÄËùÓĞ½ÓÊÕ×´Ì¬.
+      summary: ä¿®æ”¹æˆ‘çš„æ‰€æœ‰æ¥æ”¶çŠ¶æ€.
       description:
-        ĞŞ¸ÄÎÒµÄËùÓĞ½ÓÊÕ×´Ì¬.
+        ä¿®æ”¹æˆ‘çš„æ‰€æœ‰æ¥æ”¶çŠ¶æ€.
       consumes:
       - application/vnd.jiahua.commands.onoffall+json
       parameters:
@@ -416,20 +416,20 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '202':
           description: Modify the monitoring status of success 
   /users/{userId}/locationobservables:
     get:
-      summary: ²éÑ¯¹Ø×¢Ä³ÓÃ»§µÄÓÃ»§ÁĞ±í.
+      summary: æŸ¥è¯¢å…³æ³¨æŸç”¨æˆ·çš„ç”¨æˆ·åˆ—è¡¨.
       description:
-        ²éÑ¯¹Ø×¢Ä³ÓÃ»§µÄÓÃ»§ÁĞ±í.
+        æŸ¥è¯¢å…³æ³¨æŸç”¨æˆ·çš„ç”¨æˆ·åˆ—è¡¨.
       parameters:
         - name: userId
           in: path
           type: string
-          description: ÓÃ»§ID.
+          description: ç”¨æˆ·ID.
           required: true
           format: uuid
         - name: X-Token
@@ -440,7 +440,7 @@ paths:
           type: string
           format: double
       tags:
-        - ÓÃ»§Î»ÖÃ¶©ÔÄ¹ØÏµ
+        - ç”¨æˆ·ä½ç½®è®¢é˜…å…³ç³»
       responses:
         '200':
           description: subscribers page list
@@ -455,19 +455,19 @@ paths:
   /mylocations:
     post:
       description:
-        ÉÏ´«Î»ÖÃ¸üĞÂ.
+        ä¸Šä¼ ä½ç½®æ›´æ–°.
       parameters:
         - name: locationAddRequest
           in: body
-          description: µ±Ç°ÓÃ»§Î»ÖÃµÄ¾­Î³¶È.
+          description: å½“å‰ç”¨æˆ·ä½ç½®çš„ç»çº¬åº¦.
           schema:
             $ref: '#/definitions/locationAddRequest'
           required: true
       tags:
-        - ÓÃ»§Î»ÖÃµÚÒ»²¿·Ö
+        - ç”¨æˆ·ä½ç½®ç¬¬ä¸€éƒ¨åˆ†
       responses:
         '202':
-          description: ½ÓÊÜÉÏ´«Î»ÖÃ¸üĞÂ
+          description: æ¥å—ä¸Šä¼ ä½ç½®æ›´æ–°
           
         default:
           description: Unexpected error
@@ -749,10 +749,10 @@ definitions:
     properties:
       lat:
         type: string
-        description: Î³¶È.
+        description: çº¬åº¦.
       lon:
         type: string
-        description: ¾­¶È.
+        description: ç»åº¦.
   Error:
     properties:
       code:
