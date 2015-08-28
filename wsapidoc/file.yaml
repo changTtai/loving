@@ -1,447 +1,193 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
 swagger: '2.0'
+
+# This is your document metadata
 info:
-  title: Product
-  description: Product application API 
+  title: File
+  description: Move your app forward with the file API 
   version: 1.0.0
-host: '172.28.4.220:8087'
+host: '103.245.128.220:8087'
 schemes:
   - http
-basePath: /
+  - https
+consumes:
+  - application/hal+json
 produces:
-  - application/json
+  - application/hal+json
 paths:
-  '/products/bycategory/{id}':
-    get:
-      summary: Find products by category id
-      description: Find products by category id.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Paging object.
-          required: true
-          type: string          
-      tags:
-        - products
-      responses:
-        '200':
-          description: products page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/products'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /products:
+  /file/images:
     post:
-      summary: Add a product
-      description: Add a product
+      tags:
+        - images
+      summary: add a new image.       
+      description: add a new image.
+      consumes:
+      - multipart/form-data. 
+      produces:
+      - multipart/form-data. 
       parameters:
-        - name: ProductAddRequest
-          in: body
-          description: The add product JSON you want to post
-          schema:
-            $ref: '#/definitions/productAddRequest'
-          required: true
         - name: X-Token
           in: header
           default: {X-Token}
-          description: Paging object.
+          description: Oauth token  code.
           required: true
           type: string
-      tags:
-        - products    
+          format: double
+        - name: file
+          in: formData
+          description: a image.
+          required: true
+          type: file
       responses:
         '201':
-          description: Make a new product
-    get:
-      summary: Find products
-      description: Find products default.
-      parameters:
-        - name: size
-          in: query
-          description: number each page shows article data.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: "previous page need the current page's first id ."
-          required: false
-          type: string
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Paging object.
-          required: true
-          type: string          
-      tags:
-        - products
-      responses:
-        '200':
-          description: products page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/products'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  '/products/{id}':
-    get:
-      summary: Find a product by id
-      description: Find a product by id.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the product
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Paging object.
-          required: true
-          type: string
-      tags:
-        - products    
-      responses:
-        '200':
-          description: Sends the pet with pet Id
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/product'
-    patch:
-      summary: update the product in the store with from data
-      description: update the product in the store with from data.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the product
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Paging object.
-          required: true
-          type: string          
-        - name: productUpdateRequest
-          in: body
-          description: The update product JSON you want to post
-          schema:
-            $ref: '#/definitions/productUpdateRequest'
-          required: true
-      tags:
-        - products    
-      responses:
-        '200':
-          description: update product
-    delete:
-      summary: Delete a product by id
-      description: Delete a product by product id.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the product
-          required: true
-          format: uuid
-      tags:
-        - products    
-      responses:
-        '200':
-          description: delete one product
-  /productcategories:
-    post:
-      summary: Add a category
-      description: Add a category.
-      parameters:
-        - name: CategoryAddRequest
-          in: body
-          description: The Category JSON you want to post.
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: Add a new Category is ok.
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'    
-    get:
-      summary: Find categories
-      description: Find categories.
-      parameters:
-        - name: size
-          in: query
-          description: number each page shows article data.
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: "category page need the current page's first id ."
-          required: false
-          type: string
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string  
-      tags:
-        - categories
-      responses:
-        '200':
-          description: category page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /productcategories/{id}/path:
-    get:
-      summary: Find a category path by category id
-      description: Find a category path by category id.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description:  category 
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'      
-  /productcategories/{id}:
-    post:
-      summary: Add a child category
-      description: Add a child category.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: CategoryAddRequest
-          in: body
-          description: The child Category JSON you want to post.
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string  
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: Make a new Category
+          description: image information
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'  
+  /file/images/{uuid}:
     get:
-      summary: Find a category by id
-      description: Find a category by id.
+      tags:
+        - images
+      summary: find image by uuid.      
+      description: find image by uuid.
       parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
         - name: X-Token
           in: header
           default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
+          description: Oauth token  code.
+          required: true
           type: string
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description:  find a category by id is ok, and return a category details.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categoryResponse'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'      
-
-    patch:
-      summary: update a category in the store with from data
-      description: update a category in the store with from data.
-      parameters:
-        - name: id
+          format: double
+        - name: uuid
           in: path
+          description: uuid of image.
+          required: true
           type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string   
-        - name: categoryUpdateRequest
-          in: body
-          description: The update category JSON you want to patch.
-          schema:
-            $ref: '#/definitions/categoryUpdateRequest'
-          required: true
-      tags:
-        - categories    
+      # Expected responses for this operation:
       responses:
         '200':
-          description: update category is ok.
-        default:
-          description: Unexpected error
+          description: image information
           schema:
-            $ref: '#/definitions/Error'  
-    delete:
-      summary: delete a category by id
-      description: delete a category by id.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '200':
-          description: delete a category is ok.
+            $ref: '#/definitions/image'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /productcategories/{id}/children:
-    get:
-      summary: find a category children by id
-      description: find a category children by id.
+    delete:
+      tags:
+        - images
+      summary: delete a image by uuid.  
+      description: delete a image by uuid.     
       parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the category
-          required: true
-          format: uuid
-        - name: size
-          in: query
-          description: number each page shows article data.
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: "category page need the current page's first id ."
-          required: false
-          type: string
         - name: X-Token
           in: header
           default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string  
-      tags:
-        - categories
+          description: oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of image.
+          required: true
+          type: string
       responses:
         '200':
-          description: category page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
+          description: success to delete image by uuid
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'          
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+        - images
+      summary: update an existing image.       
+      description: update an existing image.
+      consumes:
+      - multipart/form-data. 
+      produces:
+      - multipart/form-data. 
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token  code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of image.
+          required: true
+          type: string
+        - name: file
+          in: formData
+          description: a image.
+          required: true
+          type: file
+      responses:
+        '201':
+          description: image information
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'             
+  /file/images/ByMonth/{month}:
+    get:
+      summary: find images by month.
+      description: find images by month.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Latitude component of location.
+          required: true
+          type: string
+          format: double
+        - name: month
+          in: path
+          description: query previous page.
+          required: true
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: true
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: true
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      tags:
+        - images
+      responses:
+        '200':
+          description: pois information
+          schema:
+            $ref: '#/definitions/images'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
 definitions:
-  products:
+  images:
     properties:
       _links:
         properties:
@@ -449,23 +195,23 @@ definitions:
             properties:
               href:
                 type: string
-                description: next page url.
+                description: Total number of items available.
           self:
             properties:
               href:
                 type: string
-                description: current page url.
-          previous:
+                description: Total number of items available.
+          search:
             properties:
               href:
                 type: string
-                description: previous page url.
+                description: Total number of items available.
       _embedded:
         properties:
-          productResponses:
+          poisResponses:
             type: array
             items:
-              $ref: '#/definitions/productResponse'
+              $ref: '#/definitions/image'
       page:
         properties:
           size:
@@ -480,176 +226,33 @@ definitions:
           number:
             type: string
             description: page total
-  productResponse:
+  image:
     properties:
-      id:
+      uuid:
         type: string
-        description: id of product.
+        description: uuid of image.        
       name:
         type: string
-        description: productname of product.
-      _links:
-        properties:
-          self:
-            properties:
-              href:
-                type: string
-                description: current detail url.
-  product:
-    properties:
-      id:
-        type: string
-        description: id of product.
-      name:
-        type: string
-        description: productname of product.
-      createtime:
-        type: string
-        description: price of product.
-      description:
-        type: string
-        description: description of product.
-  productAddRequest:
-    properties:
-      name:
-        type: string
-        description: productname of product.
-      categoryId:
-        type: string
-        description: categoryId of product.
-      companyId:
-        type: string
-        description: companyId of product.   
-      description:
-        type: string
-        description: description of product.
-  productUpdateRequest:
-    properties:
-      name:
-        type: string
-        description: productname of product.
-      categoryId:
-        type: string
-        description: categoryId of product.
-      companyId:
-        type: string
-        description: companyId of product.        
-      description:
-        type: string
-        description: description of product.
-  categories:
-    properties:
-      _links:
-        properties:
-          next:
-            properties:
-              href:
-                type: string
-                description: next page url.
-          self:
-            properties:
-              href:
-                type: string
-                description: current page url.
-          prev:
-            properties:
-              href:
-                type: string
-                description: previous page url.
-      _embedded:
-        properties:
-          categoryResponses:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-      page:
-        properties:
-          size:
-            type: string
-            description: page size
-          totalElements:
-            type: string
-            description: data totalElements
-          totalPages:
-            type: string
-            description: page totalPages
-          number:
-            type: string
-            description: page number
-  categoryResponse:
-    properties:
-      id:
-        type: string
-        description: id of product.
-      name:
-        type: string
-        description: name of product.
+        description: name of image.
       createTime:
         type: string
-        description: createTime of category.
-      companyId:
+        description: createTime of image.
+      creator:
         type: string
-        description: companyId of category.
-      description:
+        description: creator of image.
+      content:
         type: string
-        description: description of category.
+        description: content of image.
+      mimeType:
+        type: string
+        description: mimeType of image.
       _links:
         properties:
           self:
             properties:
               href:
                 type: string
-                description: current detail url.
-          parent:
-           properties:
-              href:
-                type: string
-                description: Category parent detail url.
-          children:
-           properties:
-              href:
-                type: string
-                description: Category children detail url.
-  category:
-    properties:
-      id:
-        type: string
-        description: id of category.
-      name:
-        type: string
-        description: name of category.
-      createTime:
-        type: string
-        description: createTime of category.
-      description:
-        type: string
-        description: description of category.
-      _links:
-        properties:
-          self:
-           properties:
-              href:
-                type: string
-                description: current detail url.
-  categoryAddRequest:
-    properties:
-      name:
-        type: string
-        description: name of category.
-      companyId:
-        type: string
-        description: companyId of category.
-      description:
-        type: string
-        description: description of category.
-  categoryUpdateRequest:
-    properties:
-      name:
-        type: string
-        description: name of category.
-      description:
-        type: string
-        description: description of category.      
+                description: type code of poi.
   Error:
     properties:
       code:
