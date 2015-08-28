@@ -1,151 +1,338 @@
 swagger: '2.0'
 info:
-  title: user location
-  description: Move your app forward with the UserLocation API 
+  title: Location Search
+  description: Move your app forward with the Location Search API 
   version: 1.0.0
 host: '103.245.128.220:8087'
 schemes:
   - http
-  - https
-consumes:
-  - application/hal+json
 produces:
-  - application/hal+json
+  - application/json
 paths:
-  /users/{userId}/locations/subscribers:
-    post:
-      summary: Subscriber user.
-      description:
-        Subscriber user.
-      parameters:
-        - name: userId
-          in: path
-          type: string
-          description: called subscriber userId.
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true  
-          type: string
-      tags:
-        - User location Baidu Push
-      responses:
-        '201':
-          description: add a new subscribers
+  /mylocations:
     get:
-      summary: search subscribers with page
+      summary: 查询用户自己某天的位置轨迹信息.
       description:
-        According to user's search params return subscribers page.
+        查询用户自己某天的位置轨迹信息.
       parameters:
-        - name: userId
-          in: path
-          type: string
-          description: called subscriber userId.
-          required: true
-          format: uuid
         - name: size
           in: query
-          description: number each page shows article data.
+          description: 每页显示多少条数据.
           required: false
           type: number
         - name: page
           in: query
-          description: current page number.
+          description: 显示第几页.
+          required: false
+          type: number
+        - name: updatedDate
+          in: query
+          description: 查询日期(例如：2015-08-15).
+          required: false
+          type: string
+      tags:
+        - 用户位置第二部分
+      responses:
+        '200':
+          description: locations page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/userLocations'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/users/{userId}/locations':
+    get:
+      summary: 查询某个用户某个日期的位置轨迹信息
+      description:
+        查询某个用户某个日期的位置轨迹信息.
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+        - name: updatedDate
+          in: query
+          description: 查询日期(例如:2015-08-15).
+          required: false
+          type: string
+      tags:
+        - 用户位置第二部分
+      responses:
+        '200':
+          description: locations page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/userLocations'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /users/lastestlocation/byfence:
+    get:
+      summary: 查询最近在电子围栏中的所有用户列表.
+      description: 查询最近在电子围栏中的所有用户列表.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: topLeftLat
+          in: query
+          description: 矩形电子围栏左上角点的纬度.
+          required: true
+          type: string
+          format: double      
+        - name: topLeftLon
+          in: query
+          description: 矩形电子围栏左上角点的经度.
+          required: true
+          type: string
+          format: double
+        - name: bottomRightLat
+          in: query
+          description: 矩形电子围栏右下角点的纬度.
+          required: true
+          type: string
+          format: double
+        - name: bottomRightLon
+          in: query
+          description: 矩形电子围栏右下角点的经度.
+          required: true
+          type: string
+          format: double 
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int
+      tags:
+        - 用户位置第二部分 
+      responses:
+        '200':
+          description: return status code after find user location success.
+          schema:
+            $ref: '#/definitions/usersLastestLocation'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /users/{userId}/history/bytime:
+    get:
+      summary: 查询某个用户某个时间段的历史轨迹.
+      description: 查询某个用户某个时间段的历史轨迹.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: userId
+          in: path
+          description: 用户ID.
+          required: true
+          type: string
+        - name: start
+          in: query
+          description: 查询开始时间(例如:"2015-08-15T02:03:05").
+          required: false
+          type: string
+        - name: end
+          in: query
+          description: 查询开始时间(例如:"2015-08-20T02:03:05").
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int      
+      tags:
+        - 用户位置第二部分 
+      responses:
+        '200':
+          description: return status code after find user location success.
+          schema:
+            $ref: '#/definitions/userLocations'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'   
+  
+  /users/{userId}/locationsubscribers:
+    post:
+      summary: 订阅.
+      description:
+        订阅我关注的用户.
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 用户位置订阅关系
+      responses:
+        '201':
+          description: 添加订阅关系成功.
+    get:
+      summary: 查询用户位置订阅者列表.
+      description:
+        查询指定用户的订阅者列表.
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: 显示第几页.
           required: false
           type: number
         - name: nextId
           in: query
-          description: "next page need the current page's last id ."
+          description: 下一个页需要当前页的id.
           required: false
           type: string
         - name: previousId
           in: query
-          description: "previous page need the current page's first id ."
+          description: 前一页需要当前页面的第一个id.
           required: false
           type: string
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '200':
-          description: subscribers page list
+          description: 查询成功.
           schema:
             type: array
             items:
               $ref: '#/definitions/subscribers'
         default:
-          description: Unexpected error
+          description: 查询错误.
           schema:
             $ref: '#/definitions/Error'
-  /users/{userId}/locations/subscribers/{subscriberId}:
+  /users/{userId}/locationsubscribers/{subscriberId}:
     get:
-      summary: search subscribers by id.
+      summary: 查询用户位置订阅者.
       description:
         search subscribers by id.
       parameters:
         - name: userId
           in: path
           type: string
-          description: called subscriber userId.
+          description: 用户ID.
           required: true
           format: uuid
         - name: subscriberId
           in: path
           type: string
-          description: subscriberId of the notification.
+          description: 订阅者ID.
           required: true
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '200':
-          description: subscribers page list
+          description: 查询成功.
           schema:
             type: array
             items:
               $ref: '#/definitions/subscribersDetails'
         default:
-          description: Unexpected error
+          description: 查询错误.
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: delete a subscriber by id.
-      description: delete a subscriber by id.
+      summary: 删除用户位置订阅者.
+      description: 删除用户位置订阅者.
       parameters:
         - name: userId
           in: path
           type: string
-          description: userId of the notification.
+          description: 用户ID.
           required: true
           format: uuid
         - name: subscriberId
           in: path
           type: string
-          description: subscriberId of the notification.
+          description: 订阅者ID.
           required: true
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '204':
           description: pet deleted
@@ -156,9 +343,9 @@ paths:
             
   /mysettings:
      post:
-        summary: Add user channel of baidu.
+        summary: 添加用户的百度通道.
         description:
-          Add user channel of baidu.
+          添加用户的百度通道.
         parameters:
           - name: channel
             in: body
@@ -168,26 +355,27 @@ paths:
             required: true
           - name: X-Token
             in: header
-            default: {X-Token}
+            default: '{X-Token}'
             description: Oauth token code.
-            required: true  
+            required: true
             type: string
+            format: double
         tags:
-         - User location Baidu Push
+         - 用户位置订阅关系
         responses:
           '201':
-           description: Baidu push channel successfully added.            
+           description: 添加用户的百度通道成功.            
   /myobservables.onoffsome:
     post:
-      summary: Bulk changes to my receive state.
+      summary: 批量更改我的接收状态.
       description:
-        Bulk changes if I subscribe to push receiving push information.
+         批量更改我的接收状态.
       consumes:
       - application/vnd.jiahua.commands.onoffsome+json
       parameters:
         - name: onoffsome
           in: body
-          description: Bulk changes if I subscribe to push receiving push information
+          description: 状态.
           schema:
             type: array
             items:
@@ -195,20 +383,21 @@ paths:
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '202':
           description: Modify the monitoring status of success     
   /myobservables.onoffall:
     post:
-      summary: Modify my all receiving state.
+      summary: 修改我的所有接收状态.
       description:
-        Modify all subscribe to the push is received push information.
+        修改我的所有接收状态.
       consumes:
       - application/vnd.jiahua.commands.onoffall+json
       parameters:
@@ -221,60 +410,37 @@ paths:
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '202':
           description: Modify the monitoring status of success 
-  /users/locations/myobservables:
-    get:
-      summary: search subscribers with page
-      description:
-        According to user's search params return subscribers page.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true  
-          type: string
-      tags:
-        - User location Baidu Push
-      responses:
-        '200':
-          description: subscribers page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/myobservablesDetails'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'         
   /users/{userId}/locationobservables:
     get:
-      summary: search subscribers with page
+      summary: 查询关注某用户的用户列表.
       description:
-        According to user's search params return subscribers page.
+        查询关注某用户的用户列表.
       parameters:
         - name: userId
           in: path
           type: string
-          description: user id.
+          description: 用户ID.
           required: true
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: Oauth token code.
-          required: true  
+          required: true
           type: string
+          format: double
       tags:
-        - User location Baidu Push
+        - 用户位置订阅关系
       responses:
         '200':
           description: subscribers page list
@@ -286,385 +452,28 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'  
-
   /mylocations:
     post:
-      summary: Upload the current user's location information.
-      description: Upload the current user's location information.
+      description:
+        上传位置更新.
       parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true  
-          type: string
         - name: locationAddRequest
           in: body
-          description: The add location you want to post
+          description: 当前用户位置的经纬度.
           schema:
             $ref: '#/definitions/locationAddRequest'
           required: true
       tags:
-        - User Location Updater
+        - 用户位置第一部分
       responses:
-        '201':
-          description: Make a new location
-    get:
-      summary: search my locations with page
-      description:
-        According to user's search params return locations page.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true  
-          type: string
-        - name: size
-          in: query
-          description: number each page shows article data.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: updatedDate
-          in: query
-          description: search updated date .
-          required: false
-          type: string
-        - name: nextId
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: "previous page need the current page's first id ."
-          required: false
-          type: string
-      tags:
-        - User Location Updater
-      responses:
-        '200':
-          description: locations page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/locationsResponse'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  '/users/{userId}/locations':
-    get:
-      summary: search user locations with page
-      description:
-        According to user's search params return locations page.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true  
-          type: string
-        - name: userId
-          in: path
-          type: string
-          description: ID of the user.
-          required: true
-          format: uuid
-        - name: size
-          in: query
-          description: number each page shows article data.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: updatedDate
-          in: query
-          description: search updated date .
-          required: false
-          type: string
-        - name: nextId
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: "previous page need the current page's first id ."
-          required: false
-          type: string
-      tags:
-        - User Location Updater
-      responses:
-        '200':
-          description: locations page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/locationsResponse'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'          
-  /users/searchlocation:
-    post:
-      summary: create a new user location.
-      description: create a new user location.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: userLocations
-          in: body
-          description: Longitude component of location.
-          required: true
-          schema:
-            $ref: '#/definitions/userLocation'
-      tags:
-        - User Location Search 
-      responses:
-        '201':
-          description: return status code after create user location success.
-          schema:
-            type: string
-           
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /users/searchlocation/byfence:
-    get:
-      summary: find all users locations within electronic fence.
-      description: find all users locations within electronic fence.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: topLeftLat
-          in: query
-          description: Oauth2 token code.
-          required: true
-          type: string
-          format: double      
-        - name: topLeftLon
-          in: query
-          description: Oauth2 token code.
-          required: true
-          type: string
-          format: double
-        - name: bottomRightLat
-          in: query
-          description: Oauth2 token code.
-          required: true
-          type: string
-          format: double
-        - name: bottomRightLon
-          in: query
-          description: Oauth2 token code.
-          required: true
-          type: string
-          format: double 
-        - name: page
-          in: query
-          description: current page.
-          required: false
-          type: number
-          format: int
-        - name: size
-          in: query
-          description: page size.
-          required: false
-          type: number
-          format: int
-      tags:
-        - User Location Search 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/userLocations'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-            
-  /users/{userId}/searchlocation:
-    get:
-      summary: find an existing user locations by userId.
-      description: find an existing user locations by userId.
-      consumes:
-      - application/vnd.jiahua.commands.locationlastone+json
-      produces:
-      - application/vnd.jiahua.commands.locationlastone+json
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: userId
-          in: path
-          description: id of user.
-          required: true
-          type: string        
-      tags:
-        - User Location Search 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/userLocation'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-            
-  /users/{userId}/searchlocation/bytime:
-    get:
-      summary: find all users locations between start time and end time by userId .
-      description: find all users locations between start time and end time  by userId.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: userId
-          in: path
-          description: id of user.
-          required: true
-          type: string
-        - name: start
-          in: query
-          description: query start time.
-          required: false
-          type: string
-        - name: end
-          in: query
-          description: query end time.
-          required: false
-          type: string
-        - name: page
-          in: query
-          description: current page.
-          required: false
-          type: number
-          format: int
-        - name: size
-          in: query
-          description: page size.
-          required: false
-          type: number
-          format: int      
-      tags:
-        - User Location Search 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/userLocations'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'   
-            
-  /users/searchlocation/{id}:
-    get:
-      summary: find a user location by id.
-      description: find a user location by id.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: id
-          in: path
-          description: id of user location.
-          required: true
-          type: string        
-      
-      tags:
-        - User Location Search 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/userLocation'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    delete:
-      summary: delete a user location by id.
-      description: delete a user location by id.
-      parameters:
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: id
-          in: path
-          description: id of user location.
-          required: true
-          type: string        
-      
-      tags:
-        - User Location Search 
-      responses:
-        '200':
-          description: return status code after find user location success.
+        '202':
+          description: 接受上传位置更新
+          
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
 definitions:
-  userLocation:
-    properties:
-      name:
-        type: string
-        description:  name of user.
-      userId:
-        type: string
-        description:  id of user.
-      createdTime:
-        type: string
-        description:  createTime of user.
-      channelId:
-        type: string
-        description:  channelId of user.
-      lat:
-        type: string
-        description:  lat of user.
-      lon:
-        type: string
-        description:  lon of user.
-        
   userLocations:
     properties:
       _links:
@@ -704,8 +513,72 @@ definitions:
           number:
             type: string
             description: current page 
+ 
+  usersLastestLocation:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+          userLocationResponses:
+            type: array
+            items:
+              $ref: '#/definitions/getUserLastestLocation'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: current page 
             
   getUserLocation:
+    properties:
+      uuid:
+        type: string
+        description:  uuid of user location.
+      updatedTime:
+        type: string
+        description:  updatedTime of user.
+      location:
+        properties:
+          lat:
+            type: string
+            description:  lat of user.
+          lon:
+            type: string
+            description:  lon of user.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: get current user location information url link.
+                
+  getUserLastestLocation:
     properties:
       name:
         type: string
@@ -713,25 +586,24 @@ definitions:
       userId:
         type: string
         description:  id of user.
-      createdTime:
+      updatedTime:
         type: string
-        description:  createTime of user.
-      channelId:
-        type: string
-        description:  channelId of user.
-      lat:
-        type: string
-        description:  lat of user.
-      lon:
-        type: string
-        description:  lon of user.
+        description:  updatedTime of user.
+      location:
+        properties:
+          lat:
+            type: string
+            description:  lat of user.
+          lon:
+            type: string
+            description:  lon of user.
       _links:
         properties:
           self:
             properties:
               href:
                 type: string
-                description: get current user location information url link. 
+                description: get current user location information url link.   
   subscribers:
     properties:
       _links:
@@ -841,90 +713,46 @@ definitions:
             type: string
             description: page total          
   subscribersDetails:
-      properties:
-          subscriberId:
-            type: string
-            description: my observables resource id.
-          createdTime:
-            type: string
-            description: Created time of subscribers.
-  addMysettings:
-      properties:
-          channelId:
-            type: string
-            description: Baidu to push channel ID.
-  addMyobservables:
-      properties:
-         observablesId:
-           type: string
-           description: Observables id.
-         push:
-           type: string
-           description: push(ON or OFF).
-            
-  addOnoffall:
-      properties:
-          push:
-            type: string
-            description: push(ON or OFF). 
-  locationsResponse:
     properties:
-      _links:
-        properties:
-          next:
-            properties:
-              href:
-                type: string
-                description: next page url.
-          self:
-            properties:
-              href:
-                type: string
-                description: current page url.
-          prev:
-            properties:
-              href:
-                type: string
-                description: previous page url.
-      _embedded:
-        properties:
-          uuid:
+        uuid:
             type: string
-            description: resourcion id
-          updatedTime:
-            type: string
-            description: Updated time of user locaion.
-          location:
-            properties:
-              lat:
-                type: string
-                description: lat of user locaion.
-              lon:
-                type: string
-                description: lon of user location.
-      page:
-        properties:
-          size:
-            type: string
-            description: page size
-          totalElements:
-            type: string
-            description: data total
-          totalPages:
-            type: string
-            description: page total
-          number:
-            type: string
-            description: page total
-
+            description: Id of subscribers.
+        push:
+          type: string
+          description: Whether to receive a message.
+        subscriberId:
+          type: string
+          description: Id of subscribers.
+        createdTime:
+          type: string
+          description: Created time of subscribers.
+  addMysettings:
+    properties:
+        channelId:
+          type: string
+          description: Baidu to push channel ID.
+  addMyobservables:
+    properties:
+       observablesId:
+         type: string
+         description: Observables id.
+       push:
+         type: string
+         description: push(ON or OFF).
+              
+  addOnoffall:
+    properties:
+        push:
+          type: string
+          description: push(ON or OFF). 
   locationAddRequest:
     properties:
       lat:
         type: string
-        description: lat of user location.
+        description: 纬度.
       lon:
         type: string
-        description: lon of user location.
+        description: 经度.
   Error:
     properties:
       code:
