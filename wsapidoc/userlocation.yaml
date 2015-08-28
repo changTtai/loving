@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Location Search
+  title: User Location
   description: Move your app forward with the Location Search API 
   version: 1.0.0
 host: '103.245.128.220:8087'
