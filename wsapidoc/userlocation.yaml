@@ -43,7 +43,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-   '/users/{userId}/locations':
+  /users/{userId}/locations:
     get:
       summary: 查询某个用户某个日期的位置轨迹信息
       description:
@@ -83,117 +83,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
-  /users/lastestlocation/byfence:
-    get:
-      summary: 查询最近在电子围栏中的所有用户列表.
-      description: 查询最近在电子围栏中的所有用户列表.
-      parameters:
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: topLeftLat
-          in: query
-          description: 矩形电子围栏左上角点的纬度.
-          required: true
-          type: string
-          format: double      
-        - name: topLeftLon
-          in: query
-          description: 矩形电子围栏左上角点的经度.
-          required: true
-          type: string
-          format: double
-        - name: bottomRightLat
-          in: query
-          description: 矩形电子围栏右下角点的纬度.
-          required: true
-          type: string
-          format: double
-        - name: bottomRightLon
-          in: query
-          description: 矩形电子围栏右下角点的经度.
-          required: true
-          type: string
-          format: double 
-        - name: page
-          in: query
-          description: 显示第几页.
-          required: false
-          type: number
-          format: int
-        - name: size
-          in: query
-          description: 每页显示多少条数据.
-          required: false
-          type: number
-          format: int
-      tags:
-        - 用户位置第二部分 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/usersLastestLocation'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-            
-  /users/{userId}/history/bytime:
-    get:
-      summary: 查询某个用户某个时间段的历史轨迹.
-      description: 查询某个用户某个时间段的历史轨迹.
-      parameters:
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: userId
-          in: path
-          description: 用户ID.
-          required: true
-          type: string
-        - name: start
-          in: query
-          description: 查询开始时间(例如:"2015-08-15T02:03:05").
-          required: false
-          type: string
-        - name: end
-          in: query
-          description: 查询结束时间(例如:"2015-08-20T02:03:05").
-          required: false
-          type: string
-        - name: page
-          in: query
-          description: 显示第几页.
-          required: false
-          type: number
-          format: int
-        - name: size
-          in: query
-          description: 每页显示多少条数据.
-          required: false
-          type: number
-          format: int      
-      tags:
-        - 用户位置第二部分 
-      responses:
-        '200':
-          description: return status code after find user location success.
-          schema:
-            $ref: '#/definitions/userLocations'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'            
+                   
 definitions:
   userLocations:
     properties:
