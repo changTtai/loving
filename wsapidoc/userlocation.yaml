@@ -420,7 +420,62 @@ paths:
         - 用户位置订阅关系
       responses:
         '202':
-          description: Modify the monitoring status of success                 
+          description: Modify the monitoring status of success 
+            
+  /users/{userId}/locationobservables:
+    get:
+      summary: 查询关注某用户的用户列表.
+      description:
+        查询关注某用户的用户列表.
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 用户位置订阅关系
+      responses:
+        '200':
+          description: subscribers page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/myobservablesDetails'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+              
+  /mylocations:
+    post:
+      description:
+        上传位置更新.
+      parameters:
+        - name: locationAddRequest
+          in: body
+          description: 当前用户位置的经纬度.
+          schema:
+            $ref: '#/definitions/locationAddRequest'
+          required: true
+      tags:
+        - 用户位置第一部分
+      responses:
+        '202':
+          description: 接受上传位置更新
+          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'                        
 definitions:
   userLocations:
     properties:
