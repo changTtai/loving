@@ -458,8 +458,7 @@ paths:
   /mylocations:
     post:
       summary: 上传位置更新.    
-      description:
-        上传位置更新.
+      description: 上传位置更新.
       parameters:
         - name: locationAddRequest
           in: body
@@ -471,12 +470,11 @@ paths:
         - 用户位置第一部分
       responses:
         '202':
-          description: 接受上传位置更新          
+          description: 接受上传位置更新
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
-                                     
+            $ref: '#/definitions/Error'                                    
 definitions:
   userLocations:
     properties:
