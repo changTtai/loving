@@ -455,7 +455,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /mylocations:
+  /uuhihi:
     post:
       summary: 上传位置更新.
       description:
