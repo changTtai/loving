@@ -365,6 +365,34 @@ paths:
         responses:
           '201':
            description: 添加用户的百度通道成功.            
+  /myobservables.onoffsome:
+    post:
+      summary: 批量更改我的接收状态.
+      description:
+         批量更改我的接收状态.
+      consumes:
+      - application/vnd.jiahua.commands.onoffsome+json
+      parameters:
+        - name: onoffsome
+          in: body
+          description: 状态.
+          schema:
+            type: array
+            items:
+             $ref: '#/definitions/addMyobservables'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 用户位置订阅关系
+      responses:
+        '202':
+          description: Modify the monitoring status of success     
                 
 definitions:
   userLocations:
