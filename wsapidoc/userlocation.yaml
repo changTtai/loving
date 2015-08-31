@@ -341,7 +341,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-   /mysettings:
+  /mysettings:
      post:
         summary: 添加用户的百度通道.
         description:
