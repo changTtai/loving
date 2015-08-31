@@ -392,8 +392,35 @@ paths:
         - 用户位置订阅关系
       responses:
         '202':
-          description: Modify the monitoring status of success     
-                
+          description: Modify the monitoring status of success
+               
+  /myobservables.onoffall:
+    post:
+      summary: 修改我的所有接收状态.
+      description:
+        修改我的所有接收状态.
+      consumes:
+      - application/vnd.jiahua.commands.onoffall+json
+      parameters:
+        - name: onoffall
+          in: body
+          description: Receiving state.
+          schema:
+            items:
+             $ref: '#/definitions/addOnoffall'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 用户位置订阅关系
+      responses:
+        '202':
+          description: Modify the monitoring status of success                 
 definitions:
   userLocations:
     properties:
