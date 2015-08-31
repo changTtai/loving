@@ -456,25 +456,22 @@ paths:
             $ref: '#/definitions/Error'
             
   /mylocations:
-    post:
-      summary: 上传位置更新.    
-      description: 上传位置更新.
-      parameters:
-        - name: locationAddRequest
-          in: body
-          description: 当前用户位置的经纬度.
-          schema:
-            $ref: '#/definitions/locationAddRequest'
-          required: true
-      tags:
-        - 用户位置第一部分
-      responses:
-        '202':
-          description: 接受上传位置更新
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'                                    
+     post:
+        summary: 上传位置更新.
+        description:
+          上传位置更新.
+        parameters:
+          - name: locationAddRequest
+            in: body
+            description: 当前用户位置的经纬度.
+            schema:
+               $ref: '#/definitions/locationAddRequest'
+            required: true
+        tags:
+         - 用户位置第一部分
+        responses:
+          '202':
+           description: 接受上传位置更新.
 definitions:
   userLocations:
     properties:
