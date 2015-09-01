@@ -196,9 +196,9 @@ paths:
                
   /userlocationserver/users/{userId}/locationsubscribers:
     post:
-      summary: 订阅.
+      summary: 新增我关注的用户.
       description:
-        订阅我关注的用户.
+        新增我关注的用户.
       parameters:
         - name: userId
           in: path
@@ -219,9 +219,9 @@ paths:
         '201':
           description: 添加订阅关系成功.
     get:
-      summary: 查询用户位置订阅者列表.
+      summary: 查询我(指定用户)关注的用户列表.
       description:
-        查询指定用户的订阅者列表.
+        查询我(指定用户)关注的用户列表.
       parameters:
         - name: userId
           in: path
@@ -272,7 +272,7 @@ paths:
             
   /userlocationserver/users/{userId}/locationsubscribers/{subscriberId}:
     get:
-      summary: 查询用户位置订阅者.
+      summary: 查询我(指定用户)关注的用户详情.
       description:
         search subscribers by id.
       parameters:
@@ -285,7 +285,7 @@ paths:
         - name: subscriberId
           in: path
           type: string
-          description: 订阅者ID.
+          description: 关注的用户ID.
           required: true
           format: uuid
         - name: X-Token
@@ -309,8 +309,8 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: 删除用户位置订阅者.
-      description: 删除用户位置订阅者.
+      summary: 删除我(指定用户)关注的用户.
+      description: 删除我(指定用户)关注的用户.
       parameters:
         - name: userId
           in: path
@@ -321,7 +321,7 @@ paths:
         - name: subscriberId
           in: path
           type: string
-          description: 订阅者ID.
+          description: 关注的用户ID.
           required: true
           format: uuid
         - name: X-Token
@@ -424,9 +424,9 @@ paths:
             
   /userlocationserver/users/{userId}/locationobservables:
     get:
-      summary: 查询关注某用户的用户列表.
+      summary: 查询关注我(指定用户)的用户列表.
       description:
-        查询关注某用户的用户列表.
+        查询关注我(指定用户)的用户列表.
       parameters:
         - name: userId
           in: path
