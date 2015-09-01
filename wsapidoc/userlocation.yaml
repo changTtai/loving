@@ -9,7 +9,7 @@ schemes:
 produces:
   - application/json
 paths:
-  /mylocations:
+  /userlocationserver/mylocations:
     get:
       summary: 查询用户自己某天的位置轨迹信息.
       description:
@@ -43,7 +43,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /users/{userId}/locations:
+  /userlocationserver/users/{userId}/locations:
     get:
       summary: 查询某个用户某个日期的位置轨迹信息
       description:
@@ -83,7 +83,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /users/lastestlocation/byfence:
+  /userlocationserver/users/lastestlocation/byfence:
     get:
       summary: 查询最近在电子围栏中的所有用户列表.
       description: 查询最近在电子围栏中的所有用户列表.
@@ -143,7 +143,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /users/{userId}/history/bytime:
+  /userlocationserver/users/{userId}/history/bytime:
     get:
       summary: 查询某个用户某个时间段的历史轨迹.
       description: 查询某个用户某个时间段的历史轨迹.
@@ -194,7 +194,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
                
-  /users/{userId}/locationsubscribers:
+  /userlocationserver/users/{userId}/locationsubscribers:
     post:
       summary: 订阅.
       description:
@@ -270,7 +270,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /users/{userId}/locationsubscribers/{subscriberId}:
+  /userlocationserver/users/{userId}/locationsubscribers/{subscriberId}:
     get:
       summary: 查询用户位置订阅者.
       description:
@@ -341,7 +341,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /mysettings:
+  /userlocationserver/mysettings:
      post:
         summary: 添加用户的百度通道.
         description:
@@ -365,7 +365,7 @@ paths:
         responses:
           '201':
            description: 添加用户的百度通道成功.            
-  /myobservables.onoffsome:
+  /userlocationserver/myobservables.onoffsome:
     post:
       summary: 批量更改我的接收状态.
       description:
@@ -394,7 +394,7 @@ paths:
         '202':
           description: Modify the monitoring status of success
                
-  /myobservables.onoffall:
+  /userlocationserver/myobservables.onoffall:
     post:
       summary: 修改我的所有接收状态.
       description:
@@ -422,7 +422,7 @@ paths:
         '202':
           description: Modify the monitoring status of success 
             
-  /users/{userId}/locationobservables:
+  /userlocationserver/users/{userId}/locationobservables:
     get:
       summary: 查询关注某用户的用户列表.
       description:
@@ -455,7 +455,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /uuhihi:
+  /mylocations:
     post:
       summary: 上传位置更新.
       description:
