@@ -319,14 +319,14 @@ paths:
             $ref: '#/definitions/Error'
             
   /userlocationserver/mysettings:
-     post:
-        summary: 添加用户的百度通道.
+    patch:
+        summary: 修改个人设置中的百度通道ID.
         description:
-          添加用户的百度通道.
+          修改个人设置中的百度通道ID.
         parameters:
           - name: channel
             in: body
-            description: The channel id JSON you want to post
+            description: The channel id JSON you want to post.
             schema:
                $ref: '#/definitions/addMysettings'
             required: true
@@ -340,8 +340,8 @@ paths:
         tags:
          - 用户位置订阅关系
         responses:
-          '201':
-           description: 添加用户的百度通道成功.            
+          '200':
+           description: 修改个人设置中的百度通道ID成功.            
             
   /userlocationserver/users/{userId}/locationobservables:
     post:
@@ -689,7 +689,7 @@ definitions:
     properties:
         channelId:
           type: string
-          description: Baidu to push channel ID.
+          description: 百度通道ID.
   addMyobservables:
     properties:
        observablesId:
