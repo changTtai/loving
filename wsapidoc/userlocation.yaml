@@ -640,7 +640,10 @@ definitions:
             description: Id of subscribers.
           observablesId:
             type: string
-            description: Id of observables.
+            description: 被观察者ID.
+          loginName:
+            type: string
+            description: 被观察者名字.
           push:
             type: string
             description: Whether to receive a message.
