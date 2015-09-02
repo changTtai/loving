@@ -76,7 +76,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://10.9.42.203:8087/eureka/
+      defaultZone: http://172.28.4.220:8087/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -86,17 +86,17 @@ server:
   port: 19216
 
 cassandra:
-  contactpoints: 10.9.42.203
+  contactpoints: 172.28.4.220
   port: 9042
   keyspace: pois_qa
 
 checkToken:
-  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
 companydetail:
-  points: http://10.9.42.203:8087/companies/{uuid}
+  points: http://172.28.4.220:8087/companies/{uuid}
 
 loginOauth2:
-  endpoint: http://10.9.42.203:8087/security/oauth/accesstoken
+  endpoint: http://172.28.4.220:8087/security/oauth/accesstoken
   
 endpoints:
   health:
