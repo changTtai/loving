@@ -122,9 +122,9 @@ paths:
               
   /userlocationserver/users/{userId}/locationsubscribers:
     get:
-      summary: 用户(userId)的订阅者列表.
+      summary: 用户(userId)位置的订阅者列表.
       description:
-        用户(userId)的订阅者列表.
+        用户(userId)位置的订阅者列表.
       parameters:
         - name: userId
           in: path
@@ -160,7 +160,7 @@ paths:
           type: string
           format: double
       tags:
-        - 用户位置订阅关系
+        - 用户位置订阅关系第二部分
       responses:
         '200':
           description: 查询成功.
@@ -175,9 +175,9 @@ paths:
             
   /userlocationserver/users/{userId}/locationsubscribers/{subscriberId}:
     get:
-      summary: 用户(userId)的订阅者(subscriberId)详情.
+      summary: 用户(userId)位置的订阅者(subscriberId)详情.
       description:
-        用户(userId)的订阅者(subscriberId)详情.
+        用户(userId)位置的订阅者(subscriberId)详情.
       parameters:
         - name: userId
           in: path
@@ -199,7 +199,7 @@ paths:
           type: string
           format: double
       tags:
-        - 用户位置订阅关系
+        - 用户位置订阅关系第二部分
       responses:
         '200':
           description: 查询成功.
@@ -212,8 +212,8 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: 删除用户(userId)的订阅者(subscriberId).
-      description: 删除用户(userId)的订阅者(subscriberId).
+      summary: 删除用户(userId)位置的订阅者(subscriberId).
+      description: 删除用户(userId)位置的订阅者(subscriberId).
       parameters:
         - name: userId
           in: path
@@ -235,7 +235,7 @@ paths:
           type: string
           format: double
       tags:
-        - 用户位置订阅关系
+        - 用户位置订阅关系第二部分
       responses:
         '200':
           description: locationsubscribers deleted
@@ -264,7 +264,7 @@ paths:
             type: string
             format: double
         tags:
-         - 用户位置订阅关系
+         - 用户位置订阅关系第一部分
         responses:
           '200':
            description: 修改个人设置中的百度通道ID成功.            
@@ -274,6 +274,8 @@ paths:
       summary: 添加用户(userId)的订阅对象.
       description:
         添加用户(userId)的订阅对象.
+      consumes:
+        - application/vnd.jiahua.commands.onoffsome+json
       parameters:
         - name: userId
           in: path
@@ -297,14 +299,14 @@ paths:
           type: string
           format: double
       tags:
-        - 用户位置订阅关系
+        - 用户位置订阅关系第一部分
       responses:
         '201':
           description: 添加用户(userId)的订阅对象    
     get:
-      summary: 用户(userId)的订阅的对象列表.
+      summary: 用户(userId)的订阅对象列表.
       description:
-        用户(userId)的订阅的对象列表.
+        用户(userId)的订阅对象列表.
       parameters:
         - name: userId
           in: path
@@ -320,7 +322,7 @@ paths:
           type: string
           format: double
       tags:
-        - 用户位置订阅关系
+        - 用户位置订阅关系第一部分
       responses:
         '200':
           description: subscribers page list
@@ -593,7 +595,7 @@ definitions:
           uuid:
             type: string
             description: Id of subscribers.
-          observablesId:
+          observableId:
             type: string
             description: 被观察者ID.
           loginName:
@@ -647,7 +649,7 @@ definitions:
           description: 百度通道ID.
   addMyobservables:
     properties:
-       observablesId:
+       observableId:
          type: string
          description: 被观察者uuid。
        loginName:
@@ -665,6 +667,10 @@ definitions:
       lon:
         type: string
         description: 经度.
+      type:
+        type: string
+        description: 经纬度类型.如bd09ll（百度经纬度坐标）、bd09mc（百度摩卡托坐标）、gcj02（国测局加密坐标）、wgs84（gps设备获取的坐标）.
+
   Error:
     properties:
       code:
