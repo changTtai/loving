@@ -142,7 +142,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
+      
   /userlocationserver/users/{userId}/history/bytime:
     get:
       summary: 查询某个用户某个时间段的历史轨迹.
@@ -193,35 +193,12 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-               
+              
   /userlocationserver/users/{userId}/locationsubscribers:
-    post:
-      summary: 新增我关注的用户.
-      description:
-        新增我关注的用户.
-      parameters:
-        - name: userId
-          in: path
-          type: string
-          description: 用户ID.
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-      tags:
-        - 用户位置订阅关系
-      responses:
-        '201':
-          description: 添加订阅关系成功.
     get:
-      summary: 查询我(指定用户)关注的用户列表.
+      summary: 用户(userId)的订阅者列表.
       description:
-        查询我(指定用户)关注的用户列表.
+        用户(userId)的订阅者列表.
       parameters:
         - name: userId
           in: path
@@ -272,9 +249,9 @@ paths:
             
   /userlocationserver/users/{userId}/locationsubscribers/{subscriberId}:
     get:
-      summary: 查询我(指定用户)关注的用户详情.
+      summary: 用户(userId)的订阅者(subscriberId)详情.
       description:
-        search subscribers by id.
+        用户(userId)的订阅者(subscriberId)详情.
       parameters:
         - name: userId
           in: path
@@ -285,7 +262,7 @@ paths:
         - name: subscriberId
           in: path
           type: string
-          description: 关注的用户ID.
+          description: 订阅者ID.
           required: true
           format: uuid
         - name: X-Token
@@ -309,8 +286,8 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: 删除我(指定用户)关注的用户.
-      description: 删除我(指定用户)关注的用户.
+      summary: 删除用户(userId)的订阅者(subscriberId).
+      description: 删除用户(userId)的订阅者(subscriberId).
       parameters:
         - name: userId
           in: path
@@ -321,7 +298,7 @@ paths:
         - name: subscriberId
           in: path
           type: string
-          description: 关注的用户ID.
+          description: 订阅者ID.
           required: true
           format: uuid
         - name: X-Token
@@ -365,17 +342,22 @@ paths:
         responses:
           '201':
            description: 添加用户的百度通道成功.            
-  /userlocationserver/myobservables.onoffsome:
+            
+  /userlocationserver/users/{userId}/locationobservables:
     post:
-      summary: 批量更改我的接收状态.
+      summary: 添加用户(userId)的订阅对象.
       description:
-         批量更改我的接收状态.
-      consumes:
-      - application/vnd.jiahua.commands.onoffsome+json
+        添加用户(userId)的订阅对象.
       parameters:
-        - name: onoffsome
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: observables
           in: body
-          description: 状态.
+          description: 被观察者数组.
           schema:
             type: array
             items:
@@ -391,42 +373,12 @@ paths:
       tags:
         - 用户位置订阅关系
       responses:
-        '202':
-          description: Modify the monitoring status of success
-               
-  /userlocationserver/myobservables.onoffall:
-    post:
-      summary: 修改我的所有接收状态.
-      description:
-        修改我的所有接收状态.
-      consumes:
-      - application/vnd.jiahua.commands.onoffall+json
-      parameters:
-        - name: onoffall
-          in: body
-          description: Receiving state.
-          schema:
-            items:
-             $ref: '#/definitions/addOnoffall'
-          required: true
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-      tags:
-        - 用户位置订阅关系
-      responses:
-        '202':
-          description: Modify the monitoring status of success 
-            
-  /userlocationserver/users/{userId}/locationobservables:
+        '201':
+          description: 添加用户(userId)的订阅对象    
     get:
-      summary: 查询关注我(指定用户)的用户列表.
+      summary: 用户(userId)的订阅的对象列表.
       description:
-        查询关注我(指定用户)的用户列表.
+        用户(userId)的订阅的对象列表.
       parameters:
         - name: userId
           in: path
@@ -739,16 +691,14 @@ definitions:
     properties:
        observablesId:
          type: string
-         description: Observables id.
+         description: 被观察者uuid。
+       loginName:
+         type: string
+         description: 被观察者名字.
        push:
          type: string
          description: push(ON or OFF).
               
-  addOnoffall:
-    properties:
-        push:
-          type: string
-          description: push(ON or OFF). 
   locationAddRequest:
     properties:
       lat:
