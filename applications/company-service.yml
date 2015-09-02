@@ -4,7 +4,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.4.220:8761/eureka/
+      defaultZone: http://10.9.42.203:8087/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -14,7 +14,7 @@ server:
   port: 29263
 
 cassandra:
-  contactpoints: 172.28.4.220
+  contactpoints: 10.9.42.203
   port: 9042
   keyspace: pois_dev
 
@@ -26,7 +26,7 @@ endpoints:
 
 elasticsearch:
   clusterName: changhongit_dev
-  host: 172.28.4.220
+  host: 10.9.42.203
   port: 9300
   sniff: true
   ignore_cluster_name: false
@@ -35,7 +35,7 @@ elasticsearch:
 
 #kafka
 zookeeper:
-  connect: 172.28.4.220:2181
+  connect: 10.9.42.203:2181
   session:
     timeout:
       ms: 14000
@@ -57,16 +57,16 @@ kafka:
   topic: COMPANY-INFO
 
 checkToken:
-  endpoint: http://172.28.4.220:8086/security/oauth/check_token?token=%s
+  endpoint: http://10.9.42.203:8086/security/oauth/check_token?token=%s
 
 userRegister:
-  endpoint: http://172.28.4.220:8086/security/guanhutong3g/register
+  endpoint: http://10.9.42.203:8086/security/guanhutong3g/register
 
 oauth2:
-  updatepassword: http://172.28.4.220:8086/security/users/password.update
+  updatepassword: http://10.9.42.203:8086/security/users/password.update
   
 loginOauth2:
-  endpoint: http://172.28.4.220:8086/security/oauth/accesstoken
+  endpoint: http://10.9.42.203:8086/security/oauth/accesstoken
 
 ---
 
@@ -76,7 +76,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.4.220:8761/eureka/
+      defaultZone: http://10.9.42.203:8087/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -86,17 +86,17 @@ server:
   port: 19216
 
 cassandra:
-  contactpoints: 172.28.4.220
+  contactpoints: 10.9.42.203
   port: 9042
   keyspace: pois_qa
 
 checkToken:
-  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
 companydetail:
-  points: http://172.28.4.220:8087/companies/{uuid}
+  points: http://10.9.42.203:8087/companies/{uuid}
 
 loginOauth2:
-  endpoint: http://172.28.4.220:8087/security/oauth/accesstoken
+  endpoint: http://10.9.42.203:8087/security/oauth/accesstoken
   
 endpoints:
   health:
