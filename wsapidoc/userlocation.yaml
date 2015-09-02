@@ -9,81 +9,7 @@ schemes:
 produces:
   - application/json
 paths:
-  /userlocationserver/mylocations:
-    get:
-      summary: 查询用户自己某天的位置轨迹信息.
-      description:
-        查询用户自己某天的位置轨迹信息.
-      parameters:
-        - name: size
-          in: query
-          description: 每页显示多少条数据.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: 显示第几页.
-          required: false
-          type: number
-        - name: updatedDate
-          in: query
-          description: 查询日期(例如：2015-08-15).
-          required: false
-          type: string
-      tags:
-        - 用户位置第二部分
-      responses:
-        '200':
-          description: locations page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/userLocations'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /userlocationserver/users/{userId}/locations:
-    get:
-      summary: 查询某个用户某个日期的位置轨迹信息
-      description:
-        查询某个用户某个日期的位置轨迹信息.
-      parameters:
-        - name: userId
-          in: path
-          type: string
-          description: 用户ID.
-          required: true
-          format: uuid
-        - name: size
-          in: query
-          description: 每页显示多少条数据.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: 显示第几页.
-          required: false
-          type: number
-        - name: updatedDate
-          in: query
-          description: 查询日期(例如:2015-08-15).
-          required: false
-          type: string
-      tags:
-        - 用户位置第二部分
-      responses:
-        '200':
-          description: locations page list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/userLocations'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /userlocationserver/users/lastestlocation/byfence:
+  /userlocationserver/users/latestlocations/byfence:
     get:
       summary: 查询最近在电子围栏中的所有用户列表.
       description: 查询最近在电子围栏中的所有用户列表.
@@ -137,13 +63,13 @@ paths:
         '200':
           description: return status code after find user location success.
           schema:
-            $ref: '#/definitions/usersLastestLocation'
+            $ref: '#/definitions/usersLatestLocation'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
       
-  /userlocationserver/users/{userId}/history/bytime:
+  /userlocationserver/users/{userId}/historylocations/bytime:
     get:
       summary: 查询某个用户某个时间段的历史轨迹.
       description: 查询某个用户某个时间段的历史轨迹.
@@ -406,7 +332,36 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
+  /userlocationserver/users/{userId}/locationobservables/latestlocations:
+    get:
+      summary: 查询用户(userId)的订阅对象最后一次位置信息.
+      description:
+        查询用户(userId)的订阅对象最后一次位置信息.
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: 用户ID.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 用户位置第二部分 
+      responses:
+        '200':
+          description: 查询用户(userId)的订阅对象最后一次位置信息成功.
+          schema:
+            $ref: '#/definitions/usersLatestLocation'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'           
   /mylocations:
     post:
       summary: 上传位置更新.
@@ -470,7 +425,7 @@ definitions:
             type: string
             description: current page 
  
-  usersLastestLocation:
+  usersLatestLocation:
     properties:
       _links:
         properties:
@@ -494,7 +449,7 @@ definitions:
           userLocationResponses:
             type: array
             items:
-              $ref: '#/definitions/getUserLastestLocation'
+              $ref: '#/definitions/getUserLatestLocation'
       page:
         properties:
           size:
@@ -534,7 +489,7 @@ definitions:
                 type: string
                 description: get current user location information url link.
                 
-  getUserLastestLocation:
+  getUserLatestLocation:
     properties:
       name:
         type: string
