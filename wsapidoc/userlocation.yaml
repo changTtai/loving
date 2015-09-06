@@ -7,7 +7,7 @@ host: '103.245.128.220:8087'
 schemes:
   - http
 produces:
-  - application/json
+  - application/hal+json
 paths:
   /userlocationserver/mylocations:
     get:
