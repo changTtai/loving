@@ -471,18 +471,24 @@ definitions:
     properties:
       uuid:
         type: string
-        description:  uuid of user location.
+        description:  位置信息ID.
+      userId:
+        type: string
+        description:  用户ID.        
       updatedTime:
         type: string
-        description:  updatedTime of user.
+        description:  位置更新时间.
+      status:
+        type: string
+        description:  查询位置信息返回状态("not_found"代表没有位置信息,"ok"代表返回位置信息正确).
       location:
         properties:
           lat:
             type: string
-            description:  lat of user.
+            description:  用户所在位置纬度.
           lon:
             type: string
-            description:  lon of user.
+            description:  用户所在位置经度.
       _links:
         properties:
           self:
@@ -495,21 +501,24 @@ definitions:
     properties:
       name:
         type: string
-        description:  name of user.
+        description:  用户登录名.
       userId:
         type: string
-        description:  id of user.
+        description:  用户ID.
       updatedTime:
         type: string
-        description:  updatedTime of user.
+        description:  位置更新时间.
+      status:
+        type: string
+        description:  查询位置信息返回状态("not_found"代表没有位置信息,"ok"代表返回位置信息正确).        
       location:
         properties:
           lat:
             type: string
-            description:  lat of user.
+            description:  用户所在位置纬度.
           lon:
             type: string
-            description:  lon of user.
+            description:  用户所在位置经度.
       _links:
         properties:
           self:
