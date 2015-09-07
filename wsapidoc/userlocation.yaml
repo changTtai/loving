@@ -543,10 +543,10 @@ definitions:
             description: Id of subscribers.
           push:
             type: string
-            description: Whether to receive a message.
+            description: push(ON or OFF)..
           subscriberId:
             type: string
-            description: Id of subscribers.
+            description: 订阅者ID.
           createdTime:
             type: string
             description: Created time of subscribers.
@@ -598,12 +598,9 @@ definitions:
           observableId:
             type: string
             description: 被观察者ID.
-          loginName:
-            type: string
-            description: 被观察者名字.
           push:
             type: string
-            description: Whether to receive a message.
+            description: push(ON or OFF).
           createdTime:
             type: string
             description: Created time of subscribers.
@@ -635,10 +632,10 @@ definitions:
             description: Id of subscribers.
         push:
           type: string
-          description: Whether to receive a message.
+          description: push(ON or OFF).
         subscriberId:
           type: string
-          description: Id of subscribers.
+          description: 订阅者ID.
         createdTime:
           type: string
           description: Created time of subscribers.
@@ -654,7 +651,7 @@ definitions:
          description: 被观察者uuid。
        loginName:
          type: string
-         description: 被观察者名字.
+         description: 被观察者登录名.
        push:
          type: string
          description: push(ON or OFF).
