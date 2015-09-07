@@ -1,0 +1,1391 @@
+swagger: '2.0'
+info:
+  title: Company
+  description: Move your app forward with the ChongHongIt ECP Company API
+  version: 1.0.0
+host: '172.28.4.220:8088'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/hal+json
+paths:
+  /companies:
+    get:
+      summary: Find Companies
+      description: Find Companeies.
+      parameters:
+        - name: previousId
+          in: query
+          description: previousId component of Company.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: nextId component of Company.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: page component of Company.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: size component of Company,is required.
+          required: true
+          type: number
+          format: int
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: An Object and contains _links object?page object And Company array
+          schema:
+            $ref: '#/definitions/CompanyPageResouce'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    post:
+      summary: Add a Company
+      description: Add a Company.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string      
+        - name: CompanyAddRequest
+          in: body
+          description: The CompanyAddRequest JSON you want to post
+          schema:
+            $ref: '#/definitions/CompanyAddRequest'
+          required: true
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Message'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  '/companies/{id}':
+    get:
+      summary: Find a Company by id
+      description: Find a Company by id.
+      parameters:
+        - name: id
+          in: path
+          description: 'id component of Company,is required'
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}          
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: An object of companydetail
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/CompanyDetail'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    patch:
+      summary: update a company in the store with from data
+      description: update a company in the store with from data
+      parameters:
+        - name: id
+          in: path
+          description: 'id component of Company,is required.'
+          required: true
+          type: string
+          format: string
+        - name: CompanyUpdateRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CompanyUpdateRequest'
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: delete a company by id
+      description: delete a company by id.
+      parameters:
+        - name: id
+          in: path
+          description: id is required.
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /companies/company/check_company:
+    get:
+      summary: check a company by createby
+      description: check a company by create user .
+      parameters:
+        - name: createBy
+          in: query
+          description: createByis required
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: An object of companydetail
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/CompanyDetail'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  '/companies/category/{uuid}':
+    get:
+      summary: Find companies by category id
+      description: Find companies by category id.
+      parameters:
+        - name: uuid
+          in: path
+          description: uuid is required.
+          required: true
+          type: string
+          format: string
+        - name: previousId
+          in: query
+          description: previousId component of Company.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: nextId component of Company.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: page component of Company.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: size component of Company,is required.
+          required: true
+          type: number
+          format: int
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: An Object and contains _links object,page object And Company array
+          schema:
+            $ref: '#/definitions/CompanyPageResouce'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  '/employees/bycompany/{companyId}':
+    get:
+      summary: Find empoyees by company_id
+      description: Find empoyees by company_id.
+      parameters:
+        - name: companyId
+          in: path
+          description: companyId is required.
+          required: true
+          type: string
+          format: string
+        - name: previousId
+          in: query
+          description: previousId Component of Employee.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: nextId Component of Employee.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: page Component of Employee.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: size Component of Employee,is required.
+          required: true
+          type: number
+          format: int
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: An Object and contains _links object,page object And Employee array
+          schema:
+            $ref: '#/definitions/EmployeePageResouce'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  '/employees/{id}':
+    get:
+      summary: Find an employee by id
+      description: Find an employee by id.
+      parameters:
+        - name: id
+          in: path
+          description: id is required
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: An object of Employee detail
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/EmployeeDetail'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    patch:
+      summary: Update an employee in the store with from data
+      description: Update an employee.
+      parameters:
+        - name: id
+          in: path
+          description: id is required.
+          required: true
+          type: string
+          format: string
+        - name: EmployeeAddRequest
+          in: body
+          description: The EmployeePatchRequest JSON you want to post
+          schema:
+            $ref: '#/definitions/EmployeeAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Message'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: Delete an Employee
+      description: Delete an Employee
+      parameters:
+        - name: id
+          in: path
+          description: id is required.
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: OK
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /employees:
+    get:
+      summary: Find all emloyees
+      description: Find all emloyees.
+      parameters:
+        - name: previousId
+          in: query
+          description: previousId component of Employee.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: nextId component of Employee.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: page component of Employee.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: size is required.
+          required: true
+          type: number
+          format: int
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: An Object and contains _links object,page object And Employee array
+          schema:
+            $ref: '#/definitions/EmployeePageResouce'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    post:
+      summary: Add an emloyee
+      description: Add an emloyee.
+      parameters:
+        - name: EmployeeAddRequest
+          in: body
+          description: The EmployeeAddRequest JSON you want to post
+          schema:
+            $ref: '#/definitions/EmployeeAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Message'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /employees/byloginid/{loginid}:
+    get:
+      summary: Find an employee by id
+      description: Find an employee by id.
+      parameters:
+        - name: loginid
+          in: path
+          description: loginid is required
+          required: true
+          type: string
+          format: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - Employees
+      responses:
+        '200':
+          description: An object of Employee detail
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/EmployeeDetail'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /companycategories:
+    post:
+      summary: Add a category
+      description: Add a category.
+      parameters:
+        - name: CategoryAddRequest
+          in: body
+          description: The Category JSON you want to post.
+          schema:
+            $ref: '#/definitions/categoryAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses:
+        '201':
+          description: Add a new Category is ok.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'    
+    get:
+      summary: Find categories
+      description: Find categories.
+      parameters:
+        - name: size
+          in: query
+          description: number each page shows article data.
+          required: true
+          type: number
+        - name: page
+          in: query
+          description: current page number.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: "next page need the current page's last id ."
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: "category page need the current page's first id ."
+          required: false
+          type: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string  
+      tags:
+        - categories
+      responses:
+        '200':
+          description: category page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/categories'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /companycategories/{id}/path:
+    get:
+      summary: Find a category path by category id
+      description: Find a category path by category id.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses: 
+        '200':
+          description:  category 
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/category'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /companycategories/{id}:
+    post:
+      summary: Add a child category
+      description: Add a child category.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: CategoryAddRequest
+          in: body
+          description: The child Category JSON you want to post.
+          schema:
+            $ref: '#/definitions/categoryAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string  
+      tags:
+        - categories    
+      responses:
+        '201':
+          description: Make a new Category
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'  
+    get:
+      summary: Find a category by id
+      description: Find a category by id.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses: 
+        '200':
+          description:  find a category by id is ok, and return a category details.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/categoryResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'      
+
+    patch:
+      summary: update a category in the store with from data
+      description: update a category in the store with from data.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string   
+        - name: categoryUpdateRequest
+          in: body
+          description: The update category JSON you want to patch.
+          schema:
+            $ref: '#/definitions/categoryUpdateRequest'
+          required: true
+      tags:
+        - categories    
+      responses:
+        '200':
+          description: update category is ok.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'  
+    delete:
+      summary: delete a category by id
+      description: delete a category by id.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses:
+        '200':
+          description: delete a category is ok.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'  
+  /companycategories/{id}/children:
+    get:
+      summary: find a category children by id
+      description: find a category children by id.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the category
+          required: true
+          format: uuid
+        - name: size
+          in: query
+          description: number each page shows article data.
+          required: true
+          type: number
+        - name: page
+          in: query
+          description: current page number.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: "next page need the current page's last id ."
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: "category page need the current page's first id ."
+          required: false
+          type: string
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: The add Category you want to post.
+          required: true  
+          type: string  
+      tags:
+        - categories
+      responses:
+        '200':
+          description: category page list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/categories'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'          
+definitions:
+  CompanyPageResouce:
+    properties:
+      _links:
+        type: object
+        description: Description of links
+        properties:
+          self:
+            type: object
+            description: Description of self
+            properties:
+              href:
+                type: string
+                description: Description of href
+      _embedded:
+        type: object
+        description: Description of embedded
+        properties:
+          companyResponses:
+            type: array
+            description: Description of companyResponses
+            items:
+              $ref: '#/definitions/CompanyShortInfo'
+      page:
+        type: object
+        description: Description of page info.
+        properties:
+          size:
+            type: number
+            description: size component of page
+          totalElements:
+            type: number
+            description: totalElements component of page
+          totalPages:
+            type: number
+            description: totalPages component of page
+          number:
+            type: number
+            description: number component of page
+  CompanyShortInfo:
+    properties:
+      id:
+        type: string
+        description: id component of Company
+      account:
+        type: string
+        description: account component of Company
+      name:
+        type: string
+        description: name component of Company
+      shortName:
+        type: string
+        description: short_name component of Company
+      address:
+        type: string
+        description: address component of Company
+      email:
+        type: string
+        description: address component of Company
+      _links:
+        type: object
+        description: _links component of Company
+        properties:
+          self:
+            type: object
+            description: Description of self
+            properties:
+              href:
+                type: string
+                description: Description of href
+  CompanyDetail:
+    properties:
+      id:
+        type: string
+        description: Description id of Company
+      pageUrl:
+        type: string
+        description: Description pageUrl of Company.
+      account:
+        type: string
+        description: Description account of Company.
+      name:
+        type: string
+        description: Display name of Company.
+      shortName:
+        type: string
+        description: Display simple name of Company.
+      companyClass:
+        type: string
+        description: Description companyClass Company.
+      companySubClass:
+        type: string
+        description: Description companySubClass Company.
+      address:
+        type: string
+        description: Description address Company.
+      landlineNo:
+        type: string
+        description: landlineNo address Company.
+      faxNo:
+        type: string
+        description: faxNo address Company.
+      email:
+        type: string
+        description: email address Company.
+      openTime:
+        type: string
+        description: openTime component of Company.
+      bossName:
+        type: string
+        description: bossName address of Company.
+      bossPhone:
+        type: string
+        description: bossPhone component of Company.
+      note:
+        type: string
+        description: note component of  Company.
+      location:
+        type: object
+        description: _links Component of Employee
+        properties:
+          lat:
+            type: string
+            description: Description lat of location 
+          lon:
+            type: string
+            description: Description lon of location  
+      isDeleted:
+        type: string
+        description: isDeleted component of Company.
+      createdBy:
+        type: string
+        description: createdBy component of  Company.
+      createdTimestamp:
+        type: string
+        description: createdTimestamp component of Company.
+      modifiedBy:
+        type: string
+        description: modifiedBy component of Company.
+      modifiedTimestamp:
+        type: string
+        description: modifiedTimestamp component of Company.
+      _links:
+        type: object
+        description: _links component of Company.
+        properties:
+          self:
+            type: object
+            description: self component of _links.
+            properties:
+              href:
+                type: string
+                description: href component of self.
+  CompanyAddRequest:
+    properties:
+      account:
+        type: string
+        description: Description of Company.
+      name:
+        type: string
+        description: Display name of Company.
+      display_name:
+        type: string
+        description: Display simple name of Company.
+      company_class:
+        type: string
+        description: Description company_class Company.
+      company_sub_class:
+        type: string
+        description: Description company_sub_class Company.
+      address:
+        type: string
+        description: Description address Company.
+      landline_no:
+        type: string
+        description: landline_no address Company.
+      fax_no:
+        type: string
+        description: fax_no address Company.
+      email:
+        type: string
+        description: email address Company.
+      open_time:
+        type: string
+        description: open_time component of Company.
+      boss_name:
+        type: string
+        description: boss_name address of Company.
+      boss_phone:
+        type: string
+        description: boss_phone component of Company.
+      note:
+        type: string
+        description: note component of  Company.
+      location:
+        type: object
+        description: _links Component of Employee
+        properties:
+          lat:
+            type: string
+            description: Description lat of location 
+          lon:
+            type: string
+            description: Description lon of location
+      categoryId:
+        type: string
+        description: categoryId component of Company,default is Top Category.            
+  CompanyUpdateRequest:
+    properties:
+      account:
+        type: string
+        description: Description account of Company.
+      pageUrl:
+        type: string
+        description: Description pageUrl of Company.
+      name:
+        type: string
+        description: Display name of Company.
+      shortName:
+        type: string
+        description: Display simple name of Company.
+      companyClass:
+        type: string
+        description: Description company_class Company.
+      companySubClass:
+        type: string
+        description: Description company_sub_class Company.
+      address:
+        type: string
+        description: Description address Company.
+      landlineNo:
+        type: string
+        description: landlineNo address Company.
+      faxNo:
+        type: string
+        description: faxNo address Company.
+      email:
+        type: string
+        description: email address Company.
+      openTime:
+        type: string
+        description: openTime component of Company.
+      bossName:
+        type: string
+        description: bossName address of Company.
+      bossPhone:
+        type: string
+        description: bossPhone component of Company.
+      note:
+        type: string
+        description: note component of  Company.
+      location:
+        type: object
+        description: _links Component of Employee
+        properties:
+          lat:
+            type: string
+            description: Description lat of location 
+          lon:
+            type: string
+            description: Description lon of location
+      categoryId:
+        type: string
+        description: categoryId component of Company,default is Top Category.
+  EmployeePageResouce:
+    properties:
+      _links:
+        type: object
+        description: Description of links
+        properties:
+          self:
+            type: object
+            description: Description of self
+            properties:
+              href:
+                type: string
+                description: Description of href
+      _embedded:
+        type: object
+        description: Description of embedded
+        properties:
+          companyResponses:
+            type: array
+            description: Description of EmployeeResouce
+            items:
+              $ref: '#/definitions/EmployeeShortInfo'
+      page:
+        type: object
+        description: Description of page info.
+        properties:
+          size:
+            type: number
+            description: size Employee of page
+          totalElements:
+            type: number
+            description: totalElements component of page
+          totalPages:
+            type: number
+            description: totalPages component of page
+          number:
+            type: number
+            description: number component of page
+  EmployeeShortInfo:
+    properties:
+      id:
+        type: string
+        description: id Component of Employee
+      loginId:
+        type: string
+        description: loginId Component of Employee
+      name:
+        type: string
+        description: name Component of Employee
+      title:
+        type: string
+        description: title Component of Employee
+      departmentCode:
+        type: string
+        description: departmentCode Component of Employee
+      landlineNo:
+        type: string
+        description: landlineNo Component of Employee
+      faxNo:
+        type: string
+        description: faxNo Component of Employee
+      mobileNo:
+        type: string
+        description: mobileNo Component of Employee
+      email:
+        type: string
+        description: email Component of Employee
+      _links:
+        type: object
+        description: _links Component of Employee
+        properties:
+          self:
+            type: object
+            description: Description of self
+            properties:
+              href:
+                type: string
+                description: Description of href
+  EmployeeDetail:
+    properties:
+      id:
+        type: string
+        description: id Component of Employee
+      identification:
+        type: string
+        description: identification  Component of Employee.
+      defaultpsd:
+        type: string
+        description: defaultpsd Component of Employee.
+      status:
+        type: number
+        description: status Component of Employee.
+      name:
+        type: string
+        description: name Component of Employee.
+      age:
+        type: number
+        description: age Component of Employee.
+      level:
+        type: number
+        description: level Component of Employee.
+      description:
+        type: string
+        description: of Component Employee.
+      companyId:
+        type: string
+        description: companyId Component of Employee.
+      loginId:
+        type: string
+        description: gender of Component Employee.
+      departmentCode:
+        type: string
+        description: departmentCode Component of Employee.
+      title:
+        type: string
+        description: title Component of Employee.
+      credit:
+        type: string
+        description: credit Component Component Component Component Component of Employee.
+      homeAddress:
+        type: string
+        description: homeAddress Component Component Component Component of Employee.
+      landlineNo:
+        type: string
+        description: landlineNo Component Component Component of Employee.
+      faxNo:
+        type: string
+        description: faxNo Component Component of Employee.
+      mobileNo:
+        type: string
+        description: mobileNo Component of Employee.
+      email:
+        type: string
+        description: email Component Component Component Component of Employee.
+      isAdmin:
+        type: string
+        description: isAdmin Component Component Component of Employee.
+      profileUrl:
+        type: string
+        description: profileUrl Component Component of Employee.
+      marketingUrl:
+        type: string
+        description: marketingUrl Component of Employee.
+      feedbackUrl:
+        type: string
+        description: feedbackUrl Component Component Component of Employee.
+      supportInfo:
+        type: string
+        description: supportInfo Component Component of Employee.
+      createdBy:
+        type: number
+        description: createdBy Component of Employee.
+      createdTimestamp:
+        type: string
+        description: createdTimestamp Component Component Component Component of Employee.
+      modifiedBy:
+        type: number
+        description: modifiedBy Component Component Component of Employee.
+      modifiedTimestamp:
+        type: string
+        description: modifiedTimestamp Component Component of Employee.
+      isdeleted:
+        type: number
+        description: isdeleted Component of Employee.
+      _links:
+        type: object
+        description: _links component of Employee.
+        properties:
+          self:
+            type: object
+            description: self component of _links.
+            properties:
+              href:
+                type: string
+                description: href component of self.
+  EmployeeAddRequest:
+    properties:
+      identification:
+        type: string
+        description: identification  Component of Employee.
+      defaultpsd:
+        type: string
+        description: defaultpsd Component of Employee.
+      status:
+        type: number
+        description: status Component of Employee.
+      name:
+        type: string
+        description: name Component of Employee.
+      age:
+        type: number
+        description: age Component of Employee.
+      level:
+        type: number
+        description: level Component of Employee.
+      description:
+        type: string
+        description: description of Component Employee.
+      companyId:
+        type: string
+        description: companyId of Component Employee.
+      loginId:
+        type: string
+        description: gender of Component Employee.
+      loginPwd:
+        type: string
+        description: loginPwd of Component Employee.
+      departmentCode:
+        type: string
+        description: departmentCode Component of Employee.
+      title:
+        type: string
+        description: title Component of Employee.
+      credit:
+        type: string
+        description: credit Component Component Component Component Component of Employee.
+      homeAddress:
+        type: string
+        description: homeAddress Component Component Component Component of Employee.
+      landlineNo:
+        type: string
+        description: landlineNo Component Component Component of Employee.
+      faxNo:
+        type: string
+        description: faxNo Component Component of Employee.
+      mobileNo:
+        type: string
+        description: mobileNo Component of Employee.
+      email:
+        type: string
+        description: email Component Component Component Component of Employee.
+      isAdmin:
+        type: string
+        description: isAdmin Component Component Component of Employee.
+      profileUrl:
+        type: string
+        description: profileUrl Component Component of Employee.
+      marketingUrl:
+        type: string
+        description: marketingUrl Component of Employee.
+      feedbackUrl:
+        type: string
+        description: feedbackUrl Component Component Component of Employee.
+      supportInfo:
+        type: string
+        description: supportInfo Component Component of Employee.
+  categories:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: current page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: previous page url.
+      _embedded:
+        properties:
+          categoryResponses:
+            type: array
+            items:
+              $ref: '#/definitions/category'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data totalElements
+          totalPages:
+            type: string
+            description: page totalPages
+          number:
+            type: string
+            description: page number
+  categoryResponse:
+    properties:
+      id:
+        type: string
+        description: id of product.
+      name:
+        type: string
+        description: name of product.
+      createTime:
+        type: string
+        description: createTime of category.
+      companyId:
+        type: string
+        description: companyId of category.
+      description:
+        type: string
+        description: description of category.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: current detail url.
+          parent:
+           properties:
+              href:
+                type: string
+                description: Category parent detail url.
+          children:
+           properties:
+              href:
+                type: string
+                description: Category children detail url.
+  category:
+    properties:
+      id:
+        type: string
+        description: id of category.
+      name:
+        type: string
+        description: name of category.
+      createTime:
+        type: string
+        description: createTime of category.
+      description:
+        type: string
+        description: description of category.
+      _links:
+        properties:
+          self:
+           properties:
+              href:
+                type: string
+                description: current detail url.
+  categoryAddRequest:
+    properties:
+      name:
+        type: string
+        description: name of category.
+      description:
+        type: string
+        description: description of category.
+  categoryUpdateRequest:
+    properties:
+      name:
+        type: string
+        description: name of category.
+      description:
+        type: string
+        description: description of category.      
+  Message:
+    properties:
+      Head:
+        type: object
+        properties:
+          responseCode:
+            type: string
+          desc:
+            type: string
