@@ -153,7 +153,146 @@ paths:
           description: 其他返回信息
           schema:
             $ref: '#/definitions/Error'
-  
+
+  /bodycompositions:
+    get:
+      summary: Find Bodycompositions
+      description: Find Bodycompositions
+      parameters:
+        - name: imei
+          in: query
+          description: IMEI终端编号.
+          required: false
+          type: string
+          format: string
+        - name: startTime
+          in: query
+          description: 身体成分的开始时间.
+          required: false
+          type: string
+          format: string
+        - name: endTime
+          in: query
+          description: 身体成分的结束时间.
+          required: false
+          type: string
+          format: string
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: double
+        - name: pageSize
+          in: query
+          description: 每页显示多少条身体成分数据.
+          required: false
+          type: number
+          format: double  
+      tags:
+        - BodyComposition
+      responses:
+        '200':
+          description: 返回身体成分列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bodyCompositions'
+        '204':
+          description: 没有身体成分信息返回
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Add a Bloodpressure
+      description: Add a Bloodpressure.
+      parameters:
+        - name: createBloodpressure
+          in: body
+          description: 添加身体成分的JSON数据
+          schema:
+            $ref: '#/definitions/createBodyComposition'
+          required: true
+      tags:
+        - BodyComposition
+      responses:
+        '200':
+          description: 添加一条身体成分数据成功
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'  
+  /bodycompositions/{id}:
+    get:
+      summary: Find a BodyComposition by id
+      description: find a bodyComposition by id
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: 身体成分的ID
+      tags:
+        - BodyComposition
+      responses:
+        '200':
+          description: 返回一条身体成分详情
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bodyComposition'
+        '204':
+          description: 没有找到对应的身体成分信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: delete a BodyComposition by id
+      description: delete a BodyComposition by id
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: 身体成分的ID
+      tags:
+        - BodyComposition
+      responses:
+        '200':
+          description: 返回一条身体成分信息
+        '404':
+          description: 没有找到对应的身体成分信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
+  /bodycompositionsbyimei/{imei}:
+    get:
+      summary: Find a nearest BodyComposition by IMEI
+      description: Find a nearest BodyComposition by IMEI
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          required: true
+          description: 身体成分的IMEI编号  允许范围值为[0-9].
+      tags:
+        - BodyComposition
+      responses:
+        '200':
+          description: 返回一条IMEI编号下最新的身体成分详情
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/bodyComposition'
+        '404':
+          description: 没有找到对应的身体成分信息
+        default:
+          description: 其他返回信息
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
   createBloodpressure:
     properties:
@@ -219,6 +358,199 @@ definitions:
         type: string
         format: number
         description: 血压脉冲值 数值格式类似：73.00
+  createBodyComposition:
+    properties:
+      imei:
+        type: string
+        description: 终端号 允许范围值为[0-9].
+      dector:
+        type: object
+        properties:
+          id:
+            type: string
+            description: 终端设备编号.
+          type:
+            type: string
+            description: 终端设备类型
+          value:
+            type: string
+            description: 终端设备描述
+      timestamp:
+        type: string
+        description: 身体成分时间 时间格式类似：2015-08-01T22:23:33.343Z
+      muscle:
+        type: string
+        format: number
+        description: 身体成分肌肉值 数值格式类似：90.00
+      adiposerate:
+        type: string
+        format: number
+        description: 身体成分脂肪率值 数值格式类似：90.00
+      visceralfat:
+        type: string
+        format: number
+        description: 身体成分内脏脂肪值 数值格式类似：73.00
+      moisture:
+        type: string
+        format: number
+        description: 身体成分人体水分值 数值格式类似：90.00
+      bone:
+        type: string
+        format: number
+        description: 身体成分骨量值 数值格式类似：90.00
+      thermal:
+        type: string
+        format: number
+        description: 身体成分热量值 数值格式类似：73.00
+      impedance:
+        type: string
+        format: number
+        description: 身体成分阻抗值 数值格式类似：90.00
+      bmi:
+        type: string
+        format: number
+        description: 身体成分BMI值 数值格式类似：90.00
+      bmr:
+        type: string
+        format: number
+        description: 身体成分基础代谢率值 数值格式类似：73.00
+  bodyCompositions:
+    properties:
+      bodyResponses:
+        type: array
+        description: 身体成分例表.
+        items:
+          $ref: '#/definitions/bodyComposition'
+      totalCount:
+        type: number
+        description: 总共多少数据.
+      currentPage:
+        type: number
+        description: 当前页.
+        items:
+          $ref: '#/definitions/bodyComposition'
+      previousPage:
+        type: string
+        description: 上一页链接
+      nextPage:
+        type: string
+        description: 下一页链接
+      _links:
+        type: object
+        description: 链接
+        properties:
+          docRel:
+            type: object
+            description: 文档链接.
+            properties:
+              href:
+                type: string
+                description: 文档链接.
+  bodyComposition:
+    properties:
+      href:
+        type: string
+        description: 身体成分链接地址.
+      imei:
+        type: string
+        description: 终端号 允许范围值为[0-9].
+      dector:
+        type: object
+        properties:
+          id:
+            type: string
+            description: 终端设备编号.
+          type:
+            type: string
+            description: 终端设备类型
+          value:
+            type: string
+            description: 终端设备描述
+      timestamp:
+        type: string
+        description: 身体成分时间 时间格式类似：2015-08-01T22:23:33.343Z
+      muscle:
+        type: string
+        format: number
+        description: 身体成分肌肉值 数值格式类似：90.00
+      adiposerate:
+        type: string
+        format: number
+        description: 身体成分脂肪率值 数值格式类似：90.00
+      visceralfat:
+        type: string
+        format: number
+        description: 身体成分内脏脂肪值 数值格式类似：73.00
+      moisture:
+        type: string
+        format: number
+        description: 身体成分人体水分值 数值格式类似：90.00
+      bone:
+        type: string
+        format: number
+        description: 身体成分骨量值 数值格式类似：90.00
+      thermal:
+        type: string
+        format: number
+        description: 身体成分热量值 数值格式类似：73.00
+      impedance:
+        type: string
+        format: number
+        description: 身体成分阻抗值 数值格式类似：90.00
+      bmi:
+        type: string
+        format: number
+        description: 身体成分BMI值 数值格式类似：90.00
+      bmr:
+        type: string
+        format: number
+        description: 身体成分基础代谢率值 数值格式类似：73.00
+      errorCode:
+        type: string
+        description: 获取专家意见异常时 错误代码
+      errorMessage:
+        type: string
+        description: 获取专家意见异常时 错误信息
+      adviceStatus:
+        type: string
+        description: 身体成分分析状态
+        properties:
+          code:
+            type: string
+            description: 分析代码
+          value:
+            type: string
+            description: 分析代码值
+      adviceSource:
+        type: string
+        description: 专家建议链接
+        properties:
+          href:
+            type: string
+            description: 链接地址
+      advices:
+        type: array
+        description: 专家建议内容
+        items:
+          $ref: '#/definitions/advices'
+  advices:
+    properties:
+      name:
+        type: string
+        description: 专家建议项名称
+      advice:
+        type: array
+        description: 专家建议内容
+        items:
+          $ref: '#/definitions/advice'
+  advice:
+    properties:
+      name:
+        type: string
+        description: 专家建议子项名称
+      value:
+        type: string
+        description: 专家建议子项内容详情
   Error:
     properties:
       code:
