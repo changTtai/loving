@@ -1,0 +1,264 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  title: File
+  description: Move your app forward with the file API 
+  version: 1.0.0
+host: '103.245.128.220:8087'
+schemes:
+  - http
+  - https
+consumes:
+  - application/hal+json
+produces:
+  - application/hal+json
+paths:
+  /file/images:
+    post:
+      tags:
+        - images
+      summary: add a new image.       
+      description: add a new image.
+      consumes:
+      - multipart/form-data. 
+      produces:
+      - multipart/form-data. 
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token  code.
+          required: true
+          type: string
+          format: double
+        - name: file
+          in: formData
+          description: a image.
+          required: true
+          type: file
+      responses:
+        '201':
+          description: image information
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
+  /file/images/{uuid}:
+    get:
+      tags:
+        - images
+      summary: find image by uuid.      
+      description: find image by uuid.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token  code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of image.
+          required: true
+          type: string
+      # Expected responses for this operation:
+      responses:
+        '200':
+          description: image information
+          schema:
+            $ref: '#/definitions/image'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+        - images
+      summary: delete a image by uuid.  
+      description: delete a image by uuid.     
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of image.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: success to delete image by uuid
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+        - images
+      summary: update an existing image.       
+      description: update an existing image.
+      consumes:
+      - multipart/form-data. 
+      produces:
+      - multipart/form-data. 
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Oauth token  code.
+          required: true
+          type: string
+          format: double
+        - name: uuid
+          in: path
+          description: uuid of image.
+          required: true
+          type: string
+        - name: file
+          in: formData
+          description: a image.
+          required: true
+          type: file
+      responses:
+        '201':
+          description: image information
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'             
+  /file/images/ByMonth/{month}:
+    get:
+      summary: find images by month.
+      description: find images by month.
+      parameters:
+        - name: X-Token
+          in: header
+          default: {X-Token}
+          description: Latitude component of location.
+          required: true
+          type: string
+          format: double
+        - name: month
+          in: path
+          description: query previous page.
+          required: true
+          type: string
+        - name: previousId
+          in: query
+          description: query previous page.
+          required: true
+          type: string
+        - name: nextId
+          in: query
+          description: query next page.
+          required: true
+          type: string
+        - name: page
+          in: query
+          description: current page.
+          required: true
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: page size.
+          required: true
+          type: number
+          format: int
+      tags:
+        - images
+      responses:
+        '200':
+          description: pois information
+          schema:
+            $ref: '#/definitions/images'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+definitions:
+  images:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: Total number of items available.
+          self:
+            properties:
+              href:
+                type: string
+                description: Total number of items available.
+          search:
+            properties:
+              href:
+                type: string
+                description: Total number of items available.
+      _embedded:
+        properties:
+          poisResponses:
+            type: array
+            items:
+              $ref: '#/definitions/image'
+      page:
+        properties:
+          size:
+            type: string
+            description: page size
+          totalElements:
+            type: string
+            description: data total
+          totalPages:
+            type: string
+            description: page total
+          number:
+            type: string
+            description: page total
+  image:
+    properties:
+      uuid:
+        type: string
+        description: uuid of image.        
+      name:
+        type: string
+        description: name of image.
+      createTime:
+        type: string
+        description: createTime of image.
+      creator:
+        type: string
+        description: creator of image.
+      content:
+        type: string
+        description: content of image.
+      mimeType:
+        type: string
+        description: mimeType of image.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: type code of poi.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
