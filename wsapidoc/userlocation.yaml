@@ -499,7 +499,7 @@ definitions:
                 
   getUserLatestLocation:
     properties:
-      name:
+      loginName:
         type: string
         description:  用户登录名.
       userId:
