@@ -3,346 +3,422 @@ info:
   title: Product Price
   description: Product price application API 
   version: 1.0.0
-host: '172.28.4.220:8088'
+host: '103.245.128.220:8087'
 schemes:
   - http
 basePath: /
 produces:
   - application/json
 paths:
+  /productprices/search:
+    get:
+      summary: 查询产品价格服务.
+      description: 多条件查询产品价格服务.
+      parameters:
+        - name: keyword
+          in: query
+          description: 产品名称(productName)查询,支持模糊查询.
+          required: false
+          type: string
+        - name: catgoryId
+          in: query
+          description: 根据产品价格分类查询.
+          required: false
+          type: string
+        - name: productCategoryId
+          in: query
+          description: 根据产品分类查询.
+          required: false
+          type: string
+        - name: bevel
+          in: query
+          default: 5
+          description: 位置直径(单位为公里,默认是5公里).
+          required: false
+          type: string
+          format: double
+        - name: lat
+          in: query
+          description: 地理位置查询(中心点的纬度).
+          required: true
+          type: string
+          format: double
+        - name: lon
+          in: query
+          description: 地理位置查询(中心点的经度).
+          required: true
+          type: string
+          format: double
+      tags:
+        - 多条件查询
+      responses:
+        '201':
+          description: 查询成功.
+          schema:
+            type: string
+           
+        default:
+          description: 查询失败
+          schema:
+            $ref: '#/definitions/Error'
+  /productprices/search/products:
+    post:
+      summary: 查询产品服务价格并根据产品分组.
+      description: 查询产品服务价格并根据产品分组.
+      parameters:
+        - name: keyword
+          in: query
+          description: 产品名称(productName)查询,支持模糊查询.
+          required: false
+          type: string
+        - name: catgoryId
+          in: query
+          description: 根据产品价格分类查询.
+          required: false
+          type: string
+        - name: productCategoryId
+          in: query
+          description: 根据产品分类查询.
+          required: false
+          type: string
+        - name: bevel
+          in: query
+          default: 5
+          description: 位置直径(单位为公里,默认是5公里).
+          required: false
+          type: string
+          format: double
+        - name: lat
+          in: query
+          description: 地理位置查询(中心点的纬度).
+          required: true
+          type: string
+          format: double
+        - name: lon
+          in: query
+          description: 地理位置查询(中心点的经度).
+          required: true
+          type: string
+          format: double
+      tags:
+        - 多条件查询(按产品分组)
+      responses:
+        '201':
+          description: 查询成功.
+          schema:
+            type: string
+           
+        default:
+          description: 查询失败
+          schema:
+            $ref: '#/definitions/Error'
+            
   /productprices:
     post:
-      summary: Add a productprice
-      description: Add a poductprice.
+      summary: 增加一个产品价格服务
+      description: 新增产品价格服务
       parameters:
         - name: addproductprice
           in: body
-          description: The productprice JSON you want to post
+          description: The productPrice JSON you want to post
           schema:
             $ref: '#/definitions/addproductprice'
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
+          default: '{X-Token}'
           description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
-        - productprices
+        - 新增产品价格服务
       responses:
         '200':
-          description: Make a new pet
+          description: 添加成功
     get:
-      summary: Find prouctprices
-      description: Find productpces.
+      summary: 查询产品服务列表
+      description: 查询产品服务列表.
       parameters:
         - name: page
           in: query
-          description: page component of productrices.
+          default: 0
+          description: 分页参数
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: Number each page shows article data.
+          default: 20
+          description: 每页的数量(默认20)
           required: false
           type: number
           format: int
-        - name: categroyid
+        - name: nextId
           in: query
-          description: categoy id.
+          description: 下一页ID
           required: false
           type: string
-        - name: productpriceid
+        - name: previousId
           in: query
-          description: product price id.
+          description: 上一页ID.
           required: false
           type: string
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: X-Token is a request header and is required.
-          required: true
-          type: string  
       tags:
         - productprices
       responses:
         '200':
-          description: products price list
+          description: 查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/productprices'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'
   '/productprices/{id}':
     get:
-      summary: Find a productprice by id
-      description: Find a productpice by id.
+      summary: 根据ID查询产品服务
+      description: 根据ID查询产品服务
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of productprice
+          description: 产品服务ID
           required: true
           format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: X-Token is a request header and is required.
-          required: true
-          type: string
       tags:
         - productprices    
       responses:
         '200':
-          description: Find a productprice is ok.
+          description: 查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/productpriceByIdResponse'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'      
     patch:
-      summary: Update a poductprice in the store with from data
-      description: Update a poductprice in the store with from data.
+      summary: 修改产品服务
+      description: 修改产品服务
       parameters:
         - name: id
           in: path
-          description: ID of productprice.
+          description: 产品服务ID
           required: true
           type: string
           format: uuid
         - name: updateproductprice
           in: body
-          description: The productprice JSON you want to post
+          description: 可以修改的参数,在request body中
           schema:
             $ref: '#/definitions/updateproductprice'
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: X-Token is a request header and is required.
+          default: '{X-Token}'
+          description: 登录认证
           required: true
           type: string 
       tags:
         - productprices    
       responses:
         '200':
-          description: update a producprice is ok.
+          description: 修改成功
         default:
-          description: unexpected error
+          description: 修改失败
           schema:
             $ref: '#/definitions/Error'  
     delete:
-      summary: delete a productprice by id
-      description: delete a productprice by id.
+      summary: 删除产品价格
+      description: 删除产品价格
       parameters:
         - name: id
           in: path
-          description: ID of prouctprice
+          description: 产品价格ID
           required: true
           type: string
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: X-Token is a request header and is required.
+          default: '{X-Token}'
+          description: 登录认证
           required: true
           type: string
       tags:
         - productprices  
       responses:
         '200':
-          description: delete productprice is ok
+          description: 删除成功
         default:
-          description: unexpected error
+          description: 删除失败
           schema:
             $ref: '#/definitions/Error'
   /ppcategories:
     post:
-      summary: Add a category
-      description: Add a category.
+      summary: 新增产品价格类别
+      description: 新增产品价格类别
       parameters:
         - name: CategoryAddRequest
           in: body
-          description: The Category JSON you want to post.
+          description: 价格类别属性
           schema:
             $ref: '#/definitions/categoryAddRequest'
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: The add Category you want to post.
+          default: '{X-Token}'
+          description: 登录认证
           required: true  
           type: string
       tags:
         - categories    
       responses:
         '201':
-          description: Add a new Category is ok.
+          description: 添加成功
         default:
-          description: Unexpected error
+          description: 添加失败
           schema:
             $ref: '#/definitions/Error'    
     get:
-      summary: Find categories
-      description: Find categories.
+      summary: 查询分类列表
+      description: 查询分类列表
       parameters:
         - name: size
           in: query
-          description: number each page shows article data.
+          default: 20
+          description: 每页数量(默认20)
           required: true
           type: number
         - name: page
           in: query
-          description: current page number.
+          description: 当前页
           required: false
           type: number
         - name: nextId
           in: query
-          description: "next page need the current page's last id ."
+          description: 下一页ID
           required: false
           type: string
         - name: previousId
           in: query
-          description: "category page need the current page's first id ."
+          description: 上一页ID
           required: false
           type: string
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string  
       tags:
         - categories
       responses:
         '200':
-          description: category page list
+          description: 查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/categories'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'
   /ppcategories/{id}/path:
     get:
-      summary: Find a category path by category id
-      description: Find a category path by category id.
+      summary: 某一分类的父层级
+      description: 某一分类的父层级
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string
       tags:
         - categories    
       responses: 
         '200':
-          description:  category 
+          description:  查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/category'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'      
   /ppcategories/{id}:
     post:
-      summary: Add a child category
-      description: Add a child category.
+      summary: 添加某分类的子分类
+      description: 添加某分类的子分类
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
         - name: CategoryAddRequest
           in: body
-          description: The child Category JSON you want to post.
+          description: 分类属性
           schema:
             $ref: '#/definitions/categoryAddRequest'
           required: true
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: The add Category you want to post.
+          default: '{X-Token}'
+          description: 登录认证
           required: true  
           type: string  
       tags:
         - categories    
       responses:
         '201':
-          description: Make a new Category
+          description: 添加成功
         default:
-          description: Unexpected error
+          description: 添加失败
           schema:
             $ref: '#/definitions/Error'  
     get:
-      summary: Find a category by id
-      description: Find a category by id.
+      summary: 查询分类
+      description: 查询分类
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string
       tags:
         - categories    
       responses: 
         '200':
-          description:  find a category by id is ok, and return a category details.
+          description:  查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/categoryResponse'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'      
 
     patch:
-      summary: update a category in the store with from data
-      description: update a category in the store with from data.
+      summary: 修改某分类
+      description: 修改某分类
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: The add Category you want to post.
+          default: '{X-Token}'
+          description: 登录认证
           required: true  
           type: string   
         - name: categoryUpdateRequest
           in: body
-          description: The update category JSON you want to patch.
+          description: 可修改属性
           schema:
             $ref: '#/definitions/categoryUpdateRequest'
           required: true
@@ -350,84 +426,78 @@ paths:
         - categories    
       responses:
         '200':
-          description: update category is ok.
+          description: 修改成功
         default:
-          description: Unexpected error
+          description: 修改失败
           schema:
             $ref: '#/definitions/Error'  
     delete:
-      summary: delete a category by id
-      description: delete a category by id.
+      summary: 删除某分类
+      description: 删除某分类
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
         - name: X-Token
           in: header
-          default: {X-Token}
-          description: The add Category you want to post.
+          default: '{X-Token}'
+          description: 登录认证
           required: true  
           type: string
       tags:
         - categories    
       responses:
         '200':
-          description: delete a category is ok.
+          description: 删除成功
         default:
-          description: Unexpected error
+          description: 删除失败
           schema:
             $ref: '#/definitions/Error'
   /ppcategories/{id}/children:
     get:
-      summary: find a category children by id
-      description: find a category children by id.
+      summary: 查询某分类的子分类
+      description: 查询某分类的子分类
       parameters:
         - name: id
           in: path
           type: string
-          description: ID of the category
+          description: 分类ID
           required: true
           format: uuid
         - name: size
           in: query
-          description: number each page shows article data.
+          description: 每页个数(默认20)
           required: true
           type: number
         - name: page
           in: query
-          description: current page number.
+          description: 当前页
           required: false
           type: number
         - name: nextId
           in: query
-          description: "next page need the current page's last id ."
+          description: 下一页ID
           required: false
           type: string
         - name: previousId
           in: query
-          description: "category page need the current page's first id ."
+          description: 上一页ID
           required: false
           type: string
-        - name: X-Token
-          in: header
-          default: {X-Token}
-          description: The add Category you want to post.
-          required: true  
-          type: string  
       tags:
         - categories
       responses:
         '200':
-          description: category page list
+          description: 查询成功
           schema:
             type: array
             items:
               $ref: '#/definitions/categories'
         default:
-          description: Unexpected error
+          description: 查询失败
           schema:
             $ref: '#/definitions/Error'          
 definitions:
@@ -439,17 +509,17 @@ definitions:
             properties:
               href:
                 type: string
-                description: next page.
+                description: 下一页url
           self:
             properties:
               href:
                 type: string
-                description: The current page.
+                description: 当前页url
           prev:
             properties:
               href:
                 type: string
-                description: previous page.
+                description: 上一页url
       _embedded:
         properties:
           productpriceResponses:
@@ -474,28 +544,28 @@ definitions:
     properties:
       id:
         type: string
-        description: id of productprice.
+        description: id of productPrice.
       productid:
         type: string
-        description: productid of productprice.
+        description: productid of productPrice.
       productname:
         type: string
-        description: productname of productprice.
+        description: productname of productPrice.
       price:
         type: string
-        description: price of productprice.
+        description: price of productPrice.
       companyid:
         type: string
-        description: companyid of productprice.
+        description: companyid of productPrice.
       companyname:
         type: string
-        description: companyname of productprice.
+        description: companyname of productPrice.
       categroyid:
         type: string
-        description: categroyid of productprice.
+        description: categroyid of productPrice.
       categroyname:
         type: string
-        description: categroyname of productprice.
+        description: categroyname of productPrice.
       _links:
         properties:
           self:
@@ -507,47 +577,47 @@ definitions:
     properties:
       id:
         type: string
-        description: id of productprice.
+        description: id of productPrice.
       productid:
         type: string
-        description: productid of productprice.
+        description: productid of productPrice.
       productname:
         type: string
-        description: productname of productprice.
+        description: productname of productPrice.
       price:
         type: string
-        description: price of productprice.
+        description: price of productPrice.
       companyid:
         type: string
-        description: companyid of productprice.
+        description: companyid of productPrice.
       companyname:
         type: string
-        description: companyname of productprice.
+        description: companyname of productPrice.
       categroyid:
         type: string
-        description: categroyid of productprice.
+        description: categroyid of productPrice.
       categroyname:
         type: string
-        description: categroyname of productprice.
+        description: categroyname of productPrice.
   addproductprice:
     properties:
       productId:
         type: string
-        description: productId of productprice.
+        description: productId of productPrice.
       price:
         type: string
-        description: price of productprice.
+        description: price of productPrice.
       companyId:
         type: string
-        description: companyid of productprice.
+        description: companyid of productPrice.
       categroyId:
         type: string
-        description: categroyid of productprice.
+        description: categroyid of productPrice.
   updateproductprice:
     properties:
       price:
         type: string
-        description: price of productprice.
+        description: price of productPrice.
   categories:
     properties:
       _links:
