@@ -30,6 +30,11 @@ paths:
           description: 根据产品分类查询.
           required: false
           type: string
+        - name: productId
+          in: query
+          description: 根据产品Id查询.
+          required: false
+          type: string
         - name: bevel
           in: query
           default: 5
