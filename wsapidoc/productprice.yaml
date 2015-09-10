@@ -55,7 +55,7 @@ paths:
           type: string
           format: double
       tags:
-        - 多条件查询
+        - productprices
       responses:
         '201':
           description: 查询成功.
@@ -106,7 +106,7 @@ paths:
           type: string
           format: double
       tags:
-        - 多条件查询(按产品分组)
+        - productprices
       responses:
         '201':
           description: 查询成功.
@@ -136,7 +136,7 @@ paths:
           required: true
           type: string
       tags:
-        - 新增产品价格服务
+        - productprices
       responses:
         '200':
           description: 添加成功
