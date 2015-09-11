@@ -607,6 +607,9 @@ definitions:
           observableId:
             type: string
             description: 被观察者ID.
+          loginName:
+            type: string
+            description: 被观察者登录名.
           push:
             type: string
             description: push(ON or OFF).
@@ -653,11 +656,14 @@ definitions:
         channelId:
           type: string
           description: 百度通道ID.
+        deviceType:
+          type: string
+          description: 设备类型 3:android 4:ios
   addMyobservables:
     properties:
        observableId:
          type: string
-         description: 被观察者uuid。
+         description: 被观察者uuid.
        loginName:
          type: string
          description: 被观察者登录名.
