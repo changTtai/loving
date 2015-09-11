@@ -3,7 +3,7 @@ info:
   title: Company
   description: Move your app forward with the ChongHongIt ECP Company API
   version: 1.0.0
-host: '172.28.4.220:8088'
+host: '172.28.4.220:8086'
 schemes:
   - http
 basePath: /
