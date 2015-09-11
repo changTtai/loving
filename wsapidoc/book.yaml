@@ -163,6 +163,75 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /books/{bookuuid}/chapters:
+    post:
+      summary:  向某本图书添加章节.
+      description: 向某本图书添加章节.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid
+        - name: chapterAddRequest
+          in: body
+          description: 图书信息.
+          schema:
+            $ref: '#/definitions/chapterAddRequest'
+          required: true          
+      tags:
+        - 图书
+      responses:
+        '201':
+          description: 添加图书章节.  
+    get:
+      summary: 查询某本图书的所有章节信息.
+      description: 查询某本图书的所有章节信息.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          description: 图书uuid.
+          required: true
+          type: string
+          format: double      
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int
+      tags:
+        - 图书 
+      responses:
+        '200':
+          description: 查询某本图书下的所有章节信息成功.
+          schema:
+            $ref: '#/definitions/chapters'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
             
            
 definitions:
