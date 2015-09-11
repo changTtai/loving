@@ -334,6 +334,199 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
+  /books/{bookuuid}/chapters/{chapteruuid}/pages :
+    post:
+      summary:  向某本图书某章节新增页数据.
+      description: 向某本图书某章节新增页数据.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+        - name: pageAddRequest
+          in: body
+          description: 图书信息.
+          schema:
+            $ref: '#/definitions/pageAddRequest'
+          required: true          
+      tags:
+        - 图书
+      responses:
+        '201':
+          description: 添加成功.  
+    get:
+      summary: 查询某本图书某章节下所有页数据列表.
+      description: 查询某本图书某章节下所有页数据列表.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          description: 图书ID.
+          required: true
+          type: string
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pages'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
+             
+  /books/{bookuuid}/chapters/{chapteruuid}/pages/{pageno} :
+    patch:
+      summary: 修改某本图书下某章节某页的信息.    
+      description: 修改某本图书下某章节某页信息. 
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: pageUpdateRequest
+          in: body
+          description: 图书信息.
+          schema:
+            $ref: '#/definitions/pageUpdateRequest'
+          required: true
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid          
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+        - name: pageno
+          in: path
+          description: 页号.
+          required: true
+          type: string
+          format: int          
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 更新成功
+          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: 删除某本图书下某章节某页的信息.
+      description: 删除某本图书下某章节某页的信息.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+        - name: pageno
+          in: path
+          description: 页号.
+          required: true
+          type: string
+          format: int          
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 删除成功
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+    get:
+      summary: 查询某本图书某章节下某页的数据.
+      description: 查询某本图书某章节下某页的数据.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          description: 图书ID.
+          required: true
+          type: string
+          format: uuid          
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+          format: uuid          
+        - name: pageno
+          in: path
+          description: 页号.
+          required: true
+          type: string
+          format: int          
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/page'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
             
            
 definitions:
