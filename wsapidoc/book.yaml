@@ -71,7 +71,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
   /books/{bookuuid}:
     patch:
       summary: 修改某本图书信息.    
@@ -164,7 +163,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
   /books/{bookuuid}/chapters:
     post:
       summary:  向某本图书添加章节.
@@ -234,7 +232,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
   /books/{bookuuid}/chapters/{chapteruuid}:
     patch:
       summary: 修改某本图书下某章节信息.    
@@ -337,39 +334,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
-    delete:
-      summary: 删除某本图书某章节.
-      description: 删除某本图书某章节.
-      parameters:
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: bookuuid
-          in: path
-          type: string
-          description: 图书ID.
-          required: true
-          format: uuid
-        - name: chapteruuid
-          in: path
-          type: string
-          description: 章节ID.
-          required: true
-          format: uuid
-      tags:
-        - 图书
-      responses:
-        '200':
-          description: 删除成功
-        default:
-          description: unexpected error
-          schema:
-            $ref: '#/definitions/Error'
- 
   /books/{bookuuid}/chapters/{chapteruuid}/pages :
     post:
       summary:  向某本图书某章节新增页数据.
@@ -563,6 +527,7 @@ paths:
           description: 查询错误.
           schema:
             $ref: '#/definitions/Error'
+            
            
 definitions:
   books:
