@@ -334,39 +334,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
-    delete:
-      summary: 删除某本图书某章节.
-      description: 删除某本图书某章节.
-      parameters:
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: Oauth token code.
-          required: true
-          type: string
-          format: double
-        - name: bookuuid
-          in: path
-          type: string
-          description: 图书ID.
-          required: true
-          format: uuid
-        - name: chapteruuid
-          in: path
-          type: string
-          description: 章节ID.
-          required: true
-          format: uuid
-      tags:
-        - 图书
-      responses:
-        '200':
-          description: 删除成功
-        default:
-          description: unexpected error
-          schema:
-            $ref: '#/definitions/Error'
- 
             
            
 definitions:
