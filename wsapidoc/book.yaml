@@ -71,6 +71,98 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /books/{bookuuid}:
+    patch:
+      summary: 修改某本图书信息.    
+      description: 修改某本图书信息. 
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookUpdateRquest
+          in: body
+          description: 图书信息.
+          schema:
+            $ref: '#/definitions/bookUpdateRequest'
+          required: true
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid          
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 更新图书信息成功
+          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: 删除某本图书.
+      description: 删除某本图书.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书ID.
+          required: true
+          format: uuid
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 删除成功
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'            
+    get:
+      summary: 根据uuid查询书的详细信息.
+      description:
+        根据uuid查询书的详细信息.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          type: string
+          description: 图书uuid.
+          required: true
+          format: uuid
+
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 查询成功
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/book'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
             
            
 definitions:
