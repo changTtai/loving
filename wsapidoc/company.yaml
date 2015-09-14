@@ -3,7 +3,7 @@ info:
   title: Company
   description: Move your app forward with the ChongHongIt ECP Company API
   version: 1.0.0
-host: '172.28.4.220:8086'
+host: '172.28.4.220:8087'
 schemes:
   - http
 basePath: /
@@ -1407,6 +1407,9 @@ definitions:
       loginId:
         type: string
         description: 员工登陆账号.
+      loginPwd:
+        type: string
+        description: 员工密码.
       departmentCode:
         type: string
         description: 员工部门号.
