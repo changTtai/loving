@@ -12,44 +12,44 @@ produces:
 paths:
   /companies:
     get:
-      summary: 服务商列表查询
-      description: 服务商列表查询.
+      summary: Find Companies
+      description: Find Companeies.
       parameters:
         - name: previousId
           in: query
-          description: 服务商列表上一页.
+          description: previousId component of Company.
           required: false
           type: string
           format: string
         - name: nextId
           in: query
-          description: 服务商列表下一页.
+          description: nextId component of Company.
           required: false
           type: string
           format: string
         - name: page
           in: query
-          description: 查询服务商列表第几页.
+          description: page component of Company.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: 服务商列表显示记录条数.
+          description: size component of Company,is required.
           required: true
           type: number
           format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值..
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Companies
       responses:
         '200':
-          description:  请求成功 返回服务商列表
+          description: An Object and contains _links object?page object And Company array
           schema:
             $ref: '#/definitions/CompanyPageResouce'
         default:
@@ -57,18 +57,18 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     post:
-      summary: 添加一个服务商
-      description: 添加一个服务商
+      summary: Add a Company
+      description: Add a Company.
       parameters:
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string      
         - name: CompanyAddRequest
           in: body
-          description: 服务商数据
+          description: The CompanyAddRequest JSON you want to post
           schema:
             $ref: '#/definitions/CompanyAddRequest'
           required: true
@@ -85,26 +85,26 @@ paths:
             $ref: '#/definitions/Message'
   '/companies/{id}':
     get:
-      summary: 通过服务商ID查询服务商
-      description: 通过服务商ID查询服务商.
+      summary: Find a Company by id
+      description: Find a Company by id.
       parameters:
         - name: id
           in: path
-          description: 服务商ID
+          description: 'id component of Company,is required'
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Companies
       responses:
         '200':
-          description: 返回服务商详细信息
+          description: An object of companydetail
           schema:
             type: object
             items:
@@ -114,12 +114,12 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     patch:
-      summary: 更新服务商信息
-      description: 更新服务商信息
+      summary: update a company in the store with from data
+      description: update a company in the store with from data
       parameters:
         - name: id
           in: path
-          description: 服务商ID
+          description: 'id component of Company,is required.'
           required: true
           type: string
           format: string
@@ -131,7 +131,7 @@ paths:
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
@@ -144,19 +144,19 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     delete:
-      summary: 通过服务商ID删除服务商
-      description: 通过服务商ID删除服务商
+      summary: delete a company by id
+      description: delete a company by id.
       parameters:
         - name: id
           in: path
-          description: 服务商ID
+          description: id is required.
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
@@ -170,26 +170,26 @@ paths:
             $ref: '#/definitions/Message'
   /companies/company/check_company:
     get:
-      summary: 检查服务商是否存在
-      description: 检查服务商是否存在.
+      summary: check a company by createby
+      description: check a company by create user .
       parameters:
         - name: createBy
           in: query
-          description: 服务商创建人
+          description: createByis required
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Companies
       responses:
         '200':
-          description: 成功后 返回服务商详细信息
+          description: An object of companydetail
           schema:
             type: object
             items:
@@ -200,224 +200,102 @@ paths:
             $ref: '#/definitions/Message'
   '/companies/category/{uuid}':
     get:
-      summary: 通过分类ID查询服务商
-      description: 通过分类ID查询服务商.
+      summary: Find companies by category id
+      description: Find companies by category id.
       parameters:
         - name: uuid
           in: path
-          description: 分类ID.
+          description: uuid is required.
           required: true
           type: string
           format: string
         - name: previousId
           in: query
-          description: 服务商上一页ID.
+          description: previousId component of Company.
           required: false
           type: string
           format: string
         - name: nextId
           in: query
-          description: 服务商下一页ID.
+          description: nextId component of Company.
           required: false
           type: string
           format: string
         - name: page
           in: query
-          description: 查询服务商列表第几页.
+          description: page component of Company.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: 服务商列表显示记录条数.
+          description: size component of Company,is required.
           required: true
           type: number
           format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Companies
       responses:
         '200':
-          description: 成功后 返回服务商列表
+          description: An Object and contains _links object,page object And Company array
           schema:
             $ref: '#/definitions/CompanyPageResouce'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'
-
-  /companies/findcompaniesbycondition:
-    get:
-      summary: 多条件查询服务商列表
-      description: 多条件查询服务商信息.
-      parameters:
-        - name: categoryId
-          in: query
-          description:  服务商类别
-          required: false
-          type: string
-          format: string
-        - name: subCategoryId
-          in: query
-          description: 服务商子类别
-          required: false
-          type: string
-          format: string
-        - name: name
-          in: query
-          description: 服务商名称
-          required: false
-          type: string
-          format: string
-        - name: serviceStatus
-          in: query
-          description: 服务商状态
-          required: false
-          type: string
-          format: string
-        - name: groupId
-          in: query
-          description: 服务商分组ID
-          required: false
-          type: string
-          format: string
-        - name: page
-          in: query
-          description: 查询第几页
-          required: false
-          type: number
-          format: int
-        - name: size
-          in: query
-          description: 分页大小
-          required: true
-          type: number
-          format: int
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token 值
-          required: true
-          type: string
-      tags:
-        - Companies
-      responses:
-        '200':
-          description: 成功后返回服务商列表
-          schema:
-            $ref: '#/definitions/CompanyPageResouce'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'
-
-  /companies/deletecompanies:
-    post:
-      summary: 批量删除服务商
-      description: 批量删除服务商
-      parameters:
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token 值.
-          required: true
-          type: string      
-        - name: mapIds
-          in: body
-          description: 服务商IDs
-          schema:
-            $ref: '#/definitions/mapIds'
-          required: true
-      tags:
-        - Companies
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Message'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'
-
-  /companies/updatecompanystatus/{uuid}:
-    patch:
-      summary: 更新服务商状态
-      description: 更新服务商状态.
-      parameters:
-        - name: uuid
-          in: path
-          description: 服务商ID
-          required: true
-          type: string
-          format: string
-        - name: serviceStatus
-          in: query
-          description: 服务商状态
-          required: true
-          type: string
-      tags:
-        - Companies
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Message'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'          
   '/employees/bycompany/{companyId}':
     get:
-      summary: 通过服务商ID查询服务商下的员工列表
-      description: 通过服务商ID查询服务商下的员工列表.
+      summary: Find empoyees by company_id
+      description: Find empoyees by company_id.
       parameters:
         - name: companyId
           in: path
-          description: 服务商ID.
+          description: companyId is required.
           required: true
           type: string
           format: string
         - name: previousId
           in: query
-          description: 员工列表上一页ID.
+          description: previousId Component of Employee.
           required: false
           type: string
           format: string
         - name: nextId
           in: query
-          description: 员工列表下一页ID.
+          description: nextId Component of Employee.
           required: false
           type: string
           format: string
         - name: page
           in: query
-          description: 查询员工列表第几页.
+          description: page Component of Employee.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: 员工列表显示多少记录条数.
+          description: size Component of Employee,is required.
           required: true
           type: number
           format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后返回员工列表.
+          description: An Object and contains _links object,page object And Employee array
           schema:
             $ref: '#/definitions/EmployeePageResouce'
         default:
@@ -426,26 +304,26 @@ paths:
             $ref: '#/definitions/Message'
   '/employees/{id}':
     get:
-      summary: 通过员工ID查询员工信息
-      description: 通过员工ID查询员工信息.
+      summary: Find an employee by id
+      description: Find an employee by id.
       parameters:
         - name: id
           in: path
-          description: 员工ID
+          description: id is required
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后返回员工详情信息.
+          description: An object of Employee detail
           schema:
             type: object
             items:
@@ -455,32 +333,32 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     patch:
-      summary: 更新员工信息
-      description: 更新员工信息.
+      summary: Update an employee in the store with from data
+      description: Update an employee.
       parameters:
         - name: id
           in: path
-          description: 员工ID
+          description: id is required.
           required: true
           type: string
           format: string
         - name: EmployeeAddRequest
           in: body
-          description: 员工更新数据
+          description: The EmployeePatchRequest JSON you want to post
           schema:
             $ref: '#/definitions/EmployeeAddRequest'
           required: true
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后 返回 200 OK
+          description: OK
           schema:
             $ref: '#/definitions/Message'
         default:
@@ -488,70 +366,70 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     delete:
-      summary: 根据员工ID删除员工
-      description: 根据员工ID删除员工.
+      summary: Delete an Employee
+      description: Delete an Employee
       parameters:
         - name: id
           in: path
-          description: 员工ID
+          description: id is required.
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后 返回状态 200 OK.
+          description: OK
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'
   /employees:
     get:
-      summary: 查询所有员工
-      description: 查询所有员工.
+      summary: Find all emloyees
+      description: Find all emloyees.
       parameters:
         - name: previousId
           in: query
-          description:  员工列表上一页ID.
+          description: previousId component of Employee.
           required: false
           type: string
           format: string
         - name: nextId
           in: query
-          description: 员工列表下一页ID.
+          description: nextId component of Employee.
           required: false
           type: string
           format: string
         - name: page
           in: query
-          description: 查询员工列表第几页.
+          description: page component of Employee.
           required: false
           type: number
           format: int
         - name: size
           in: query
-          description: 员工列表显示多少记录条数.
+          description: size is required.
           required: true
           type: number
           format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后返回员工列表.
+          description: An Object and contains _links object,page object And Employee array
           schema:
             $ref: '#/definitions/EmployeePageResouce'
         default:
@@ -559,19 +437,19 @@ paths:
           schema:
             $ref: '#/definitions/Message'
     post:
-      summary: 添加员工
-      description: 添加员工.
+      summary: Add an emloyee
+      description: Add an emloyee.
       parameters:
         - name: EmployeeAddRequest
           in: body
-          description: 员工数据
+          description: The EmployeeAddRequest JSON you want to post
           schema:
             $ref: '#/definitions/EmployeeAddRequest'
           required: true
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
@@ -587,26 +465,26 @@ paths:
             $ref: '#/definitions/Message'
   /employees/byloginid/{loginid}:
     get:
-      summary: 通过员工登录账号查询员工信息
-      description: 通过员工登录账号查询员工信息.
+      summary: Find an employee by id
+      description: Find an employee by id.
       parameters:
         - name: loginid
           in: path
-          description: 员工登录账号
+          description: loginid is required
           required: true
           type: string
           format: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token 值.
+          description: X-Token is a request header and is required.
           required: true
           type: string
       tags:
         - Employees
       responses:
         '200':
-          description: 成功后返回员工详情.
+          description: An object of Employee detail
           schema:
             type: object
             items:
@@ -617,65 +495,65 @@ paths:
             $ref: '#/definitions/Message'
   /companycategories:
     post:
-      summary: 添加服务商分类
-      description: 添加服务商分类.
+      summary: Add a category
+      description: Add a category.
       parameters:
         - name: CategoryAddRequest
           in: body
-          description: 分类数据
+          description: The Category JSON you want to post.
           schema:
             $ref: '#/definitions/categoryAddRequest'
           required: true
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string
       tags:
         - categories    
       responses:
         '201':
-          description: 成功后返回 201 created.
+          description: Add a new Category is ok.
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'    
     get:
-      summary: 查询服务商分类列表
-      description: 查询服务商分类列表.
+      summary: Find categories
+      description: Find categories.
       parameters:
         - name: size
           in: query
-          description: 服务商分类列表显示多少记录条数.
+          description: number each page shows article data.
           required: true
           type: number
         - name: page
           in: query
-          description: 查询服务商分类列表第几页.
+          description: current page number.
           required: false
           type: number
         - name: nextId
           in: query
-          description: 查询服务商分类下一页ID.
+          description: "next page need the current page's last id ."
           required: false
           type: string
         - name: previousId
           in: query
-          description: 查询服务商分类上一页ID.
+          description: "category page need the current page's first id ."
           required: false
           type: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string  
       tags:
         - categories
       responses:
         '200':
-          description: 成功后返回服务商分类列表.
+          description: category page list
           schema:
             type: array
             items:
@@ -686,19 +564,19 @@ paths:
             $ref: '#/definitions/Message'
   /companycategories/{id}/path:
     get:
-      summary: 通过分类ID查询分类的层级信息.
-      description: 通过分类ID查询分类的层级信息.
+      summary: Find a category path by category id
+      description: Find a category path by category id.
       parameters:
         - name: id
           in: path
           type: string
-          description: 服务商分类ID
+          description: ID of the category
           required: true
           format: uuid
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string
       tags:
@@ -716,59 +594,59 @@ paths:
             $ref: '#/definitions/Message'
   /companycategories/{id}:
     post:
-      summary: 在服务商分类下添加分类子类
-      description: 在服务商分类下添加分类子类.
+      summary: Add a child category
+      description: Add a child category.
       parameters:
         - name: id
           in: path
           type: string
-          description: 分类ID.
+          description: ID of the category
           required: true
           format: uuid
         - name: CategoryAddRequest
           in: body
-          description: 分类子类数据.
+          description: The child Category JSON you want to post.
           schema:
             $ref: '#/definitions/categoryAddRequest'
           required: true
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string  
       tags:
         - categories    
       responses:
         '201':
-          description: 成功后返回201状态.
+          description: Make a new Category
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'  
     get:
-      summary: 通过服务商分类ID查询分类信息
-      description: 通过服务商分类ID查询分类信息.
+      summary: Find a category by id
+      description: Find a category by id.
       parameters:
         - name: id
           in: path
           type: string
-          description: 分类ID
+          description: ID of the category
           required: true
           format: uuid
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string
       tags:
         - categories    
       responses: 
         '200':
-          description: 成功后返回服务商分类详情.
+          description:  find a category by id is ok, and return a category details.
           schema:
-            type: object
+            type: array
             items:
               $ref: '#/definitions/categoryResponse'
         default:
@@ -777,24 +655,24 @@ paths:
             $ref: '#/definitions/Message'      
 
     patch:
-      summary: 更新服务商分类信息
-      description: 更新服务商分类信息.
+      summary: update a category in the store with from data
+      description: update a category in the store with from data.
       parameters:
         - name: id
           in: path
           type: string
-          description: 服务商分类ID.
+          description: ID of the category
           required: true
           format: uuid
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string   
         - name: categoryUpdateRequest
           in: body
-          description: 服务商分类更新数据.
+          description: The update category JSON you want to patch.
           schema:
             $ref: '#/definitions/categoryUpdateRequest'
           required: true
@@ -802,78 +680,78 @@ paths:
         - categories    
       responses:
         '200':
-          description: 成功后返回 200状态.
+          description: update category is ok.
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'  
     delete:
-      summary: 通过服务商分类ID删除分类信息
-      description: 通过服务商分类ID删除分类信息.
+      summary: delete a category by id
+      description: delete a category by id.
       parameters:
         - name: id
           in: path
           type: string
-          description: 服务商分类ID
+          description: ID of the category
           required: true
           format: uuid
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string
       tags:
         - categories    
       responses:
         '200':
-          description: 成功后返回200状态.
+          description: delete a category is ok.
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'  
   /companycategories/{id}/children:
     get:
-      summary: 通过服务商分类ID查询分类子类信息
-      description: 通过服务商分类ID查询分类子类信息.
+      summary: find a category children by id
+      description: find a category children by id.
       parameters:
         - name: id
           in: path
           type: string
-          description: 服务商分类ID.
+          description: ID of the category
           required: true
           format: uuid
         - name: size
           in: query
-          description: 查询服务商分类子列表每页显示多少记录条数.
+          description: number each page shows article data.
           required: true
           type: number
         - name: page
           in: query
-          description: 查询服务商分类子列表第几页数据.
+          description: current page number.
           required: false
           type: number
         - name: nextId
           in: query
-          description: 查询服务商分类子类下一页ID.
+          description: "next page need the current page's last id ."
           required: false
           type: string
         - name: previousId
           in: query
-          description: 查询服务商分类子类上一页ID.
+          description: "category page need the current page's first id ."
           required: false
           type: string
         - name: X-Token
           in: header
           default: '{X-Token}'
-          description: X-Token值.
+          description: The add Category you want to post.
           required: true  
           type: string  
       tags:
         - categories
       responses:
         '200':
-          description: 成功后返回服务商分类子类列表.
+          description: category page list
           schema:
             type: array
             items:
@@ -887,565 +765,511 @@ definitions:
     properties:
       _links:
         type: object
-        description: 链接信息.
+        description: Description of links
         properties:
           self:
             type: object
-            description: 自身链接.
+            description: Description of self
             properties:
               href:
                 type: string
-                description: URL链接
+                description: Description of href
       _embedded:
         type: object
-        description: 服务商列表信息.
+        description: Description of embedded
         properties:
           companyResponses:
             type: array
-            description: 服务商列表信息.
+            description: Description of companyResponses
             items:
               $ref: '#/definitions/CompanyShortInfo'
       page:
         type: object
-        description: 服务商列表分页信息.
+        description: Description of page info.
         properties:
           size:
             type: number
-            description: 服务商列表分页大小.
+            description: size component of page
           totalElements:
             type: number
-            description: 服务商总记录条数.
+            description: totalElements component of page
           totalPages:
             type: number
-            description: 服务商总分页数.
+            description: totalPages component of page
           number:
             type: number
-            description: 当前显示第几页.
+            description: number component of page
   CompanyShortInfo:
     properties:
-      uuid:
+      id:
         type: string
-        description: 服务商ID.
+        description: id component of Company
       account:
         type: string
-        description: 服务商主账号.
+        description: account component of Company
       name:
         type: string
-        description: 服务商名称.
+        description: name component of Company
       shortName:
         type: string
-        description: 服务商简称.
+        description: short_name component of Company
       address:
         type: string
-        description: 服务商地址.
+        description: address component of Company
       email:
         type: string
-        description: 服务商电子邮件地址.
-      servicePhone:
-        type: string
-        description: 服务商服务电话.
-      bossName:
-        type: string
-        description: 服务商负责人.
-      serviceStatus:
-        type: string
-        description: 服务商服务状态.
+        description: address component of Company
       _links:
         type: object
-        description: 服务商链接.
+        description: _links component of Company
         properties:
           self:
             type: object
-            description: 服务商自身详情链接.
+            description: Description of self
             properties:
               href:
                 type: string
-                description: 链接URL.
+                description: Description of href
   CompanyDetail:
     properties:
-      uuid:
+      id:
         type: string
-        description: 服务商ID
+        description: Description id of Company
       pageUrl:
         type: string
-        description: 服务商主页URL.
+        description: Description pageUrl of Company.
       account:
         type: string
-        description: 服务商主账号.
+        description: Description account of Company.
       name:
         type: string
-        description: 服务商名称.
+        description: Display name of Company.
       shortName:
         type: string
-        description: 服务商简称.
+        description: Display simple name of Company.
       companyClass:
         type: string
-        description: 服务商分类名称
+        description: Description companyClass Company.
       companySubClass:
         type: string
-        description: 服务商分类子类名称.
+        description: Description companySubClass Company.
       address:
         type: string
-        description: 服务商地址.
+        description: Description address Company.
       landlineNo:
         type: string
-        description: 服务商固定电话.
+        description: landlineNo address Company.
       faxNo:
         type: string
-        description: 服务商传真号.
+        description: faxNo address Company.
       email:
         type: string
-        description: 服务商电子邮件地址.
+        description: email address Company.
       openTime:
         type: string
-        description: 服务商营业时间（老版本）；
+        description: openTime component of Company.
       bossName:
         type: string
-        description:  服务商负责人.
+        description: bossName address of Company.
       bossPhone:
         type: string
-        description: 服务商负责人电话.
+        description: bossPhone component of Company.
       note:
         type: string
-        description: 服务商备注.
+        description: note component of  Company.
       location:
         type: object
-        description: 服务商位置信息.
+        description: _links Component of Employee
         properties:
           lat:
             type: string
-            description: 纬度值.
+            description: Description lat of location 
           lon:
             type: string
-            description: 经度值.
+            description: Description lon of location  
       isDeleted:
         type: string
-        description: 是否删除.
+        description: isDeleted component of Company.
       createdBy:
         type: string
-        description: 服务商创建人.
+        description: createdBy component of  Company.
       createdTimestamp:
         type: string
-        description: 服务商创建时间.
+        description: createdTimestamp component of Company.
       modifiedBy:
         type: string
-        description: 服务商修改人.
+        description: modifiedBy component of Company.
       modifiedTimestamp:
         type: string
-        description: 服务商修改时间.
+        description: modifiedTimestamp component of Company.
       _links:
         type: object
-        description: 服务商链接.
+        description: _links component of Company.
         properties:
           self:
             type: object
-            description: 服务商自身链接.
+            description: self component of _links.
             properties:
               href:
                 type: string
-                description: 链接URL.
+                description: href component of self.
   CompanyAddRequest:
     properties:
       account:
         type: string
-        description: 服务商主账号.
+        description: Description of Company.
       name:
         type: string
-        description: 服务商名称.
-      displayName:
+        description: Display name of Company.
+      display_name:
         type: string
-        description: 服务商简称.
-      companyClass:
+        description: Display simple name of Company.
+      company_class:
         type: string
-        description: 服务商分类名称.
-      companySubClass:
+        description: Description company_class Company.
+      company_sub_class:
         type: string
-        description: 服务商分类子类名称.
+        description: Description company_sub_class Company.
       address:
         type: string
-        description: 服务商地址.
-      landlineNo:
+        description: Description address Company.
+      landline_no:
         type: string
-        description: 服务商固定电话..
-      faxNo:
+        description: landline_no address Company.
+      fax_no:
         type: string
-        description: 服务商传真号.
+        description: fax_no address Company.
       email:
         type: string
-        description: 服务商电子邮件.
-      openTime:
+        description: email address Company.
+      open_time:
         type: string
-        description: 服务商营业时间（老版本）.
-      bossName:
+        description: open_time component of Company.
+      boss_name:
         type: string
-        description: 服务商负责人.
-      bossPhone:
+        description: boss_name address of Company.
+      boss_phone:
         type: string
-        description: 服务商负责人电话.
+        description: boss_phone component of Company.
       note:
         type: string
-        description: 服务商备注.
+        description: note component of  Company.
       location:
         type: object
-        description: 服务商位置信息.
+        description: _links Component of Employee
         properties:
           lat:
             type: string
-            description: 纬度值.
+            description: Description lat of location 
           lon:
             type: string
-            description: 经度值.
+            description: Description lon of location
       categoryId:
         type: string
-        description: 服务商分类
-      subCategoryId:
-        type: string
-        description: 服务商子分类
-      acountNo:
-        type: string
-        description: 服务商账号
-      accountPassword:
-        type: string
-        description: 服务商密码
-      servicePhone:
-        type: string
-        description: 服务商服务电话
-      description:
-        type: string
-        description: 服务商详情描述
-      serviceStatus:
-        type: string
-        description: 服务商服务状态
-      groupId:
-        type: string
-        description: 服务商分组ID
-      businessHours:
-        type: array
-        description: 服务商营业时间 格式：{'startWeek':'1','endWeek':'5','startTime':'7:30','endTime':'11:30'}
-        items:
-          $ref: '#/definitions/businessHour'
-
-  businessHour:
-    type: string
-    description:  服务商营业时间.
-
+        description: categoryId component of Company,default is Top Category.            
   CompanyUpdateRequest:
     properties:
       account:
         type: string
-        description: 服务商主账号.
+        description: Description account of Company.
+      pageUrl:
+        type: string
+        description: Description pageUrl of Company.
       name:
         type: string
-        description: 服务商名称.
-      displayName:
+        description: Display name of Company.
+      shortName:
         type: string
-        description: 服务商简称.
+        description: Display simple name of Company.
       companyClass:
         type: string
-        description: 服务商分类名称.
+        description: Description company_class Company.
       companySubClass:
         type: string
-        description: 服务商分类子类名称.
+        description: Description company_sub_class Company.
       address:
         type: string
-        description: 服务商地址.
+        description: Description address Company.
       landlineNo:
         type: string
-        description: 服务商固定电话..
+        description: landlineNo address Company.
       faxNo:
         type: string
-        description: 服务商传真号.
+        description: faxNo address Company.
       email:
         type: string
-        description: 服务商电子邮件.
+        description: email address Company.
       openTime:
         type: string
-        description: 服务商营业时间（老版本）.
+        description: openTime component of Company.
       bossName:
         type: string
-        description: 服务商负责人.
+        description: bossName address of Company.
       bossPhone:
         type: string
-        description: 服务商负责人电话.
+        description: bossPhone component of Company.
       note:
         type: string
-        description: 服务商备注.
+        description: note component of  Company.
       location:
         type: object
-        description: 服务商位置信息.
+        description: _links Component of Employee
         properties:
           lat:
             type: string
-            description: 纬度值.
+            description: Description lat of location 
           lon:
             type: string
-            description: 经度值.
+            description: Description lon of location
       categoryId:
         type: string
-        description: 服务商分类
-      subCategoryId:
-        type: string
-        description: 服务商子分类
-      acountNo:
-        type: string
-        description: 服务商账号
-      accountPassword:
-        type: string
-        description: 服务商密码
-      servicePhone:
-        type: string
-        description: 服务商服务电话
-      description:
-        type: string
-        description: 服务商详情描述
-      serviceStatus:
-        type: string
-        description: 服务商服务状态
-      groupId:
-        type: string
-        description: 服务商分组ID
-      businessHours:
-        type: array
-        description: 服务商营业时间 格式：{'startWeek':'1','endWeek':'5','startTime':'7:30','endTime':'11:30'}
-        items:
-          $ref: '#/definitions/businessHour'
+        description: categoryId component of Company,default is Top Category.
   EmployeePageResouce:
     properties:
       _links:
         type: object
-        description: 员工列表链接.
+        description: Description of links
         properties:
           self:
             type: object
-            description: 员工列表自身链接.
+            description: Description of self
             properties:
               href:
                 type: string
-                description: 链接URL.
+                description: Description of href
       _embedded:
         type: object
-        description: 员工列表信息
+        description: Description of embedded
         properties:
           companyResponses:
             type: array
-            description: 员工列表信息
+            description: Description of EmployeeResouce
             items:
               $ref: '#/definitions/EmployeeShortInfo'
       page:
         type: object
-        description: 员工列表分页信息.
+        description: Description of page info.
         properties:
           size:
             type: number
-            description: 员工列表分页大小.
+            description: size Employee of page
           totalElements:
             type: number
-            description: 员工总共记录条数.
+            description: totalElements component of page
           totalPages:
             type: number
-            description: 员工总共分页数.
+            description: totalPages component of page
           number:
             type: number
-            description: 当前显示第几页.
+            description: number component of page
   EmployeeShortInfo:
     properties:
-      uuid:
+      id:
         type: string
-        description: 员工ID
+        description: id Component of Employee
       loginId:
         type: string
-        description: 员工登陆账号.
+        description: loginId Component of Employee
       name:
         type: string
-        description: 员工名称.
+        description: name Component of Employee
       title:
         type: string
-        description: 员工职位.
+        description: title Component of Employee
       departmentCode:
         type: string
-        description: 员工所属部门.
+        description: departmentCode Component of Employee
       landlineNo:
         type: string
-        description: 员工固定电话.
+        description: landlineNo Component of Employee
       faxNo:
         type: string
-        description: 员工传真号.
+        description: faxNo Component of Employee
       mobileNo:
         type: string
-        description: 员工手机号.
+        description: mobileNo Component of Employee
       email:
         type: string
-        description: 员工电子邮件地址.
+        description: email Component of Employee
       _links:
         type: object
-        description: 员工链接信息.
+        description: _links Component of Employee
         properties:
           self:
             type: object
-            description: 员工自身链接.
+            description: Description of self
             properties:
               href:
                 type: string
-                description: 链接URL.
+                description: Description of href
   EmployeeDetail:
     properties:
-      uuid:
+      id:
         type: string
-        description: 员工ID.
+        description: id Component of Employee
       identification:
         type: string
-        description: 员工身份证号.
+        description: identification  Component of Employee.
+      defaultpsd:
+        type: string
+        description: defaultpsd Component of Employee.
       status:
         type: number
-        description: 员工状态.
+        description: status Component of Employee.
       name:
         type: string
-        description: 员工名称.
+        description: name Component of Employee.
       age:
         type: number
-        description: 员工年龄.
+        description: age Component of Employee.
       level:
         type: number
-        description: 员工级别.
+        description: level Component of Employee.
       description:
         type: string
-        description: 员工描述.
+        description: of Component Employee.
       companyId:
         type: string
-        description: 员工所属服务商的ID
+        description: companyId Component of Employee.
       loginId:
         type: string
-        description: 员工登陆账号.
+        description: gender of Component Employee.
       departmentCode:
         type: string
-        description: 员工部门号.
+        description: departmentCode Component of Employee.
       title:
         type: string
-        description: 员工职位名称.
+        description: title Component of Employee.
       credit:
         type: string
-        description: 员工信用值.
+        description: credit Component Component Component Component Component of Employee.
       homeAddress:
         type: string
-        description: 员工家庭住址..
+        description: homeAddress Component Component Component Component of Employee.
       landlineNo:
         type: string
-        description: 员工固定电话.
+        description: landlineNo Component Component Component of Employee.
       faxNo:
         type: string
-        description: 员工传真号.
+        description: faxNo Component Component of Employee.
       mobileNo:
         type: string
-        description: 员工手机号.
+        description: mobileNo Component of Employee.
       email:
         type: string
-        description: 员工电子邮件.
+        description: email Component Component Component Component of Employee.
       isAdmin:
         type: string
-        description: 是否管理员.
+        description: isAdmin Component Component Component of Employee.
       profileUrl:
         type: string
-        description: 员工profileUrl地址.
+        description: profileUrl Component Component of Employee.
       marketingUrl:
         type: string
-        description: 员工marketingUrl地址.
+        description: marketingUrl Component of Employee.
       feedbackUrl:
         type: string
-        description: 员工feedbackUrl地址.
+        description: feedbackUrl Component Component Component of Employee.
       supportInfo:
         type: string
-        description: 员工supportInfo.
+        description: supportInfo Component Component of Employee.
       createdBy:
         type: number
-        description: 员工创建人.
+        description: createdBy Component of Employee.
       createdTimestamp:
         type: string
-        description: 员工创建时间.
+        description: createdTimestamp Component Component Component Component of Employee.
       modifiedBy:
         type: number
-        description: 员工修改人.
+        description: modifiedBy Component Component Component of Employee.
       modifiedTimestamp:
         type: string
-        description: 员工修改时间.
+        description: modifiedTimestamp Component Component of Employee.
       isdeleted:
         type: number
-        description: 是否删除.
+        description: isdeleted Component of Employee.
       _links:
         type: object
-        description: 员工链接信息.
+        description: _links component of Employee.
         properties:
           self:
             type: object
-            description: 员工自身链接信息.
+            description: self component of _links.
             properties:
               href:
                 type: string
-                description: 链接URL.
+                description: href component of self.
   EmployeeAddRequest:
     properties:
       identification:
         type: string
-        description: 员工身份证号.
+        description: identification  Component of Employee.
+      defaultpsd:
+        type: string
+        description: defaultpsd Component of Employee.
       status:
         type: number
-        description: 员工状态.
+        description: status Component of Employee.
       name:
         type: string
-        description: 员工名称.
+        description: name Component of Employee.
       age:
         type: number
-        description: 员工年龄.
+        description: age Component of Employee.
       level:
         type: number
-        description: 员工级别.
+        description: level Component of Employee.
       description:
         type: string
-        description: 员工描述.
+        description: description of Component Employee.
       companyId:
         type: string
-        description: 员工所属服务商的ID
+        description: companyId of Component Employee.
       loginId:
         type: string
-        description: 员工登陆账号.
+        description: gender of Component Employee.
+      loginPwd:
+        type: string
+        description: loginPwd of Component Employee.
       departmentCode:
         type: string
-        description: 员工部门号.
+        description: departmentCode Component of Employee.
       title:
         type: string
-        description: 员工职位名称.
+        description: title Component of Employee.
       credit:
         type: string
-        description: 员工信用值.
+        description: credit Component Component Component Component Component of Employee.
       homeAddress:
         type: string
-        description: 员工家庭住址..
+        description: homeAddress Component Component Component Component of Employee.
       landlineNo:
         type: string
-        description: 员工固定电话.
+        description: landlineNo Component Component Component of Employee.
       faxNo:
         type: string
-        description: 员工传真号.
+        description: faxNo Component Component of Employee.
       mobileNo:
         type: string
-        description: 员工手机号.
+        description: mobileNo Component of Employee.
       email:
         type: string
-        description: 员工电子邮件.
+        description: email Component Component Component Component of Employee.
       isAdmin:
         type: string
-        description: 是否管理员.
+        description: isAdmin Component Component Component of Employee.
       profileUrl:
         type: string
-        description: 员工profileUrl地址.
+        description: profileUrl Component Component of Employee.
       marketingUrl:
         type: string
-        description: 员工marketingUrl地址.
+        description: marketingUrl Component of Employee.
       feedbackUrl:
         type: string
-        description: 员工feedbackUrl地址.
+        description: feedbackUrl Component Component Component of Employee.
       supportInfo:
         type: string
-        description: 员工supportInfo.
+        description: supportInfo Component Component of Employee.
   categories:
     properties:
       _links:
@@ -1454,17 +1278,17 @@ definitions:
             properties:
               href:
                 type: string
-                description: 分类列表下一页URL.
+                description: next page url.
           self:
             properties:
               href:
                 type: string
-                description: 分类列表当前页URL.
+                description: current page url.
           prev:
             properties:
               href:
                 type: string
-                description: 分类列表上一页URL.
+                description: previous page url.
       _embedded:
         properties:
           categoryResponses:
@@ -1472,95 +1296,90 @@ definitions:
             items:
               $ref: '#/definitions/category'
       page:
-        description: 分类列表分页信息.
         properties:
           size:
             type: string
-            description: 分页大小
+            description: page size
           totalElements:
             type: string
-            description: 分类总共记录条数.
+            description: data totalElements
           totalPages:
             type: string
-            description: 分类总共页数.
+            description: page totalPages
           number:
             type: string
-            description: 当前第几页.
+            description: page number
   categoryResponse:
     properties:
-      uuid:
+      id:
         type: string
-        description: 分类ID
+        description: id of product.
       name:
         type: string
-        description: 分类名称.
+        description: name of product.
       createTime:
         type: string
-        description: 分类创建时间.
+        description: createTime of category.
+      companyId:
+        type: string
+        description: companyId of category.
       description:
         type: string
-        description: 分类描述.
+        description: description of category.
       _links:
         properties:
           self:
             properties:
               href:
                 type: string
-                description: 分类自身链接URL.
+                description: current detail url.
           parent:
            properties:
               href:
                 type: string
-                description: 分类父分类链接URL.
+                description: Category parent detail url.
           children:
            properties:
               href:
                 type: string
-                description: 分类子分类链接URL.
+                description: Category children detail url.
   category:
     properties:
-      uuid:
+      id:
         type: string
-        description: 分类ID
+        description: id of category.
       name:
         type: string
-        description: 分类名称.
+        description: name of category.
       createTime:
         type: string
-        description: 分类创建时间.
+        description: createTime of category.
       description:
         type: string
-        description: 分类描述.
+        description: description of category.
       _links:
         properties:
           self:
            properties:
               href:
                 type: string
-                description: 分类自身链接.
+                description: current detail url.
   categoryAddRequest:
     properties:
       name:
         type: string
-        description: 分类名称.
+        description: name of category.
       description:
         type: string
-        description: 分类描述.
+        description: description of category.
   categoryUpdateRequest:
     properties:
       name:
         type: string
-        description: 分类名称.
+        description: name of category.
       description:
         type: string
-        description: 分类描述.
-  mapIds:
-        type: array
-        items:
-          $ref: '#/definitions/mapId'
-  mapId:
-    type: string
-    description:  服务商ID.
+        description: description of category.      
   Message:
     properties:
       Head:
