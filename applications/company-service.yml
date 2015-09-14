@@ -126,16 +126,53 @@ cassandra:
   port: 9042
   keyspace: pois_qa
 
-checkToken:
-  endpoint: http://120.24.169.69:8087/security/oauth/check_token?token=%s
-companydetail:
-  points: http://120.24.169.69:8087/companies/{uuid}
-
-loginOauth2:
-  endpoint: http://120.24.169.69:8087/security/oauth/accesstoken
-  
 endpoints:
   health:
     id: health
     sensitive: false
     enabled: true
+
+elasticsearch:
+  clusterName: changhongit_dev
+  host: 10.9.42.203
+  port: 9300
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+
+#kafka
+zookeeper:
+  connect: 10.9.42.203:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+group:
+  id: changhongit-company-es-group-dev
+
+auto:
+  commit:
+    nterval:
+      ms: 1000
+  offset:
+    reset: smallest
+
+kafka:
+  topic: COMPANY-INFO
+
+checkToken:
+  endpoint: http://120.24.169.69:8087/security/oauth/check_token?token=%s
+
+userRegister:
+  endpoint: http://120.24.169.69:8087/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://120.24.169.69:8087/security/users/password.update
+  
+loginOauth2:
+  endpoint: http://120.24.169.69:8087/security/oauth/accesstoken
