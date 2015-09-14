@@ -1,4 +1,4 @@
-swagger: '2.0'
+﻿swagger: '2.0'
 info:
   title: Company
   description: Move your app forward with the ChongHongIt ECP Company API
