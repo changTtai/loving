@@ -92,9 +92,13 @@ cassandra:
 
 checkToken:
   endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+  
 companydetail:
   points: http://172.28.4.220:8087/companies/{uuid}
 
+userRegister:
+  endpoint: http://172.28.4.220:8087/security/guanhutong3g/register
+  
 loginOauth2:
   endpoint: http://172.28.4.220:8087/security/oauth/accesstoken
   
