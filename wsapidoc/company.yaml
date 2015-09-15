@@ -468,7 +468,7 @@ paths:
           in: body
           description: 员工更新数据
           schema:
-            $ref: '#/definitions/EmployeeAddRequest'
+            $ref: '#/definitions/EmployeeUpdateRequest'
           required: true
         - name: X-Token
           in: header
@@ -1449,6 +1449,68 @@ definitions:
       supportInfo:
         type: string
         description: 员工supportInfo.
+  EmployeeUpdateRequest:
+    properties:
+      identification:
+        type: string
+        description: 员工身份证号.
+      status:
+        type: number
+        description: 员工状态.
+      name:
+        type: string
+        description: 员工名称.
+      age:
+        type: number
+        description: 员工年龄.
+      level:
+        type: number
+        description: 员工级别.
+      description:
+        type: string
+        description: 员工描述.
+      loginPwd:
+        type: string
+        description: 员工密码.
+      departmentCode:
+        type: string
+        description: 员工部门号.
+      title:
+        type: string
+        description: 员工职位名称.
+      credit:
+        type: string
+        description: 员工信用值.
+      homeAddress:
+        type: string
+        description: 员工家庭住址..
+      landlineNo:
+        type: string
+        description: 员工固定电话.
+      faxNo:
+        type: string
+        description: 员工传真号.
+      mobileNo:
+        type: string
+        description: 员工手机号.
+      email:
+        type: string
+        description: 员工电子邮件.
+      isAdmin:
+        type: string
+        description: 是否管理员.
+      profileUrl:
+        type: string
+        description: 员工profileUrl地址.
+      marketingUrl:
+        type: string
+        description: 员工marketingUrl地址.
+      feedbackUrl:
+        type: string
+        description: 员工feedbackUrl地址.
+      supportInfo:
+        type: string
+        description: 员工supportInfo.      
   categories:
     properties:
       _links:
