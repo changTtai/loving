@@ -115,6 +115,8 @@ spring:
   
 eureka:
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://103.245.128.220:8087/discovery/eureka/
   instance:
