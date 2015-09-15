@@ -1417,7 +1417,7 @@ definitions:
         type: string
         description: 员工职位名称.
       credit:
-        type: string
+        type: number
         description: 员工信用值.
       homeAddress:
         type: string
@@ -1479,7 +1479,7 @@ definitions:
         type: string
         description: 员工职位名称.
       credit:
-        type: string
+        type: number
         description: 员工信用值.
       homeAddress:
         type: string
