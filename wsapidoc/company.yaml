@@ -1270,6 +1270,75 @@ definitions:
       supportInfo:
         type: string
         description: supportInfo Component Component of Employee.
+
+  EmployeeUpdateRequest:
+    properties:
+      identification:
+        type: string
+        description: identification  Component of Employee.
+      defaultpsd:
+        type: string
+        description: defaultpsd Component of Employee.
+      status:
+        type: number
+        description: status Component of Employee.
+      name:
+        type: string
+        description: name Component of Employee.
+      age:
+        type: number
+        description: age Component of Employee.
+      level:
+        type: number
+        description: level Component of Employee.
+      description:
+        type: string
+        description: description of Component Employee.
+      loginId:
+        type: string
+        description: gender of Component Employee.
+      loginPwd:
+        type: string
+        description: loginPwd of Component Employee.
+      departmentCode:
+        type: string
+        description: departmentCode Component of Employee.
+      title:
+        type: string
+        description: title Component of Employee.
+      credit:
+        type: string
+        description: credit Component Component Component Component Component of Employee.
+      homeAddress:
+        type: string
+        description: homeAddress Component Component Component Component of Employee.
+      landlineNo:
+        type: string
+        description: landlineNo Component Component Component of Employee.
+      faxNo:
+        type: string
+        description: faxNo Component Component of Employee.
+      mobileNo:
+        type: string
+        description: mobileNo Component of Employee.
+      email:
+        type: string
+        description: email Component Component Component Component of Employee.
+      isAdmin:
+        type: string
+        description: isAdmin Component Component Component of Employee.
+      profileUrl:
+        type: string
+        description: profileUrl Component Component of Employee.
+      marketingUrl:
+        type: string
+        description: marketingUrl Component of Employee.
+      feedbackUrl:
+        type: string
+        description: feedbackUrl Component Component Component of Employee.
+      supportInfo:
+        type: string
+        description: supportInfo Component Component of Employee.
   categories:
     properties:
       _links:
