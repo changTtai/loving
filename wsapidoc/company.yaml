@@ -1294,9 +1294,6 @@ definitions:
       description:
         type: string
         description: description of Component Employee.
-      loginId:
-        type: string
-        description: gender of Component Employee.
       loginPwd:
         type: string
         description: loginPwd of Component Employee.
