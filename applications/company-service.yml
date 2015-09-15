@@ -137,9 +137,9 @@ endpoints:
     enabled: true
 
 elasticsearch:
-  clusterName: changhongit_dev
-  host: 10.9.42.203
-  port: 9300
+  clusterName: changhongit_qa
+  host: 103.245.128.220
+  port: 9301
   sniff: true
   ignore_cluster_name: false
   ping_timeout: 20s
@@ -148,7 +148,7 @@ elasticsearch:
 
 #kafka
 zookeeper:
-  connect: 10.9.42.203:2181
+  connect: 103.245.128.220:2181
   session:
     timeout:
       ms: 14000
@@ -157,7 +157,7 @@ zookeeper:
       ms: 200
 
 group:
-  id: changhongit-company-es-group-dev
+  id: changhongit-company-es-group-qa
 
 auto:
   commit:
