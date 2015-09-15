@@ -464,7 +464,7 @@ paths:
           required: true
           type: string
           format: string
-        - name: EmployeeAddRequest
+        - name: EmployeeUpdateRequest
           in: body
           description: 员工更新数据
           schema:
