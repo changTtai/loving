@@ -116,7 +116,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://103.245.128.220:8087/eureka/
+      defaultZone: http://103.245.128.220:8087/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
