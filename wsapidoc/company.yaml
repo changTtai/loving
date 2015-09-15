@@ -346,7 +346,7 @@ paths:
           in: body
           description: The EmployeePatchRequest JSON you want to post
           schema:
-            $ref: '#/definitions/EmployeeAddRequest'
+            $ref: '#/definitions/EmployeeUpdateRequest'
           required: true
         - name: X-Token
           in: header
