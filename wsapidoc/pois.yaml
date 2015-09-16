@@ -97,7 +97,7 @@ paths:
           in: body
           description: need to save object
           schema:
-            $ref: '#/definitions/savePoi'
+            $ref: '#/definitions/poiAddRequest'
           required: true
       responses:
         '201':
@@ -124,7 +124,7 @@ paths:
           in: body
           description: need to save object
           schema:
-            $ref: '#/definitions/poi'
+            $ref: '#/definitions/poiUpsertRequest'
           required: true
       responses:
         '201':
@@ -230,7 +230,7 @@ paths:
           in: body
           description: The pet JSON you want to post
           schema:
-            $ref: '#/definitions/savePoi'
+            $ref: '#/definitions/poiUpdateRequest'
           required: true
       responses:
         '200':
@@ -725,9 +725,11 @@ definitions:
           landGreenRatio:
             type: string
             description: landGreenRatio of poi.
-  
-  savePoi:
+  poiUpsertRequest:
     properties:
+      uuid:
+        type: string
+        description: uuid of poi.
       companyId:
         type: string
         description: companyId of poi.
@@ -740,6 +742,170 @@ definitions:
       lastUpdateDate:
         type: string
         description: lastUpdateDate of poi.
+      lon:
+        type: string
+        description: longitude of poi.
+      lat:
+        type: string
+        description: latitude of poi.
+      description:
+        type: string
+        description: description of poi.
+      typeCd:
+        type: string
+        description: typeCode of poi.
+      typeDesc:
+        type: string
+        description: typeDesc of poi.
+      categoryCd:
+        type: string
+        description: categoryCd of poi.
+      subCategoryCd:
+        type: string
+        description: subCategoryCd of poi.
+      pageUrl:
+        type: string
+        description: pageUrl of poi.
+      detail:
+        properties:
+          shortDesc:
+            type: string
+            description: shortDesc of poi.
+          statusCd:
+            type: string
+            description: statusCdof poi.
+          statusDesc:
+            type: string
+            description: statusDesc of poi
+          address:
+            type: string
+            description: address of poi.
+          length:
+            type: string
+            description: length of poi.
+          width:
+            type: string
+            description: width of poi.
+          areaSqm:
+            type: string
+            description: areaSqm of poi.
+          areaMu:
+            type: string
+            description: areaMu of poi.
+          areaHectare:
+            type: string
+            description: areaMu of poi.
+          capacity:
+            type: string
+            description: capacity  of poi.
+          thumbnailUrl:
+            type: string
+            description: thumbnailUrl of poi.
+          landVolumeRatio:
+            type: string
+            description: landVolumeRatio of poi.
+          landBuildingScale:
+            type: string
+            description: landBuildingScale of poi.
+          landBuildingDensity:
+            type: string
+            description: landBuildingDensity of poi.
+          landHighLimit:
+            type: string
+            description: landHighLimit of poi.
+          landGreenRatio:
+            type: string
+            description: landGreenRatio of poi. 
+  poiAddRequest:
+    properties:
+      companyId:
+        type: string
+        description: companyId of poi.
+      name:
+        type: string
+        description: name of poi.
+      lon:
+        type: string
+        description: longitude of poi.
+      lat:
+        type: string
+        description: latitude of poi.
+      description:
+        type: string
+        description: description of poi.
+      typeCd:
+        type: string
+        description: typeCode of poi.
+      typeDesc:
+        type: string
+        description: typeDesc of poi.
+      categoryCd:
+        type: string
+        description: categoryCd of poi.
+      subCategoryCd:
+        type: string
+        description: subCategoryCd of poi.
+      pageUrl:
+        type: string
+        description: pageUrl of poi.
+      detail:
+        properties:
+          shortDesc:
+            type: string
+            description: shortDesc of poi.
+          statusCd:
+            type: string
+            description: statusCdof poi.
+          statusDesc:
+            type: string
+            description: statusDesc of poi
+          address:
+            type: string
+            description: address of poi.
+          length:
+            type: string
+            description: length of poi.
+          width:
+            type: string
+            description: width of poi.
+          areaSqm:
+            type: string
+            description: areaSqm of poi.
+          areaMu:
+            type: string
+            description: areaMu of poi.
+          areaHectare:
+            type: string
+            description: areaMu of poi.
+          capacity:
+            type: string
+            description: capacity  of poi.
+          thumbnailUrl:
+            type: string
+            description: thumbnailUrl of poi.
+          landVolumeRatio:
+            type: string
+            description: landVolumeRatio of poi.
+          landBuildingScale:
+            type: string
+            description: landBuildingScale of poi.
+          landBuildingDensity:
+            type: string
+            description: landBuildingDensity of poi.
+          landHighLimit:
+            type: string
+            description: landHighLimit of poi.
+          landGreenRatio:
+            type: string
+            description: landGreenRatio of poi.
+  poiUpdateRequest:
+    properties:
+      companyId:
+        type: string
+        description: companyId of poi.
+      name:
+        type: string
+        description: name of poi.
       lon:
         type: string
         description: longitude of poi.
