@@ -93,9 +93,9 @@ paths:
           required: true
           type: string
           format: double
-        - name: pois
+        - name: poiAddRequest
           in: body
-          description: need to save object
+          description: 新增poi信息
           schema:
             $ref: '#/definitions/poiAddRequest'
           required: true
@@ -120,9 +120,9 @@ paths:
           required: true
           type: string
           format: double
-        - name: pois
+        - name: poiUpsertRequest
           in: body
-          description: need to save object
+          description: 新增或修改poi信息
           schema:
             $ref: '#/definitions/poiUpsertRequest'
           required: true
@@ -175,7 +175,7 @@ paths:
           format: int
       responses:
         '200':
-          description: pois information
+          description: 查询成功
           schema:
             $ref: '#/definitions/pois'
         default:
@@ -203,7 +203,7 @@ paths:
           type: string
       responses:
         '200':
-          description: success to delete poi by id
+          description: 删除成功
         default:
           description: Unexpected error
           schema:
@@ -226,9 +226,9 @@ paths:
           description: uuid of poi.
           required: true
           type: string
-        - name: pois
+        - name: poiUpdateRequest
           in: body
-          description: The pet JSON you want to post
+          description: 修改poi信息
           schema:
             $ref: '#/definitions/poiUpdateRequest'
           required: true
