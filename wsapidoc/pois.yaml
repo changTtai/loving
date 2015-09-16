@@ -47,11 +47,6 @@ paths:
           required: true
           type: string
           format: double
-        - name: type_code
-          in: query
-          description: type code.
-          required: false
-          type: string
         - name: previousId
           in: query
           description: query previous page.
