@@ -107,7 +107,7 @@ paths:
       tags:
         - Pois
       summary: 新增或修改poi信息.
-      description: 如果未传uuid参数，则新增一条poi信息；如果传递了uuid参数，且改uuid在poi表中已存在则修改该poi信息，否则新增一条poi信息.
+      description: 如果未传uuid参数，则新增一条poi信息；如果传递了uuid参数，且该uuid在poi表中已存在则修改该poi信息，否则新增一条poi信息.
       consumes:
       - application/vnd.jiahua.commands.upsert+json 
       produces:
