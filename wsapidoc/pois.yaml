@@ -28,17 +28,17 @@ paths:
         - home
       responses:
         '200':
-          description: home information
+          description: 查询成功
           schema:
             $ref: '#/definitions/home'
         default:
-          description: Unexpected error
+          description: 查询出错
           schema:
             $ref: '#/definitions/Error'
   /pois:
     get:
-      summary: find pois information.
-      description: find pois information.
+      summary: 查询poi列表信息.
+      description: 查询poi列表信息.
       parameters:
         - name: X-Token
           in: header
@@ -73,18 +73,18 @@ paths:
         - Pois
       responses:
         '200':
-          description: pois information
+          description: 查询成功
           schema:
             $ref: '#/definitions/pois'
         default:
-          description: Unexpected error
+          description: 查询出错
           schema:
             $ref: '#/definitions/Error'
     post:
       tags:
         - Pois
-      summary: add a new poi.
-      description: add a new poi.
+      summary: 新增poi信息.
+      description: 新增poi信息.
       parameters:
         - name: X-Token
           in: header
@@ -101,13 +101,13 @@ paths:
           required: true
       responses:
         '201':
-          description: return stats code after success to create a poi.
+          description: 新增成功.
   /pois/upsert:
     post:
       tags:
         - Pois
-      summary: add a new poi or update an existing  poi.
-      description: add a new poi or update an existing  poi.
+      summary: 新增或修改poi信息.
+      description: 如果未传uuid参数，则新增一条poi信息；如果传递了uuid参数，且改uuid在poi表中已存在则修改该poi信息，否则新增一条poi信息.
       consumes:
       - application/vnd.jiahua.commands.upsert+json 
       produces:
@@ -128,16 +128,16 @@ paths:
           required: true
       responses:
         '201':
-          description:  return stats code '201' if create a new poi. 
+          description:  新增成功. 
         '200':
-          description: return stats code '200' if update an existing poi.
+          description: 修改成功.
           
   /pois/ByCompany/{comapnyId}:
     get:
       tags:
         - Pois
-      summary: find pois by companyId.
-      description: find pois by companyId.
+      summary: 查询某服务机构所有的poi信息.
+      description: 查询某服务机构所有的poi信息.
       parameters:
         - name: X-Token
           in: header
@@ -186,8 +186,8 @@ paths:
     delete:
       tags:
         - Pois
-      summary: delete poi by uuid.
-      description: delete poi by uuid.
+      summary: 删除某个poi信息.
+      description: 删除某个poi信息.
       parameters:
         - name: X-Token
           in: header
@@ -211,8 +211,8 @@ paths:
     patch:
       tags:
         - Pois
-      summary: update an existing poi.
-      description: update an existing poi.
+      summary: 修改poi信息.
+      description: 修改poi信息.
       parameters:
         - name: X-Token
           in: header
@@ -234,12 +234,12 @@ paths:
           required: true
       responses:
         '200':
-          description: success to update poi
+          description: 修改成功.
     get:
       tags:
         - Pois
-      summary: find a poi information by uuid.
-      description: find a poi information by uuid.
+      summary: 查询单个poi信息.
+      description: 查询单个poi信息.
       parameters:
         - name: X-Token
           in: header
@@ -256,7 +256,7 @@ paths:
       # Expected responses for this operation:
       responses:
         '200':
-          description: poi information
+          description: 查询成功.
           schema:
             $ref: '#/definitions/poi'
         default:
