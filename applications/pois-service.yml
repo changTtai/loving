@@ -1,0 +1,250 @@
+spring:
+  profiles: dev
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.pois.service
+
+server:
+  port: 29262
+
+cassandra:
+  contactpoints: 10.9.42.203
+  port: 9042
+  keyspace: pois_dev
+
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+elasticsearch:
+  clusterName: changhongit_dev
+  host: 10.9.42.203
+  port: 9300
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+
+zookeeper:
+  connect: 10.9.42.203:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+group:
+  id: changhongit-book-es-group-dev
+
+auto:
+  commit:
+    nterval:
+      ms: 1000
+  offset:
+    reset: smallest
+
+kafka:
+  topic: POIS-INFO  
+  
+companyServer:
+	address: http://10.9.42.203:8087/companies
+
+checkToken:
+  endpoint: http://10.9.42.203:8086/security/oauth/check_token?token=%s
+  
+employeeServer:
+	address: http://10.9.42.203:8087/employees/byloginid
+
+chitpois:
+	address: http://10.9.42.203:8087/chitpois/poi
+	
+userRegister:
+  endpoint: http://10.9.42.203:8086/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://10.9.42.203:8086/security/users/password.update
+  
+loginOauth2:
+  endpoint: http://10.9.42.203:8086/security/oauth/accesstoken
+
+mail:
+	from: 3245335402@qq.com  
+	host: smtp.qq.com
+	username: 3245335402   
+	password: changhongit2014 
+	defaultEncoding: UTF-8	 
+	smtp:
+		auth: true  
+		timeout: 25000  
+	transport:
+		protocol: smtp
+
+---
+
+spring:
+  profiles: qa
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://172.28.4.220:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.pois.service
+
+server:
+  port: 19215
+
+cassandra:
+  contactpoints: 172.28.4.220
+  port: 9042
+  keyspace: pois_qa
+
+
+elasticsearch:
+  clusterName: changhongit_qa
+  host: 10.9.42.203
+  port: 9301
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+#kafka
+zookeeper:
+  connect: 10.9.42.203:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+group:
+  id: changhongit-book-es-group-qa
+
+auto:
+  commit:
+    nterval:
+      ms: 1000
+  offset:
+    reset: smallest
+
+kafka:
+  topic: POIS-INFO
+
+
+companyServer:
+	address: http://172.28.4.220:8087/companies
+
+checkToken:
+  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+  
+employeeServer:
+	address: http://172.28.4.220:8087/employees/byloginid
+
+chitpois:
+	address: http://172.28.4.220:8087/chitpois/poi
+	
+userRegister:
+  endpoint: http://172.28.4.220:8087/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://172.28.4.220:8087/security/users/password.update
+  
+loginOauth2:
+  endpoint: http://172.28.4.220:8087/security/oauth/accesstoken
+
+  
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+mail:
+	from: 3245335402@qq.com  
+	host: smtp.qq.com
+	username: 3245335402   
+	password: changhongit2014 
+	defaultEncoding: UTF-8	 
+	smtp:
+		auth: true  
+		timeout: 25000  
+	transport:
+		protocol: smtp
+
+   
+---
+
+spring:
+  profiles: product
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://103.245.128.220:8087/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.pois.service
+
+server:
+  port: 39002
+
+cassandra:
+  contactpoints: 120.24.169.69
+  port: 9042
+  keyspace: pois_qa
+
+companyServer:
+	address: http://120.24.169.69:8087/companies
+
+checkToken:
+  endpoint: http://120.24.169.69:8087/security/oauth/check_token?token=%s
+  
+employeeServer:
+	address: http://120.24.169.69:8087/employees/byloginid
+
+chitpois:
+	address: http://120.24.169.69:8087/chitpois/poi
+	
+userRegister:
+  endpoint: http://120.24.169.69:8087/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://120.24.169.69:8087/security/users/password.update
+  
+loginOauth2:
+  endpoint: http://120.24.169.69:8087/security/oauth/accesstoken
+  
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+mail:
+	from: 3245335402@qq.com  
+	host: smtp.qq.com
+	username: 3245335402   
+	password: changhongit2014 
+	defaultEncoding: UTF-8	 
+	smtp:
+		auth: true  
+		timeout: 25000  
+	transport:
+		protocol: smtp
