@@ -1,7 +1,6 @@
 spring:
   profiles: dev
-server:
-	context-path: /bookserver
+
 eureka:
   client:
     serviceUrl:
@@ -62,6 +61,9 @@ checkToken:
 
 userRegister:
   endpoint: http://10.9.42.203:8086/security/guanhutong3g/register
+
+oauth2:
+  updatepassword: http://10.9.42.203:8086/security/users/password.update
   
 loginOauth2:
   endpoint: http://10.9.42.203:8086/security/oauth/accesstoken
@@ -70,15 +72,17 @@ loginOauth2:
 
 spring:
   profiles: qa
-  
+
 eureka:
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: http://172.28.4.220:8087/eureka/
+      defaultZone: http://172.28.4.220:8087/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.book.service
+      virtual-host-name: loving.company.service
 
 server:
   port: 19302
@@ -87,6 +91,39 @@ cassandra:
   contactpoints: 172.28.4.220
   port: 9042
   keyspace: pois_qa
+
+
+elasticsearch:
+  clusterName: changhongit_qa
+  host: 10.9.42.203
+  port: 9301
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+#kafka
+zookeeper:
+  connect: 10.9.42.203:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+group:
+  id: changhongit-book-es-group-qa
+
+auto:
+  commit:
+    nterval:
+      ms: 1000
+  offset:
+    reset: smallest
+
+kafka:
+  topic: BOOK-INFO
 
 checkToken:
   endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
