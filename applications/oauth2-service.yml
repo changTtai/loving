@@ -44,7 +44,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.24.32:8087/discovery/eureka/
+      defaultZone: http://103.245.129.20:8087/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -59,56 +59,19 @@ cassandra:
 
 code:
   endpoint:
-    http://172.28.24.32:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
+    http://103.245.129.20:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
 token:
   endpoint:
-    http://172.28.24.32:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
+    http://103.245.129.20:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
 checkToken:
   endpoint:
-    http://172.28.24.32:8087/security/oauth/check_token?token=%s
+    http://103.245.129.20:8087/security/oauth/check_token?token=%s
 register:
   guanhutong:
-    http://172.28.24.32:8087/guanhutong3g/register#/register
+    http://103.245.129.20:8087/guanhutong3g/register#/register
 
 quickAccessToken:
   auth:
     Basic YW5kcm9pZEFwcDphbmRyb2lkQXBw
 
----
-spring:
-  profiles: test
-  thymeleaf:
-    cache: false
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://10.9.42.203:8087/discovery/eureka/
-  instance:
-    metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.oauth2.service
-server:
-  port: 8080
-  context-path: /security
-cassandra:
-  contactpoints: 172.28.4.220
-  port: 9042
-  keyspace: oauth2
-
-code:
-  endpoint:
-    http://localhost:8080/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
-token:
-  endpoint:
-    http://localhost:8080/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
-checkToken:
-  endpoint:
-    http://localhost:8080/security/oauth/check_token?token=%s
-register:
-  guanhutong:
-    http://localhost:8080/guanhutong3g/register#/register
-
-quickAccessToken:
-  auth:
-    Basic YW5kcm9pZEFwcDphbmRyb2lkQXBw
