@@ -59,19 +59,17 @@ cassandra:
 
 code:
   endpoint:
-    http://103.245.129.20:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
+    http://172.28.24.32:19301/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
 token:
   endpoint:
-    http://103.245.129.20:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
+    http://172.28.24.32:19301/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
 checkToken:
   endpoint:
-    http://103.245.129.20:8087/security/oauth/check_token?token=%s
+    http://172.28.24.32:19301/security/oauth/check_token?token=%s
 register:
   guanhutong:
-    http://103.245.129.20:8087/guanhutong3g/register#/register
+    http://172.28.24.32:19301/guanhutong3g/register#/register
 
 quickAccessToken:
   auth:
     Basic YW5kcm9pZEFwcDphbmRyb2lkQXBw
-
-
