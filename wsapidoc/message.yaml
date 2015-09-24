@@ -1,0 +1,57 @@
+swagger: '2.0'
+info:
+  title: message service
+  description:  终端实时状态 
+  version: 1.0.0
+host: '103.245.128.220:8087'
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /onlineTerminals/byImeis:  
+    get:
+      summary: 终端在线查询API.
+      description:
+        终端在线查询API.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: imeis
+          in: query
+          type: string
+          description: .
+          required: true
+      tags:
+        - 终端实时状态
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/onlineTerminalsRespon'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'          
+ 
+ 
+        
+definitions:
+  onlineTerminalsRespon:  
+    type: string
+  Error:
+    properties:
+      entity:
+        type: string
+      message:
+        type: string
+      invalidValue:
+        type: string
+      property:
+        type: string

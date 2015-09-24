@@ -1,0 +1,735 @@
+﻿swagger: '2.0'
+info:
+  title: Category
+  description: Move your app forward with the ChongHongIt ECP Company API
+  version: 1.0.0
+host: '10.9.42.203:8087'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/hal+json
+paths:
+  /catalogs:
+    post:
+      summary: 添加分类类型
+      description: 添加分类类型.
+      parameters:
+        - name: CatalogAddRequest
+          in: body
+          description: 分类数据
+          schema:
+            $ref: '#/definitions/CatalogAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true
+          type: string
+      tags:
+        - catalogs
+      responses:
+        '201':
+          description: 成功后返回 201 created.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    get:
+      summary: 查询分类类型
+      description: 查询分类类型.
+      parameters:
+        - name: size
+          in: query
+          description: 分类类型列表显示多少记录条数.
+          required: true
+          default: 10
+          type: number
+        - name: page
+          in: query
+          description: 查询分类类型列表第几页.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: 查询分类类型下一页ID.
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: 查询分类类型上一页ID.
+          required: false
+          type: string
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string  
+      tags:
+        - catalogs
+      responses:
+        '200':
+          description: 成功后返回分类类型列表.
+          schema:
+            $ref: '#/definitions/catalogs'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /catalogs/{uuid}:
+    get:
+      summary: 通过分类类型ID查询分类类型信息
+      description: 通过分类类型ID查询分类类型信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类类型ID
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true
+          type: string
+      tags:
+        - catalogs
+      responses: 
+        '200':
+          description: 成功后返回分类类型详情.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/catalogDetail'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    patch:
+      summary: 更新分类类型信息
+      description: 更新分类类型信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类类型ID.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string   
+        - name: categoryUpdateRequest
+          in: body
+          description: 分类更新数据.
+          schema:
+            $ref: '#/definitions/CatalogAddRequest'
+          required: true
+      tags:
+        - catalogs
+      responses:
+        '200':
+          description: 成功后返回 200状态.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: 通过分类类型ID删除分类类型信息
+      description: 通过分类类型ID删除分类类型信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类类型ID
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string
+      tags:
+        - catalogs
+      responses:
+        '200':
+          description: 成功后返回200状态.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /catalogs/{catalog-uuid}/categories:
+    post:
+      summary: 添加分类
+      description: 添加分类.
+      parameters:
+        - name: catalog-uuid
+          in: path
+          type: string
+          description: 分类类型ID
+          required: true
+          format: uuid
+        - name: CategoryAddRequest
+          in: body
+          description: 分类数据
+          schema:
+            $ref: '#/definitions/categoryAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses:
+        '201':
+          description: 成功后返回 201 created.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    get:
+      summary: 查询分类列表
+      description: 查询分类列表.
+      parameters:
+        - name: catalog-uuid
+          in: path
+          type: string
+          description: 分类类型ID
+          required: true
+          format: uuid      
+        - name: size
+          in: query
+          description: 分类列表显示多少记录条数.
+          required: true
+          default: 10
+          type: number
+        - name: page
+          in: query
+          description: 查询分类列表第几页.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: 查询分类下一页ID.
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: 查询分类上一页ID.
+          required: false
+          type: string
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string  
+      tags:
+        - categories
+      responses:
+        '200':
+          description: 成功后返回分类列表.
+          schema:
+            $ref: '#/definitions/categories'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /catalogs/categories/{uuid}/path:
+    get:
+      summary: 通过分类ID查询分类的层级信息.
+      description: 通过分类ID查询分类的层级信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类ID
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses: 
+        '200':
+          description:  category 
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/categories'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /catalogs/categories/{uuid}:
+    get:
+      summary: 通过分类ID查询分类信息
+      description: 通过分类ID查询分类信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类ID
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses: 
+        '200':
+          description: 成功后返回分类详情.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/categoryResponse'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    patch:
+      summary: 更新分类信息
+      description: 更新分类信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类ID.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string   
+        - name: categoryUpdateRequest
+          in: body
+          description: 分类更新数据.
+          schema:
+            $ref: '#/definitions/categoryUpdateRequest'
+          required: true
+      tags:
+        - categories    
+      responses:
+        '200':
+          description: 成功后返回 200状态.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: 通过分类ID删除分类信息
+      description: 通过分类ID删除分类信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类ID
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string
+      tags:
+        - categories    
+      responses:
+        '200':
+          description: 成功后返回200状态.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+  /catalogs/categories/{uuid}/children:
+    post:
+      summary: 在分类下添加分类子类
+      description: 在分类下添加分类子类.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类ID.
+          required: true
+          format: uuid
+        - name: CategoryAddRequest
+          in: body
+          description: 分类子类数据.
+          schema:
+            $ref: '#/definitions/categoryAddRequest'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string  
+      tags:
+        - categories
+      responses:
+        '201':
+          description: 成功后返回201状态.
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+    get:
+      summary: 通过分类ID查询分类子类列表信息
+      description: 通过分类ID查询分类子类列表信息.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: 分类uuid.
+          required: true
+          format: uuid
+        - name: size
+          in: query
+          description: 查询分类子列表每页显示多少记录条数.
+          required: true
+          default: 10
+          type: number
+        - name: page
+          in: query
+          description: 查询分类子列表第几页数据.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: 查询分类子类下一页ID.
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: 查询分类子类上一页ID.
+          required: false
+          type: string
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token值.
+          required: true  
+          type: string  
+      tags:
+        - categories
+      responses:
+        '200':
+          description: 成功后返回分类子类列表.
+          schema:
+            $ref: '#/definitions/categories'
+        '401':
+          description: 没有权限访问
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Message'
+definitions:  
+  categories:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 分类列表下一页URL.
+          self:
+            properties:
+              href:
+                type: string
+                description: 分类列表当前页URL.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 分类列表上一页URL.
+      _embedded:
+        properties:
+          categoryResponses:
+            type: array
+            items:
+              $ref: '#/definitions/category'
+      page:
+        description: 分类列表分页信息.
+        properties:
+          size:
+            type: string
+            description: 分页大小
+          totalElements:
+            type: string
+            description: 分类总共记录条数.
+          totalPages:
+            type: string
+            description: 分类总共页数.
+          number:
+            type: string
+            description: 当前第几页.
+  categoryResponse:
+    properties:
+      uuid:
+        type: string
+        description: 分类ID
+      name:
+        type: string
+        description: 分类名称.
+      createTime:
+        type: string
+        description: 分类创建时间.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 分类名称.
+          description:
+            type: string
+            description: 分类描述.
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: 分类自身链接URL.
+          parent:
+           properties:
+              href:
+                type: string
+                description: 分类父分类链接URL.
+          children:
+           properties:
+              href:
+                type: string
+                description: 分类子分类链接URL.
+  category:
+    properties:
+      uuid:
+        type: string
+        description: 分类ID
+      name:
+        type: string
+        description: 分类名称.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID.
+      _links:
+        properties:
+          self:
+           properties:
+              href:
+                type: string
+                description: 分类自身链接.
+  categoryAddRequest:
+    properties:
+      name:
+        type: string
+        description: 分类名称.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 分类名称.
+          description:
+            type: string
+            description: 分类描述.
+  categoryUpdateRequest:
+    properties:
+      name:
+        type: string
+        description: 分类名称.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 分类名称.
+          description:
+            type: string
+            description: 分类描述.        
+  CatalogAddRequest:
+    properties:
+      name:
+        type: string
+        description: 分类类型名称.
+      description:
+        type: string
+        description: 分类类型描述.
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 分类类型名称.
+          description:
+            type: string
+            description: 分类类型描述.
+  catalogs:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 分类类型列表下一页URL.
+          self:
+            properties:
+              href:
+                type: string
+                description: 分类类型列表当前页URL.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 分类类型列表上一页URL.
+      _embedded:
+        properties:
+          categorylogResponses:
+            type: array
+            items:
+              $ref: '#/definitions/catalog'
+      page:
+        description: 分类类型列表分页信息.
+        properties:
+          size:
+            type: string
+            description: 分页大小
+          totalElements:
+            type: string
+            description: 分类类型总共记录条数.
+          totalPages:
+            type: string
+            description: 分类类型总共页数.
+          number:
+            type: string
+            description: 当前第几页.
+  catalog:
+    properties:
+      uuid:
+        type: string
+        description: 分类类型ID
+      name:
+        type: string
+        description: 分类类型名称.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID.
+      _links:
+        properties:
+          self:
+           properties:
+              href:
+                type: string
+                description: 分类类型自身链接.
+  catalogDetail:
+    properties:
+      uuid:
+        type: string
+        description: 分类类型ID
+      name:
+        type: string
+        description: 分类类型名称.
+      description:
+        type: string
+        description: 分类描述.
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          name:
+            type: string
+            description: 分类类型名称.
+          description:
+            type: string
+            description: 分类类型描述.
+      _links:
+        properties:
+          self:
+           properties:
+              href:
+                type: string
+                description: 分类类型自身链接.
+  Message:
+    properties:
+      Head:
+        type: object
+        properties:
+          responseCode:
+            description: 错误代码
+            type: string
+          desc:
+            description: 错误描述          
+            type: string

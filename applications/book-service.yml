@@ -57,16 +57,16 @@ kafka:
   topic: BOOK-INFO
 
 checkToken:
-  endpoint: http://10.9.42.203:8086/security/oauth/check_token?token=%s
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
 
 userRegister:
-  endpoint: http://10.9.42.203:8086/security/guanhutong3g/register
+  endpoint: http://10.9.42.203:8087/security/guanhutong3g/register
 
 oauth2:
-  updatepassword: http://10.9.42.203:8086/security/users/password.update
+  updatepassword: http://10.9.42.203:8087/security/users/password.update
   
 loginOauth2:
-  endpoint: http://10.9.42.203:8086/security/oauth/accesstoken
+  endpoint: http://10.9.42.203:8087/security/oauth/accesstoken
 
 ---
 

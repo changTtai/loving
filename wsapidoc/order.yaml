@@ -1,146 +1,243 @@
 swagger: '2.0'
 info:
-  title:  Order
-  description: Order application API 
+  title: orders
+  description: 订单服务API 
   version: 1.0.0
-host: '172.28.4.220:8088'
+host: '10.9.42.203:8087'
 schemes:
   - http
-basePath: /
 produces:
   - application/json
 paths:
-  /orders:
+  /companies/{uuid}/orders:
     post:
+      summary: 创建订单API.
+      description:
+        创建订单API.
       parameters:
-        - name: addOrderRequest
-          in: body
-          description: The add order you want to post
-          schema:
-            $ref: '#/definitions/addOrderRequest'
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
           required: true
+          format: uuid
         - name: X-Token
-          default: {X-Token}
           in: header
+          default: '{X-Token}'
+          description: Oauth token code.
           required: true
-          type: string          
+          type: string
+          format: double
+        - name: cart
+          in: body
+          description: 创建订单body.
+          schema:
+             $ref: '#/definitions/orderAddRequest'
+          required: true
+      tags:
+        - 订单服务
       responses:
         '201':
-          description: Make a new order
+          description: 创建订单成功.
+          
     get:
-      summary: search orders with page
-      description: |
-        According to user's search params return orders page.
+      summary: 查找服务商订单列表API.
+      description:
+        查找服务商订单列表API.
       parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
         - name: X-Token
-          default: {X-Token}
           in: header
+          default: '{X-Token}'
+          description: Oauth token code.
           required: true
           type: string
-        - name: size
-          in: query
-          default: 2
-          description: number each page shows article data.
-          required: false
-          type: number
-        - name: page
-          in: query
-          description: current page number.
-          required: false
-          type: number
-        - name: next_id
-          in: query
-          description: "next page need the current page's last id ."
-          required: false
-          type: string
-        - name: previous_id
-          in: query
-          description: "previous page need the current page's first id ."
-          required: false
-          type: string
-        - name: employee_id
-          in: query
-          description: query orders by employeeid .
-          required: false
-          type: string
-        - name: company_id
-          in: query
-          description: query orders by companyid .
-          required: false
-          type: string
+          format: double
       tags:
-        - orders
+        - 订单服务
       responses:
         '200':
-          description: orders page list
+          description: 查找服务商订单列表成功.
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/orders'
+            $ref: '#/definitions/orders'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'           
+          
+  /orders/{uuid}:
+    get:
+      summary: 查询订单详情API.
+      description:
+        查询订单详情API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 订单服务
+      responses:
+        '200':
+          description: 查询订单详情成功.
+          schema:
+            $ref: '#/definitions/getOrder'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  '/orders/{id}':
-    get:
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the order
-          required: true
-          format: uuid
-        - name: X-Token
-          default: {X-Token}
-          in: header
-          required: true
-          type: string          
-      responses:
-        '200':
-          description: get order detail
-          schema:
-            type: object
-            items:
-              $ref: '#/definitions/orderSummaryResponse'
     patch:
+      summary: 修改订单状态API.
+      description:
+        修改订单状态API.
+      consumes:
+        - application/vnd.jiahua.commands.updatestatus+json
       parameters:
-        - name: id
+        - name: uuid
           in: path
           type: string
-          description: ID of the order
+          description: uuid.
           required: true
           format: uuid
         - name: X-Token
-          default: {X-Token}
           in: header
+          default: '{X-Token}'
+          description: Oauth token code.
           required: true
-          type: string          
-        - name: productUpdateRequest
+          type: string
+          format: double
+        - name: cartRequest
           in: body
-          description: The update order summary JSON you want to post
+          description: 修改订单状态body.
           schema:
-            $ref: '#/definitions/updateOrderRequest'
+            $ref: '#/definitions/orderRequest'
           required: true
-      responses:
-        '201':
-          description: update order
-    delete:
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: ID of the order
-          required: true
-          format: uuid
-        - name: X-Token
-          default: {X-Token}
-          in: header
-          required: true
-          type: string          
+      tags:
+        - 订单服务
       responses:
         '200':
-          description: delete one order
-definitions:
+          description: 订单服务成功.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /orders:
+   get:
+      summary: 查找所有订单列表API.
+      description:
+        查找所有订单列表API.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 订单服务
+      responses:
+        '200':
+          description: 查找所有订单列表成功.
+          schema:
+            $ref: '#/definitions/orders'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+  /orders/{uuid}/items:
+    get:
+      summary: 查询订单服务项目API.
+      description:
+        查询订单服务项目API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 订单服务
+      responses:
+        '200':
+          description: 查询订单服务项目成功.
+          schema:
+            $ref: '#/definitions/items'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:  
+  orderAddRequest:
+    properties:
+        customerId:
+          type: string
+          description: 客户ID.
+        shippingAddress:
+          description: 送货地址.
+          type: object
+          properties:
+            address:
+              type: string
+              description: 服务地址.
+            tel:
+              type: string
+              description: 联系电话.
+            name:
+              type: string
+              description: 用户姓名.
+        comment:
+          type: string
+          description: 描述.
+        serviceTime:
+          type: string
+          description: 服务时间.
+        items:
+          description: 服务项目列表.
+          type: array
+          items:
+            $ref: '#/definitions/item'
+        detail:
+          type: object
+          description: 详情.
+  item:
+    properties:
+      uuid:
+        type: string
+        description: 服务项目编号.
+      amount:
+        type: string
+        description: 数量.
+  orderRequest:
+    properties:
+        currentStatus:
+            type: string
+            description: 订单状态.
+        comment:
+            type: string
+            description: 描述.
   orders:
     properties:
       _links:
@@ -149,185 +246,216 @@ definitions:
             properties:
               href:
                 type: string
-                description: next page url.
+                description: query next page url.
           self:
             properties:
               href:
                 type: string
-                description: current page url.
+                description: query self page url.
           prev:
             properties:
               href:
                 type: string
-                description: previous page url.
+                description: query previous page url.
       _embedded:
         properties:
-          productpriceResponses:
+          orderResponses:
             type: array
             items:
-              $ref: '#/definitions/orderSummaryResponse'
+              $ref: '#/definitions/getOrder'
       page:
         properties:
           size:
-            type: string
+            type: integer
             description: page size
           totalElements:
-            type: string
+            type: integer
             description: data total
           totalPages:
-            type: string
+            type: integer
             description: page total
           number:
+            type: integer
+            description: current page 
+  getOrder:
+    properties:
+        uuid:
+          type: string
+          description: 订单编号.
+        orderId:
+          type: string
+          description: 订单流水号.
+        customer:
+          type: object
+          description: 顾客.
+          properties:
+            uuid:
+              type: string
+              description: uuid.
+            name:
+              type: string
+              description: 姓名.
+            tel:
+              type: string
+              description: 电话.
+            sex:
+              type: string
+              description: 性别.
+            self:
+              properties:
+                href:
+                  type: string
+                  description: self. 
+                  
+        company:
+            type: object
+            description: 服务商.
+            properties:
+              uuid:
+                type: string
+                description: uuid.
+              name:
+                type: string
+                description: 姓名.
+              tel:
+                type: string
+                description: 电话.
+              sex:
+                type: string
+                description: 性别.
+              address:
+                type: string
+                description: 地址. 
+              self:
+                properties:
+                  href:
+                    type: string
+                    description: self. 
+        currentStatus:            
             type: string
+            description: 服务状态.
+        shippingAddress:
+          description: 送货地址.
+          type: object
+          properties:
+            address:
+              type: string
+              description: 服务地址.
+            tel:
+              type: string
+              description: 联系电话.
+            name:
+              type: string
+              description: 用户姓名.
+        comment:
+          type: string
+          description: 描述.
+        serviceTime:
+          type: string
+          description: 服务时间.
+        creater:
+          description: 创建者.
+          type: object
+          properties:
+            uuid:
+              type: string
+              description: uuid.
+            name:
+              type: string
+              description: 姓名.
+            self:
+              properties:
+                href:
+                  type: string
+                  description: self. 
+        detail:
+          type: object
+          description: 详情.   
+        _links:
+          properties:
+            shippingInfo:
+              properties:
+                href:
+                  type: string
+                  description: orders/{uuid}/shippinginfo. 
+            items:
+              properties:
+                href:
+                  type: string
+                  description: orders/{uuid}/items. 
+            feedback:
+              properties:
+                href:
+                  type: string
+                  description: orders/{uuid}/feedback. 
+  items:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+          itemsResponses:
+            type: array
+            items:
+              $ref: '#/definitions/getItems'
+      page:
+        properties:
+          size:
+            type: integer
+            description: page size
+          totalElements:
+            type: integer
+            description: data total
+          totalPages:
+            type: integer
             description: page total
-  orderSummaryResponse:
+          number:
+            type: integer
+            description: current page    
+            
+  getItems:
     properties:
-      customerName:
-        type: string
-        description: customer_name of order.
-      customerPhone:
-        type: string
-        description: customer_phone of order.
-      address:
-        type: string
-        description: address of order.
-      price:
-        type: number
-        description: price of order.
-      oderTime:
-        type: string
-        description: oder_time of order.
-        format: date
-      needTime:
-        type: string
-        description: need_time of order.
-        format: date
-      needLevel:
-        type: number
-        description: need_level of order.
-      employeeId:
-        type: string
-        description: employeeid of order.
-        format: uuid
-      companyId:
-        type: string
-        description: companyid of order.
-        format: uuid
-      startTime:
-        type: string
-        description: start_time of order.
-        format: date
-      status:
-        type: number
-        description: status of order.
-      items:
-        description: companyid of order.
-        $ref: '#/definitions/orderItemResponse'
-  addOrderRequest:
-    properties:
-      orderId:
-        type: string
-        description: orderid of order.
-      customerName:
-        type: string
-        description: customer_name of order.
-      customerPhone:
-        type: string
-        description: customer_phone of order.
-      address:
-        type: string
-        description: address of order.
-      price:
-        type: number
-        description: price of order.
-      oderTime:
-        type: string
-        description: oder_time of order.
-        format: date
-      needTime:
-        type: string
-        description: need_time of order.
-        format: date
-      needLevel:
-        type: number
-        description: need_level of order.
-      employeeId:
-        type: string
-        description: employeeid of order.
-        format: uuid
-      companyId:
-        type: string
-        description: companyid of order.
-        format: uuid
-      startTime:
-        type: string
-        description: start_time of order.
-        format: date
-      status:
-        type: number
-        description: status of order.
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/orderItemRequest'
-        description: companyid of order.
-  orderItemRequest:
-    properties:
-      productPriceId:
-        type: string
-        description: product_price_id of orderIem.
-        format: uuid
-      productPrice:
-        type: number
-        description: product_price of orderIem.
-      productName:
-        type: string
-        description: product_name of orderIem.
-      count:
-        type: number
-        description: count of orderIem.
-  orderItemResponse:
-    properties:
-      productPriceId:
-        type: string
-        description: product_price_id of orderIem.
-        format: uuid
-      productPrice:
-        type: number
-        description: product_price of orderIem.
-      productName:
-        type: string
-        description: product_name of orderIem.
-      count:
-        type: number
-        description: count of orderIem.
-  updateOrderRequest:
-    properties:
-      customerName:
-        type: string
-        description: customer_name of order.
-      serviceContent:
-        type: string
-        description: customer_phone of order.
-      customerPhone:
-        type: string
-        description: customer_phone of order.
-      address:
-        type: string
-        description: address of order.
-      price:
-        type: number
-        description: price of order.
-      needLevel:
-        type: number
-        description: need_level of order.
-      employeeid:
-        type: string
-        description: employeeid of order.
-        format: uuid
-      status:
-        type: number
-        description: status of order.
+        productPriceUuid:
+            type: string
+            description: 产品价格ID.
+        name:
+            type: string
+            description: 名称.
+        price:
+          type: number
+          description: 单价.
+        unit:
+          type: string
+          description: 单位.
+        amount:
+          type: integer
+          description: 数量. 
+        subtotal:
+          type: number
+          description: 小计.
+        _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: self. 
+            
   Error:
     properties:
       code:

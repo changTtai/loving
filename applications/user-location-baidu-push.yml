@@ -1,0 +1,66 @@
+spring:
+  profiles: qa
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.oauth2.service
+server:
+  port: 19220
+cassandra:
+  contactpoints: 10.9.42.203
+  port: 9042
+  keyspace: pois_qa
+checkToken:
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+
+endpoints:
+  health:
+   id: health
+   sensitive: false
+   enabled: true
+
+group:
+  id: changhongit-group
+zookeeper: 
+  connect: 10.9.42.203:2181
+  session: 
+    timeout: 
+      ms: 14000
+  sync: 
+    time: 
+      ms: 200
+auto: 
+  commit: 
+    interval: 
+      ms: 1000
+topic: user-location-updater
+numThreads: 8
+metadata:
+  broker:
+    list: 10.9.42.203:9092
+request:
+  required:
+    acks: 0
+
+#baidu push
+apiKey: 4dWe6R0KzlfHZZdqjUzz6urV
+secretKey: B99dOXbY8nDWrqIyKYg72u677jckIPcc
+#auto test
+oauth2ServerByMyInfo:
+  address: http://10.9.42.203:8087/security/users/myInfo
+oauth2ServerByUser:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByToken:
+  address: http://10.9.42.203:8087/security/oauth/accesstoken
+userLocationRestServer:
+  address: http://10.9.42.203:8087/userlocationserver
+loginName: cch
+password: 111111
+
+

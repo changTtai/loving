@@ -1,0 +1,660 @@
+swagger: '2.0'
+info:
+  title: gateway web service
+  description:  终端设置 
+  version: 1.0.0
+host: '103.245.128.220:8087'
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /cp150s/commands/contacts:
+    post:
+        summary: 终端联系人修改API.
+        description:
+          终端联系人修改API.
+        consumes:
+          - application/vnd.jiahua.commands.settingContactList.v1+json
+        parameters:
+          - name: addCommands
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/addSettingContactListRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 终端联系人修改成功.       
+  /cp150s/commands/answer:         
+    post:
+        summary: 来电设置修改API.
+        description:
+          来电设置修改API.
+        consumes:
+          - application/vnd.jiahua.commands.settingAnswer.v1+json
+        parameters:
+          - name: addSettingAnswer
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/addSettingAnswerRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 来电设置修改成功. 
+           
+  /cp150s/commands/autoanswer:         
+    post:
+        summary: 自动接听设置修改API.
+        description:
+          自动接听设置修改API.
+        consumes:
+          - application/vnd.jiahua.commands.settingAutoAnswer.v1+json
+        parameters:
+          - name: addSettingAnswer
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/addSettingAnswerRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 自动接听设置修改成功. 
+  /cp150s/commands/protectedcircle:         
+    post:
+        summary:  防护圈设置修改API.
+        description:
+          防护圈设置修改API.
+        consumes:
+          - application/vnd.jiahua.commands.settingProtectedCircle.v1+json
+        parameters:
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+          - name: settingProtectedCircle
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/settingProtectedCircleRequest'
+            required: true
+         
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 防护圈设置修改成功. 
+           
+  /cp150s/{imei}/settings/protectedcircle:
+    get:
+      summary: 防护圈设置查询API.
+      description:
+        防护圈设置查询API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/protectedcircleResponse'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'          
+           
+  /cp150s/{imei}/settings/answer:
+    get:
+      summary: 来电设置查询API.
+      description:
+        来电设置查询API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/settingsanswer'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error' 
+            
+  /cp150s/{imei}/settings/autoanswer:
+    get:
+      summary: 自动接听查询API.
+      description:
+        自动接听查询API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/settingsanswer'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'  
+  /cp150s/{imei}/voicereminders:  
+    get:
+      summary: 语音提醒查询API.
+      description:
+        语音提醒查询API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/voiceremindersResponse'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error' 
+            
+  /cp150s/commands/voicereminderadd:         
+    post:
+        summary:  语音提醒设置添加API.
+        description:
+          语音提醒设置添加API.
+        parameters:
+          - name: voicereminderadd
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/voicereminderaddRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 语音提醒设置添加成功. 
+           
+  /cp150s/commands/voicereminderupdate:         
+    post:
+        summary:  语音提醒设置添加API.
+        description:
+          语音提醒设置添加API.
+        parameters:
+          - name: voicereminderupdate
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/voicereminderupdateRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 语音提醒设置添加成功. 
+  /cp150s/commands/voicereminderdelete:         
+    post:
+        summary:  语音提醒设置删除API.
+        description:
+          语音提醒设置删除API.
+        parameters:
+          - name: voicereminderdelete
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/voicereminderdeleteRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 语音提醒设置删除成功.
+  /cp150s/{imei}/settings/whitelist:  
+    get:
+      summary: 白名单列表API.
+      description:
+        白名单列表API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/whitelistResponse'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'  
+            
+  /cp150s/commands/whitelistadd:         
+    post:
+        summary:  白名单添加API.
+        description:
+          白名单添加API.
+        parameters:
+          - name: whitelistadd
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/whitelistaddRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 白名单添加成功.
+  /cp150s/commands/whitelistupdate:         
+    post:
+        summary:  白名单修改API.
+        description:
+          白名单修改API.
+        parameters:
+          - name: whitelistupdate
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/whitelistupdateRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 白名单修改成功.
+  /cp150s/commands/whitelistdelete:         
+    post:
+        summary:  白名单删除API.
+        description:
+          白名单删除API.
+        parameters:
+          - name: whitelistdelete
+            in: body
+            description: .
+            schema:
+               $ref: '#/definitions/whitelistdeleteRequest'
+            required: true
+          - name: X-Token
+            in: header
+            default: '{X-Token}'
+            description: Oauth token code.
+            required: true
+            type: string
+            format: double
+        tags:
+         - 终端设置
+        responses:
+          '200':
+           description: 白名单删除成功.  
+  /cp150s/{imei}/settings/contacts:
+    get:
+      summary: 终端联系人列表API.
+      description:
+        终端联系人列表API.
+      parameters:
+        - name: imei
+          in: path
+          type: string
+          description: .
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 终端设置
+      responses:
+        '200':
+          description: 查询成功.
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/contactsResponse'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  addSettingContactListRequest:
+    properties:
+      imei:
+        type: string
+      message:
+        type: array
+        items:
+          properties:
+            position:
+              type: string
+              description: .
+            telNum:
+              type: string
+              description: .
+            name:
+              type: string
+              description: .
+  settingsanswer:
+    properties:
+      setting:
+        properties:
+          param:
+            type: string
+      imei:
+        type: string
+      _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: . 
+  addSettingAnswerRequest:
+    properties:
+      message:
+        properties:
+          param:
+            type: string
+      imei:
+        type: string
+        
+  settingProtectedCircleRequest:
+    properties:
+      imei:
+        type: string
+      message:
+        properties:
+          type:
+            type: string
+            description: .
+          centreLongt:
+            type: string
+            description: .
+          centreLat:
+            type: string
+            description: .
+          radius:
+            type: string
+            description: .
+          eastLongt:
+            type: string
+            description: .
+          westLongt:
+            type: string
+            description: .
+          southLat:
+            type: string
+            description: .
+          northLat:
+            type: string
+            description: .
+          contactFlag:
+            type: string
+            description: .
+            
+  voiceremindersResponse:
+    properties:
+      voiceReminders:
+        type: string
+      imei:
+        type: string
+      _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: . 
+                  
+  voicereminderaddRequest:
+    properties:
+      imei:
+        type: string
+      message:
+        properties:
+          active:
+            type: string
+          mode:
+            type: string 
+          repeatMode:
+            type: string 
+          reminderTime:
+            type: string 
+          content:
+            type: string 
+   
+  voicereminderupdateRequest:
+    properties:
+      imei:
+        type: string
+      message:
+        properties:
+          index:
+            type: string
+          active:
+            type: string
+          mode:
+            type: string 
+          repeatMode:
+            type: string 
+          reminderTime:
+            type: string 
+          content:
+            type: string         
+     
+  voicereminderdeleteRequest:
+    properties:
+      message:
+        type: string
+      imei:
+        type: string   
+  whitelistResponse:
+    properties:
+      setting:
+        type: string
+      imei:
+        type: string   
+      _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: . 
+                  
+  whitelistaddRequest:
+    properties:
+      imei:
+        type: string  
+      message:
+        properties:
+          telNum:
+            type: string
+          name:
+            type: string
+            
+  whitelistupdateRequest:
+    properties:
+      imei:
+        type: string  
+      message:
+        properties:
+          position:
+            type: string
+          telNum:
+            type: string
+          name:
+            type: string
+            
+  whitelistdeleteRequest:
+    properties:
+      imei:
+        type: string  
+      message:
+        type: string
+  contactsResponse:
+    properties:
+      setting:
+        type: string  
+      imei:
+        type: string 
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: . 
+  protectedcircleResponse:
+    properties:
+      setting:
+        type: string  
+      imei:
+        type: string
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: . 
+        
+  Error:
+    properties:
+      entity:
+        type: string
+      message:
+        type: string
+      invalidValue:
+        type: string
+      property:
+        type: string

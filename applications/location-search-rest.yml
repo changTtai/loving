@@ -1,0 +1,148 @@
+spring:
+  profiles: dev
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.userlocationsearch.service
+#tomcat
+server:
+  port: 29275
+  context-path: /userlocationserver
+
+cassandra:
+  contactpoints: 10.9.42.203
+  port: 9042
+  keyspace: pois_dev
+#endpoints
+checkToken:
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+#health
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+
+#otherServerAddress
+oauth2Server:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByMyInfo:
+  address: http://10.9.42.203:8087/security/users/myInfo
+oauth2ServerByUser:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByLoginName:
+  address: http://10.9.42.203:8087/security/users/userInfo
+oauth2ServerByToken:
+  address: http://10.9.42.203:8087/security/oauth/accesstoken
+  
+
+elasticsearch:
+  clusterName: changhongit-dev
+  host: 10.9.42.203
+  port: 9300
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+zookeeper: 
+  connect: 10.9.42.203:2181
+  session: 
+    timeout: 
+      ms: 14000
+  sync: 
+    time: 
+      ms: 200
+auto: 
+  commit: 
+    interval: 
+      ms: 1000
+group:
+  id: changhongit-es-group-dev
+topic: user-location-updater
+numThreads: 8
+
+loginName: lcg
+password: 111111
+
+
+---
+spring:
+  profiles: qa
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.userlocationsearch.service
+#tomcat
+server:
+  port: 19223
+  context-path: /userlocationserver
+
+cassandra:
+  contactpoints: 10.9.42.203
+  port: 9042
+  keyspace: pois_qa
+#endpoints
+checkToken:
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+#health
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+
+#otherServerAddress
+oauth2Server:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByMyInfo:
+  address: http://10.9.42.203:8087/security/users/myInfo
+oauth2ServerByUser:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByLoginName:
+  address: http://10.9.42.203:8087/security/users/userInfo
+oauth2ServerByToken:
+  address: http://10.9.42.203:8087/security/oauth/accesstoken
+#elasticsearch
+elasticsearch:
+  clusterName: changhongit_qa
+  host: 10.9.42.203
+  port: 9301
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
+zookeeper: 
+  connect: 10.9.42.203:2181
+  session: 
+    timeout: 
+      ms: 14000
+  sync: 
+    time: 
+      ms: 200
+auto: 
+  commit: 
+    interval: 
+      ms: 1000
+group:
+  id: changhongit-es-group-qa
+topic: user-location-updater
+numThreads: 8
+
+loginName: lcg
+password: 111111

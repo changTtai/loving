@@ -3,7 +3,7 @@ info:
   title: Company
   description: Move your app forward with the ChongHongIt ECP Company API
   version: 1.0.0
-host: '172.28.4.220:8087'
+host: '10.9.42.203:8087'
 schemes:
   - http
 basePath: /
@@ -36,9 +36,9 @@ paths:
         - name: size
           in: query
           description: 服务商列表显示记录条数.
+          default: 10
           required: true
           type: number
-          format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
@@ -52,6 +52,8 @@ paths:
           description:  请求成功 返回服务商列表
           schema:
             $ref: '#/definitions/CompanyPageResouce'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -79,6 +81,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Message'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -109,6 +113,8 @@ paths:
             type: object
             items:
               $ref: '#/definitions/CompanyDetail'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -138,7 +144,9 @@ paths:
         - Companies
       responses:
         '200':
-          description: OK
+          description: 更新成功 返回 200 OK
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -163,7 +171,9 @@ paths:
         - Companies
       responses:
         '200':
-          description: OK
+          description: 删除成功 返回 200状态 OK.
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -189,11 +199,13 @@ paths:
         - Companies
       responses:
         '200':
-          description: 成功后 返回服务商详细信息
+          description: 成功后 返回服务商详细信息.
           schema:
             type: object
             items:
               $ref: '#/definitions/CompanyDetail'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -231,8 +243,8 @@ paths:
           in: query
           description: 服务商列表显示记录条数.
           required: true
+          default: 10
           type: number
-          format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
@@ -246,6 +258,8 @@ paths:
           description: 成功后 返回服务商列表
           schema:
             $ref: '#/definitions/CompanyPageResouce'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -296,8 +310,8 @@ paths:
           in: query
           description: 分页大小
           required: true
+          default: 10
           type: number
-          format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
@@ -311,6 +325,8 @@ paths:
           description: 成功后返回服务商列表
           schema:
             $ref: '#/definitions/CompanyPageResouce'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -340,6 +356,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Message'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -368,6 +386,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Message'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -405,8 +425,8 @@ paths:
           in: query
           description: 员工列表显示多少记录条数.
           required: true
+          default: 10
           type: number
-          format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
@@ -420,6 +440,8 @@ paths:
           description: 成功后返回员工列表.
           schema:
             $ref: '#/definitions/EmployeePageResouce'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -450,6 +472,8 @@ paths:
             type: object
             items:
               $ref: '#/definitions/EmployeeDetail'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -483,6 +507,8 @@ paths:
           description: 成功后 返回 200 OK
           schema:
             $ref: '#/definitions/Message'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -508,6 +534,8 @@ paths:
       responses:
         '200':
           description: 成功后 返回状态 200 OK.
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -539,8 +567,8 @@ paths:
           in: query
           description: 员工列表显示多少记录条数.
           required: true
+          default: 10
           type: number
-          format: int
         - name: X-Token
           in: header
           default: '{X-Token}'
@@ -554,6 +582,8 @@ paths:
           description: 成功后返回员工列表.
           schema:
             $ref: '#/definitions/EmployeePageResouce'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -577,10 +607,12 @@ paths:
       tags:
         - Employees
       responses:
-        '200':
-          description: OK
+        '201':
+          description: 添加员工成功 返回201状态 CREATED .
           schema:
             $ref: '#/definitions/Message'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
@@ -611,277 +643,12 @@ paths:
             type: object
             items:
               $ref: '#/definitions/EmployeeDetail'
+        '401':
+          description:  没有权限访问.
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Message'
-  /companycategories:
-    post:
-      summary: 添加服务商分类
-      description: 添加服务商分类.
-      parameters:
-        - name: CategoryAddRequest
-          in: body
-          description: 分类数据
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: 成功后返回 201 created.
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'    
-    get:
-      summary: 查询服务商分类列表
-      description: 查询服务商分类列表.
-      parameters:
-        - name: size
-          in: query
-          description: 服务商分类列表显示多少记录条数.
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: 查询服务商分类列表第几页.
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: 查询服务商分类下一页ID.
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: 查询服务商分类上一页ID.
-          required: false
-          type: string
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string  
-      tags:
-        - categories
-      responses:
-        '200':
-          description: 成功后返回服务商分类列表.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'
-  /companycategories/{id}/path:
-    get:
-      summary: 通过分类ID查询分类的层级信息.
-      description: 通过分类ID查询分类的层级信息.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 服务商分类ID
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description:  category 
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'
-  /companycategories/{id}:
-    post:
-      summary: 在服务商分类下添加分类子类
-      description: 在服务商分类下添加分类子类.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID.
-          required: true
-          format: uuid
-        - name: CategoryAddRequest
-          in: body
-          description: 分类子类数据.
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string  
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: 成功后返回201状态.
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'  
-    get:
-      summary: 通过服务商分类ID查询分类信息
-      description: 通过服务商分类ID查询分类信息.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description: 成功后返回服务商分类详情.
-          schema:
-            type: object
-            items:
-              $ref: '#/definitions/categoryResponse'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'      
-
-    patch:
-      summary: 更新服务商分类信息
-      description: 更新服务商分类信息.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 服务商分类ID.
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string   
-        - name: categoryUpdateRequest
-          in: body
-          description: 服务商分类更新数据.
-          schema:
-            $ref: '#/definitions/categoryUpdateRequest'
-          required: true
-      tags:
-        - categories    
-      responses:
-        '200':
-          description: 成功后返回 200状态.
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'  
-    delete:
-      summary: 通过服务商分类ID删除分类信息
-      description: 通过服务商分类ID删除分类信息.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 服务商分类ID
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '200':
-          description: 成功后返回200状态.
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'  
-  /companycategories/{id}/children:
-    get:
-      summary: 通过服务商分类ID查询分类子类信息
-      description: 通过服务商分类ID查询分类子类信息.
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 服务商分类ID.
-          required: true
-          format: uuid
-        - name: size
-          in: query
-          description: 查询服务商分类子列表每页显示多少记录条数.
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: 查询服务商分类子列表第几页数据.
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: 查询服务商分类子类下一页ID.
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: 查询服务商分类子类上一页ID.
-          required: false
-          type: string
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: X-Token值.
-          required: true  
-          type: string  
-      tags:
-        - categories
-      responses:
-        '200':
-          description: 成功后返回服务商分类子类列表.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Message'          
 definitions:
   CompanyPageResouce:
     properties:
@@ -1018,6 +785,44 @@ definitions:
           lon:
             type: string
             description: 经度值.
+      categoryId:
+        type: string
+        description: 服务商分类
+      subCategoryId:
+        type: string
+        description: 服务商子分类
+      acountNo:
+        type: string
+        description: 服务商账号
+      accountPassword:
+        type: string
+        description: 服务商密码
+      servicePhone:
+        type: string
+        description: 服务商服务电话
+      description:
+        type: string
+        description: 服务商详情描述
+      serviceStatus:
+        type: string
+        description: 服务商服务状态
+      groupId:
+        type: string
+        description: 服务商分组ID
+      businessHours:
+        type: array
+        description: 服务商营业时间 格式：{'startWeek':'1','endWeek':'5','startTime':'7:30','endTime':'11:30'}
+        items:
+          $ref: '#/definitions/businessHour'
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          address:
+            type: string
+            description: 地址      
       isDeleted:
         type: string
         description: 是否删除.
@@ -1124,11 +929,18 @@ definitions:
         description: 服务商营业时间 格式：{'startWeek':'1','endWeek':'5','startTime':'7:30','endTime':'11:30'}
         items:
           $ref: '#/definitions/businessHour'
-
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          address:
+            type: string
+            description: 地址
   businessHour:
     type: string
     description:  服务商营业时间.
-
   CompanyUpdateRequest:
     properties:
       account:
@@ -1209,6 +1021,15 @@ definitions:
         description: 服务商营业时间 格式：{'startWeek':'1','endWeek':'5','startTime':'7:30','endTime':'11:30'}
         items:
           $ref: '#/definitions/businessHour'
+      icon:
+        type: string
+        description: 图片ID
+      detail:
+        type: object
+        properties:
+          address:
+            type: string
+            description: 地址    
   EmployeePageResouce:
     properties:
       _links:
@@ -1510,119 +1331,11 @@ definitions:
         description: 员工feedbackUrl地址.
       supportInfo:
         type: string
-        description: 员工supportInfo.      
-  categories:
-    properties:
-      _links:
-        properties:
-          next:
-            properties:
-              href:
-                type: string
-                description: 分类列表下一页URL.
-          self:
-            properties:
-              href:
-                type: string
-                description: 分类列表当前页URL.
-          prev:
-            properties:
-              href:
-                type: string
-                description: 分类列表上一页URL.
-      _embedded:
-        properties:
-          categoryResponses:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-      page:
-        description: 分类列表分页信息.
-        properties:
-          size:
-            type: string
-            description: 分页大小
-          totalElements:
-            type: string
-            description: 分类总共记录条数.
-          totalPages:
-            type: string
-            description: 分类总共页数.
-          number:
-            type: string
-            description: 当前第几页.
-  categoryResponse:
-    properties:
-      uuid:
-        type: string
-        description: 分类ID
-      name:
-        type: string
-        description: 分类名称.
-      createTime:
-        type: string
-        description: 分类创建时间.
-      description:
-        type: string
-        description: 分类描述.
-      _links:
-        properties:
-          self:
-            properties:
-              href:
-                type: string
-                description: 分类自身链接URL.
-          parent:
-           properties:
-              href:
-                type: string
-                description: 分类父分类链接URL.
-          children:
-           properties:
-              href:
-                type: string
-                description: 分类子分类链接URL.
-  category:
-    properties:
-      uuid:
-        type: string
-        description: 分类ID
-      name:
-        type: string
-        description: 分类名称.
-      createTime:
-        type: string
-        description: 分类创建时间.
-      description:
-        type: string
-        description: 分类描述.
-      _links:
-        properties:
-          self:
-           properties:
-              href:
-                type: string
-                description: 分类自身链接.
-  categoryAddRequest:
-    properties:
-      name:
-        type: string
-        description: 分类名称.
-      description:
-        type: string
-        description: 分类描述.
-  categoryUpdateRequest:
-    properties:
-      name:
-        type: string
-        description: 分类名称.
-      description:
-        type: string
-        description: 分类描述.
+        description: 员工supportInfo.
   mapIds:
-        type: array
-        items:
-          $ref: '#/definitions/mapId'
+      type: array
+      items:
+        $ref: '#/definitions/mapId'
   mapId:
     type: string
     description:  服务商ID.

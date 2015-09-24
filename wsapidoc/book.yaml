@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
   title: Book
-  description: Move your app forward with the book API 
+  description: Move your app forward with the book API
   version: 1.0.0
-host: '103.245.128.220:8087'
+host: '10.9.42.203:8087'
 schemes:
   - http
 produces:
-  - application/json
+  - application/hal+json
 paths:
   /books:
     post:
-      summary: 新增图书.    
+      summary: 新增图书.
       description: 新增图书.
       parameters:
         - name: X-Token
@@ -35,11 +35,10 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'  
+            $ref: '#/definitions/Error'
     get:
       summary: 图书列表.
-      description:
-        查询图书列表.
+      description: 查询图书列表.
       parameters:
         - name: X-Token
           in: header
@@ -71,10 +70,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /books/{bookuuid}:
+  '/books/{bookuuid}':
     patch:
-      summary: 修改某本图书信息.    
-      description: 修改某本图书信息. 
+      summary: 修改某本图书信息.
+      description: 修改某本图书信息.
       parameters:
         - name: X-Token
           in: header
@@ -94,13 +93,12 @@ paths:
           type: string
           description: 图书ID.
           required: true
-          format: uuid          
+          format: uuid
       tags:
         - 图书
       responses:
         '200':
           description: 更新图书信息成功
-          
         default:
           description: Unexpected error
           schema:
@@ -130,11 +128,10 @@ paths:
         default:
           description: unexpected error
           schema:
-            $ref: '#/definitions/Error'            
+            $ref: '#/definitions/Error'
     get:
       summary: 根据uuid查询书的详细信息.
-      description:
-        根据uuid查询书的详细信息.
+      description: 根据uuid查询书的详细信息.
       parameters:
         - name: X-Token
           in: header
@@ -149,7 +146,6 @@ paths:
           description: 图书uuid.
           required: true
           format: uuid
-
       tags:
         - 图书
       responses:
@@ -163,9 +159,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /books/{bookuuid}/chapters:
+  '/books/{bookuuid}/chapters':
     post:
-      summary:  向某本图书添加章节.
+      summary: 向某本图书添加章节.
       description: 向某本图书添加章节.
       parameters:
         - name: X-Token
@@ -186,12 +182,12 @@ paths:
           description: 图书信息.
           schema:
             $ref: '#/definitions/chapterAddRequest'
-          required: true          
+          required: true
       tags:
         - 图书
       responses:
         '201':
-          description: 添加图书章节.  
+          description: 添加图书章节.
     get:
       summary: 查询某本图书的所有章节信息.
       description: 查询某本图书的所有章节信息.
@@ -208,7 +204,7 @@ paths:
           description: 图书uuid.
           required: true
           type: string
-          format: double      
+          format: double
         - name: page
           in: query
           description: 显示第几页.
@@ -222,7 +218,7 @@ paths:
           type: number
           format: int
       tags:
-        - 图书 
+        - 图书
       responses:
         '200':
           description: 查询某本图书下的所有章节信息成功.
@@ -232,10 +228,10 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /books/{bookuuid}/chapters/{chapteruuid}:
+  '/books/{bookuuid}/chapters/{chapteruuid}':
     patch:
-      summary: 修改某本图书下某章节信息.    
-      description: 修改某本图书下某章节信息. 
+      summary: 修改某本图书下某章节信息.
+      description: 修改某本图书下某章节信息.
       parameters:
         - name: X-Token
           in: header
@@ -255,7 +251,7 @@ paths:
           type: string
           description: 图书ID.
           required: true
-          format: uuid          
+          format: uuid
         - name: chapteruuid
           in: path
           description: 章节ID.
@@ -266,14 +262,13 @@ paths:
       responses:
         '200':
           description: 更新成功
-          
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: 删除某本图书下某章节.
-      description: 删除某本图书下某章节.
+      summary: 删除某本图书某章节.
+      description: 删除某本图书某章节.
       parameters:
         - name: X-Token
           in: header
@@ -290,9 +285,10 @@ paths:
           format: uuid
         - name: chapteruuid
           in: path
+          type: string
           description: 章节ID.
           required: true
-          type: string
+          format: uuid
       tags:
         - 图书
       responses:
@@ -301,7 +297,7 @@ paths:
         default:
           description: unexpected error
           schema:
-            $ref: '#/definitions/Error'            
+            $ref: '#/definitions/Error'
     get:
       summary: 查询某本图书某章节的信息.
       description: 查询某本图书某章节的信息.
@@ -324,7 +320,7 @@ paths:
           required: true
           type: string
       tags:
-        - 图书 
+        - 图书
       responses:
         '200':
           description: 查询成功.
@@ -333,10 +329,10 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'   
-  /books/{bookuuid}/chapters/{chapteruuid}/pages :
+            $ref: '#/definitions/Error'
+  '/books/{bookuuid}/chapters/{chapteruuid}/pages':
     post:
-      summary:  向某本图书某章节新增页数据.
+      summary: 向某本图书某章节新增页数据.
       description: 向某本图书某章节新增页数据.
       parameters:
         - name: X-Token
@@ -362,12 +358,12 @@ paths:
           description: 图书信息.
           schema:
             $ref: '#/definitions/pageAddRequest'
-          required: true          
+          required: true
       tags:
         - 图书
       responses:
         '201':
-          description: 添加成功.  
+          description: 添加成功.
     get:
       summary: 查询某本图书某章节下所有页数据列表.
       description: 查询某本图书某章节下所有页数据列表.
@@ -402,11 +398,10 @@ paths:
           description: 查询错误.
           schema:
             $ref: '#/definitions/Error'
-             
-  /books/{bookuuid}/chapters/{chapteruuid}/pages/{pageno} :
+  '/books/{bookuuid}/chapters/{chapteruuid}/pages/{pageno}':
     patch:
-      summary: 修改某本图书下某章节某页的信息.    
-      description: 修改某本图书下某章节某页信息. 
+      summary: 修改某本图书下某章节某页的信息.
+      description: 修改某本图书下某章节某页信息.
       parameters:
         - name: X-Token
           in: header
@@ -426,7 +421,7 @@ paths:
           type: string
           description: 图书ID.
           required: true
-          format: uuid          
+          format: uuid
         - name: chapteruuid
           in: path
           description: 章节ID.
@@ -437,13 +432,12 @@ paths:
           description: 页号.
           required: true
           type: string
-          format: int          
+          format: int
       tags:
         - 图书
       responses:
         '200':
           description: 更新成功
-          
         default:
           description: Unexpected error
           schema:
@@ -475,7 +469,7 @@ paths:
           description: 页号.
           required: true
           type: string
-          format: int          
+          format: int
       tags:
         - 图书
       responses:
@@ -484,7 +478,7 @@ paths:
         default:
           description: unexpected error
           schema:
-            $ref: '#/definitions/Error' 
+            $ref: '#/definitions/Error'
     get:
       summary: 查询某本图书某章节下某页的数据.
       description: 查询某本图书某章节下某页的数据.
@@ -501,19 +495,19 @@ paths:
           description: 图书ID.
           required: true
           type: string
-          format: uuid          
+          format: uuid
         - name: chapteruuid
           in: path
           description: 章节ID.
           required: true
           type: string
-          format: uuid          
+          format: uuid
         - name: pageno
           in: path
           description: 页号.
           required: true
           type: string
-          format: int          
+          format: int
       tags:
         - 图书
       responses:
@@ -527,8 +521,451 @@ paths:
           description: 查询错误.
           schema:
             $ref: '#/definitions/Error'
+  '/books/{bookuuid}/chapters/{chapteruuid}/phoneticpages/{pageno}':
+    get:
+      summary: 查询某本图书某章节下某页返回包含拼音的数据.
+      description: 查询某本图书某章节下某页返回包含拼音的数据.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: bookuuid
+          in: path
+          description: 图书ID.
+          required: true
+          type: string
+          format: uuid
+        - name: chapteruuid
+          in: path
+          description: 章节ID.
+          required: true
+          type: string
+          format: uuid
+        - name: pageno
+          in: path
+          description: 页号.
+          required: true
+          type: string
+          format: int
+      tags:
+        - 图书
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/phoneticpage'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
             
-           
+  '/dicts':
+    post:
+      summary: 新增字典.
+      description: 新增字典.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictAddRequest
+          in: body
+          description: 字典信息.
+          schema:
+            $ref: '#/definitions/dictAddRequest'
+          required: true
+      tags:
+        - 字典
+      responses:
+        '201':
+          description: 添加成功.
+    get:
+      summary: 查询字典列表.
+      description: 查询字典列表.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: previousId
+          in: query
+          description: 列表上一页.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: 列表下一页.
+          required: false
+          type: string
+          format: string          
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            $ref: '#/definitions/dicts'          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
+            
+  '/dicts/{dictuuid}':
+    patch:
+      summary: 修改字典.
+      description: 修改字典.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictUpdateRequest
+          in: body
+          description: 字典信息.
+          schema:
+            $ref: '#/definitions/dictUpdateRequest'
+          required: true
+        - name: dictuuid
+          in: path
+          type: string
+          description: 字典UUID.
+          required: true
+          format: uuid
+
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 更新成功
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: 删除字典.
+      description: 删除字典.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictuuid
+          in: path
+          type: string
+          description: 字典UUID.
+          required: true
+          format: uuid
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 删除成功
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: 查询单个字典信息.
+      description: 查询单个字典信息.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictuuid
+          in: path
+          description: 字典UUID.
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/dict'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
+  '/dicts/{dictuuid}/keys':
+    post:
+      summary: 新增字典记录.
+      description: 新增字典记录.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictuuid
+          in: path
+          type: string
+          description: 字典UUID.
+          required: true
+          format: uuid          
+        - name: dictKeyAddRequest
+          in: body
+          description: 字典信息.
+          schema:
+            $ref: '#/definitions/dictKeyAddRequest'
+          required: true
+      tags:
+        - 字典
+      responses:
+        '201':
+          description: 添加成功.
+    get:
+      summary: 查询字典列表.
+      description: 查询字典列表.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: previousId
+          in: query
+          description: 列表上一页.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: 列表下一页.
+          required: false
+          type: string
+          format: string          
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int
+        - name: dictuuid
+          in: path
+          description: 字典UUID.
+          required: true
+          type: string
+          format: uuid          
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            $ref: '#/definitions/dictKeys'          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
+            
+  '/dicts/{dictuuid}/keys/{key}':
+    patch:
+      summary: 修改字典记录.
+      description: 修改字典记录.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictUpdateRequest
+          in: body
+          description: 图书信息.
+          schema:
+            $ref: '#/definitions/dictKeyUpdateRequest'
+          required: true
+        - name: dictuuid
+          in: path
+          type: string
+          description: 字典UUID.
+          required: true
+          format: uuid
+        - name: key
+          in: path
+          type: string
+          description: 字典记录key.
+          required: true
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 更新成功
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: 删除字典记录.
+      description: 删除字典记录.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictuuid
+          in: path
+          type: string
+          description: 字典UUID.
+          required: true
+          format: uuid
+        - name: key
+          in: path
+          type: string
+          description: 字典记录Key.
+          required: true
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 删除成功
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: 查询单个字典记录信息.
+      description: 查询单个字典记录信息.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: dictuuid
+          in: path
+          description: 字典UUID.
+          required: true
+          type: string
+          format: uuid
+        - name: key
+          in: path
+          type: string
+          description: 字典记录Key.
+          required: true          
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/dictKey'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'            
+
+  '/dicts/search/{key}':
+    get:
+      summary: 在所有字典中查询字典记录.
+      description: 在所有字典中查询字典记录.
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: previousId
+          in: query
+          description: 列表上一页.
+          required: false
+          type: string
+          format: string
+        - name: nextId
+          in: query
+          description: 列表下一页.
+          required: false
+          type: string
+          format: string          
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+          format: int
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+          format: int
+        - name: key
+          in: path
+          description: 字典记录Key.
+          required: true
+          type: string
+          format: uuid          
+      tags:
+        - 字典
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            $ref: '#/definitions/searchDictKeys'          
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+            
 definitions:
   books:
     properties:
@@ -568,22 +1005,43 @@ definitions:
             description: 总共多少页
           number:
             type: string
-            description: 当前第几页 
-
+            description: 当前第几页
+            
   books_content:
     properties:
+      uuid:
+        type: string
+        description: UUID.      
       title:
         type: string
-        description:  书名.
+        description: 书名.
+      author:
+        type: string
+        description: 作者.       
       preface:
         type: string
-        description:  前言.
-      numberOfPages:
+        description: 前言.
+      createTime:
         type: string
-        description:  书总页数.
-      cover_img_link:
+        description: 图书创建时间.
+      lastUpdateDate:
         type: string
-        description:  书封面图片链接.      
+        description: 图书更新日期.
+      categoryCode:
+        type: string
+        description: 图书分类.  
+      categoryCodeDesc:
+        type: string
+        description: 图书分类描述.          
+      releaseStatus:
+        type: string
+        description: 图书发布状态.
+      coverImgUrl:
+        type: string
+        description: 图书封面图片链接.          
+      remark:
+        type: string
+        description: 图书备注.        
       _links:
         properties:
           self:
@@ -593,18 +1051,39 @@ definitions:
                 description: 获取当前书信息的url链接.
   book:
     properties:
+      uuid:
+        type: string
+        description: UUID.      
       title:
         type: string
-        description:  书名.
+        description: 书名.
+      author:
+        type: string
+        description: 作者.       
       preface:
         type: string
-        description:  前言.
-      numberOfPages:
+        description: 前言.
+      createTime:
         type: string
-        description:  书总页数.
+        description: 图书创建时间.
+      lastUpdateDate:
+        type: string
+        description: 图书更新日期.
+      categoryCode:
+        type: string
+        description: 图书分类.  
+      categoryCodeDesc:
+        type: string
+        description: 图书分类描述.          
+      releaseStatus:
+        type: string
+        description: 图书发布状态.
       coverImgUrl:
         type: string
-        description:  书封面图片链接.      
+        description: 图书封面图片链接.          
+      remark:
+        type: string
+        description: 图书备注.        
       _links:
         properties:
           self:
@@ -612,69 +1091,77 @@ definitions:
               href:
                 type: string
                 description: 获取当前书信息的url链接.
-      chapters_link:
-        type: string
-        description: 获取当前图书所有章节的url链接.
+          chaptersLink:
+            properties:
+              href:
+                type: string
+                description: 获取当前图书所有章节的url链接.         
+          pagesLink:
+            properties:
+              href:
+                type: string
+                description: 获取当前图书所有页的url链接.  
+          phoneticpagesLink:
+            properties:
+              href:
+                type: string
+                description: 获取当前图书所有页数据包含拼音的url链接.                  
 
   bookUpdateRequest:
     properties:
       title:
         type: string
-        description:  书名.
+        description: 书名.
       preface:
         type: string
-        description:  前言.
+        description: 前言.
       author:
         type: string
-        description:  作者.
+        description: 作者.
       categoryCode:
         type: string
-        description:  分类编码.
+        description: 分类编码.
       categoryCodeDesc:
         type: string
-        description:  分类描述.
+        description: 分类描述.
       releaseStatus:
         type: string
-        description:  上架状态.
+        description: 上架状态.
       coverImgUrl:
         type: string
-        description:  封面图片链接.  
+        description: 封面图片链接.
       remark:
         type: string
-        description:  备注.  
-
+        description: 备注.
   bookAddRequest:
     properties:
       title:
         type: string
-        description:  书名.
+        description: 书名.
       preface:
         type: string
-        description:  前言.
+        description: 前言.
       author:
         type: string
-        description:  作者.
+        description: 作者.
       categoryCode:
         type: string
-        description:  分类编码.
+        description: 分类编码.
       categoryCodeDesc:
         type: string
-        description:  分类描述.
+        description: 分类描述.
       releaseStatus:
         type: string
-        description:  上架状态.
+        description: 上架状态.
       coverImgUrl:
         type: string
-        description:  封面图片链接.  
+        description: 封面图片链接.
       remark:
         type: string
-        description:  备注.  
+        description: 备注.
         
   chapters:
     properties:
-      numberOfChapters:
-        type: string
-        description: 总章节数.
       _links:
         properties:
           next:
@@ -711,19 +1198,19 @@ definitions:
             description: 总共多少页
           number:
             type: string
-            description: 当前第几页 
+            description: 当前第几页
             
   chapters_content:
     properties:
       title:
         type: string
-        description:  章节标题.
+        description: 章节标题.
       numberOfPages:
         type: string
-        description:  章节总共页数.
+        description: 章节总共页数.
       pages_link:
         type: string
-        description:  获取章节下所有页数据的url.
+        description: 获取章节下所有页数据的url.
       _links:
         properties:
           self:
@@ -731,19 +1218,16 @@ definitions:
               href:
                 type: string
                 description: 获取当前章节信息的url.
- 
   chapterAddRequest:
     properties:
       title:
         type: string
-        description:  章节标题.
-
+        description: 章节标题.
   chapterUpdateRequest:
     properties:
       title:
         type: string
-        description:  章节标题.
-                
+        description: 章节标题.
   pages:
     properties:
       numberOfPages:
@@ -772,33 +1256,32 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/pages_content'
-              
   pages_content:
-    properties: 
+    properties:
       pageNo:
         type: string
-        description:  当前页号.
+        description: 当前页号.
       page_link:
         type: string
-        description:  获取当前页相信信息的url.
+        description: 获取当前页相信信息的url.
   pageAddRequest:
-    properties: 
+    properties:
       pageNo:
         type: string
-        description:  当前页号.
+        description: 当前页号.
       paragraphs:
         type: array
         items:
-          $ref: '#/definitions/paragraph'      
+          $ref: '#/definitions/paragraph'
   pageUpdateRequest:
-    properties: 
+    properties:
       pageNo:
         type: string
-        description:  当前页号.
+        description: 当前页号.
       paragraphs:
         type: array
         items:
-          $ref: '#/definitions/paragraph'   
+          $ref: '#/definitions/paragraph'
   page:
     properties:
       paragraphs:
@@ -825,22 +1308,276 @@ definitions:
                 type: string
                 description: 获取上一页数据url.
   paragraphs_content:
-    properties: 
+    properties:
       type:
         type: string
-        description:  段落类型(如:image、text).
+        description: '段落类型(如:image、text、phonetictext).'
       content:
         type: string
-        description:  段落内容(如果type类型为image则返回图片的url链接,否则type类型为txt为文本内容).
+        description: '段落内容(如果type类型为image则返回图片的url链接,否则type类型为txt为文本内容).'
   paragraph:
-    properties: 
+    properties:
       type:
         type: string
-        description:  段落类型(如:image、text).
+        description: '段落类型(如:image、text).'
       content:
         type: string
-        description:  段落内容(如果type类型为image则返回图片的url链接,否则type类型为txt为文本内容).
+        description: '段落内容(如果type类型为image则返回图片的url链接,否则type类型为txt为文本内容).'
+  phoneticpage:
+    properties:
+      paragraphs:
+        properties:
+          paragraphsResponses:
+            type: array
+            items:
+              $ref: '#/definitions/paragraphs_content'
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 获取下一页数据url.
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前页数据url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 获取上一页数据url.
+        
+  dicts:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 获取下一页数据url.
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前页数据url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 获取上一页数据url.
+      _embedded:
+        properties:
+          dictsResponses:
+            type: array
+            items:
+              $ref: '#/definitions/dict'
+      page:
+        properties:
+          size:
+            type: string
+            description: 每页显示多少条
+          totalElements:
+            type: string
+            description: 总共多少条数据
+          totalPages:
+            type: string
+            description: 总共多少页
+          number:
+            type: string
+            description: 当前第几页
+  dict:
+    properties:
+      uuid:
+        type: string
+        description: UUID
+      title:
+        type: string
+        description: 标题
+      isbn:
+        type: string
+        description: 国际标准图书编号
+      summary:
+        type: string
+        description: 概要
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前字典信息的url.        
+  dictAddRequest:
+    properties:
+      title:
+        type: string
+        description: 标题
+      isbn:
+        type: string
+        description: 国际标准图书编号
+      summary:
+        type: string
+        description: 概要
+  dictUpdateRequest:
+    properties:
+      title:
+        type: string
+        description: 标题
+      isbn:
+        type: string
+        description: 国际标准图书编号
+      summary:
+        type: string
+        description: 概要
   
+  dictKeys:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 获取下一页数据url.
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前页数据url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 获取上一页数据url.
+      _embedded:
+        properties:
+          chaptersResponses:
+            type: array
+            items:
+              $ref: '#/definitions/dictKey'
+      page:
+        properties:
+          size:
+            type: string
+            description: 每页显示多少条
+          totalElements:
+            type: string
+            description: 总共多少条数据
+          totalPages:
+            type: string
+            description: 总共多少页
+          number:
+            type: string
+            description: 当前第几页  
+  dictKey:
+    properties:
+      uuid:
+        type: string
+        description: UUID
+      key:
+        type: string
+        description: 字
+      phonetic_symbol:
+        type: string
+        description: 拼音
+      basic_explain:
+        type: string
+        description: 解释
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前字典key信息的url.
+
+  dictKeyAddRequest:
+    properties:
+      key:
+        type: string
+        description: 字
+      phonetic_symbol:
+        type: string
+        description: 拼音
+      basic_explain:
+        type: string
+        description: 解释
+
+  dictKeyUpdateRequest:
+    properties:
+      key:
+        type: string
+        description: 字
+      phonetic_symbol:
+        type: string
+        description: 拼音
+      basic_explain:
+        type: string
+        description: 解释        
+
+  searchDictKeys:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: 获取下一页数据url.
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前页数据url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: 获取上一页数据url.
+      _embedded:
+        properties:
+          chaptersResponses:
+            type: array
+            items:
+              $ref: '#/definitions/searchDictKey'
+      page:
+        properties:
+          size:
+            type: string
+            description: 每页显示多少条
+          totalElements:
+            type: string
+            description: 总共多少条数据
+          totalPages:
+            type: string
+            description: 总共多少页
+          number:
+            type: string
+            description: 当前第几页 
+  
+  searchDictKey:
+    properties:
+      status:
+        type: string
+        description: 该Key在字典是否存在
+      key:
+        type: string
+        description: 字
+      phonetic_symbol:
+        type: string
+        description: 拼音
+      basic_explain:
+        type: string
+        description: 解释
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: 获取当前字典key信息的url.
   Error:
     properties:
       code:

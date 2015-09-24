@@ -3,7 +3,7 @@ info:
   title: User Location
   description: Move your app forward with the Location Search API 
   version: 1.0.0
-host: '103.245.128.220:8087'
+host: '10.9.42.203:8087'
 schemes:
   - http
 produces:
@@ -376,6 +376,13 @@ paths:
           schema:
              $ref: '#/definitions/locationAddRequest'
           required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
       tags:
        - 用户位置第一部分
       responses:
@@ -607,9 +614,6 @@ definitions:
           observableId:
             type: string
             description: 被观察者ID.
-          loginName:
-            type: string
-            description: 被观察者登录名.
           push:
             type: string
             description: push(ON or OFF).
@@ -656,14 +660,11 @@ definitions:
         channelId:
           type: string
           description: 百度通道ID.
-        deviceType:
-          type: string
-          description: 设备类型 3:android 4:ios
   addMyobservables:
     properties:
        observableId:
          type: string
-         description: 被观察者uuid.
+         description: 被观察者uuid。
        loginName:
          type: string
          description: 被观察者登录名.

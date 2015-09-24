@@ -1,0 +1,48 @@
+spring:
+  profiles: qa
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+      virtual-host-name: loving.oauth2.service
+server:
+  port: 19219
+cassandra:
+  contactpoints: 10.9.42.203
+  port: 9042
+  keyspace: pois_qa
+#endpoints
+checkToken:
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+#health
+endpoints:
+  health:
+    id: health
+    sensitive: false
+    enabled: true
+
+oauth2ServerByMyInfo:
+  address: http://10.9.42.203:8087/security/users/myInfo
+oauth2ServerByUser:
+  address: http://10.9.42.203:8087/security/users
+oauth2ServerByToken:
+  address: http://10.9.42.203:8087/security/oauth/accesstoken
+metadata:
+  broker:
+    list: 10.9.42.203:9092
+request:
+  required:
+    acks: 0
+topic: user-location-updater
+num:
+  partitions: 8
+log:
+  retention:
+    hours: 1
+loginName: cch
+password: 111111

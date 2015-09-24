@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Oauth2
-  description: Oauth2 description
+  description: Oauth2 描述
 
   version: 1.0.0
 host: '103.245.128.220:8087'
@@ -18,7 +18,7 @@ paths:
       parameters:
         - name: Auth2Request
           in: body
-          description: The Auth2Request JSON you want to post
+          description: 输入用户账号和密码获取 
           schema:
             $ref: '#/definitions/Auth2Request'
           required: true
@@ -27,7 +27,7 @@ paths:
         - accesstoken
       responses:
         '200':
-          description: History information for the given user
+          description: 成功返回状态码
           schema:
             $ref: '#/definitions/Activities'
         default:
@@ -41,17 +41,17 @@ paths:
       description: 查询用户
       parameters:
         - name: X-Token
-          default: {X-Token}
+          default: '{X-Token}'
           in: header
           type: string
-          description: The Auth2Request JSON you want to post
+          description: 输入有效的X-Token
           required: true
       
       tags:
         - users
       responses:
         '200':
-          description: History information for the given user
+          description: 成功返回状态码
           schema:
             $ref: '#/definitions/Activities'
         default:
@@ -68,40 +68,63 @@ paths:
             $ref: '#/definitions/Auth2AddRequest'
           required: true
         - name: X-Token
-          default: {X-Token}
+          default: '{X-Token}'
           in: header
           type: string
-          description: The Auth2Request JSON you want to post
+          description: 输入有验的X-Token
           required: true
       
       tags:
         - users
       responses:
         '200':
-          description: History information for the given user
+          description: 成功返回状态码
           schema:
             $ref: '#/definitions/Activities'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /users/myInfo:
-    get:
-      summary: Access token获取用户uuid
-      description: 使用Access token获取用户uuid
+  /users/syncaccount:
+    post:
+      summary: 同步用户
+      description: 同步user用户到oauth2中
       parameters:
-        - name: X-Token
-          default: {X-Token}
-          in: header
-          type: string
-          description: The Auth2Request JSON you want to post
+        - name: Auth2Request
+          in: body
+          description: 输入需要的户账号和密码
+          schema:
+            $ref: '#/definitions/Auth2Request'
           required: true
       
       tags:
         - users
       responses:
         '200':
-          description: History information for the given user
+          description: 成功返回状态码
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'          
+  /users/myInfo:
+    get:
+      summary: Access token获取用户uuid
+      description: 使用Access token获取用户uuid
+      parameters:
+        - name: X-Token
+          default: '{X-Token}'
+          in: header
+          type: string
+          description: 输入有验的X-Token
+          required: true
+      
+      tags:
+        - users
+      responses:
+        '200':
+          description: 成功返回状态码
           schema:
             $ref: '#/definitions/Activities'
         default:
@@ -116,14 +139,14 @@ paths:
         - name: username
           in: query
           type: string
-          description: The Auth2Request JSON you want to post
+          description: 需要查询UUID的用户名称
           required: true
       
       tags:
         - users
       responses:
         '200':
-          description: History information for the given user
+          description: 成功返回状态码
           schema:
             $ref: '#/definitions/Activities'
         default:

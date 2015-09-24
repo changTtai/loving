@@ -1,0 +1,553 @@
+swagger: '2.0'
+info:
+  title: carts
+  description: 购物车服务API 
+  version: 1.0.0
+host: '10.9.42.203:8087'
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /carts:
+    post:
+      summary: 创建购物车API.
+      description:
+        创建购物车API.
+      consumes:
+        - application/vnd.jiahua.commands.placeorder+json
+      parameters:
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: cart
+          in: body
+          description: 创建购物车body.
+          schema:
+             $ref: '#/definitions/addCarts'
+          required: true
+      tags:
+        - 购物车服务
+      responses:
+        '201':
+          description: 创建购物车成功.
+    get:
+      summary: 查找购物车API.
+      description:
+        查找购物车API.
+      parameters:
+        - name: ownerId
+          in: query
+          type: string
+          description: ownerId.
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 查找购物车成功.
+          schema:
+            $ref: '#/definitions/carts'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+  /carts/{uuid}:
+    get:
+      summary: 查询购物车详情API.
+      description:
+        查询购物车详情API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 查找购物车详情成功.
+          schema:
+            $ref: '#/definitions/cartDetails'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'    
+    patch:
+      summary: 修改购物车API.
+      description:
+        修改购物车API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: cartUpdateRequest
+          in: body
+          description: 修改购物车body.
+          schema:
+            $ref: '#/definitions/cartUpdateRequest'
+          required: true
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 修改购物车成功.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /carts/{uuid}/items:
+    post:
+      summary: 购物车添加服务项目API.
+      description:
+        购物车添加服务项目API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: itemRequest
+          in: body
+          description: 购物车添加服务项目body.
+          schema:
+            $ref: '#/definitions/itemRequest'
+          required: true
+      tags:
+        - 购物车服务
+      responses:
+        '201':
+          description: 购物车添加服务项目成功.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'  
+    get:
+      summary: 查询服务项目列表API.
+      description:
+        查询服务项目列表API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: size
+          in: query
+          description: 每页显示多少条数据.
+          required: false
+          type: number
+        - name: page
+          in: query
+          description: 显示第几页.
+          required: false
+          type: number
+        - name: nextId
+          in: query
+          description: 下一个页需要当前页的id.
+          required: false
+          type: string
+        - name: previousId
+          in: query
+          description: 前一页需要当前页面的第一个id.
+          required: false
+          type: string
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 查询服务项目列表成功.
+          schema:
+            $ref: '#/definitions/items'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+  /carts/x/items/{uuid}:
+    get:
+      summary: 查询购物车服务项目详情API.
+      description:
+        查询购物车服务项目详情API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 查询成功.
+          schema:
+            $ref: '#/definitions/itemDetails'
+        default:
+          description: 查询错误.
+          schema:
+            $ref: '#/definitions/Error'
+    patch:
+      summary: 购物车修改服务项目API.
+      description:
+        购物车修改服务项目API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+        - name: itemRequest
+          in: body
+          description: 购物车修改服务项目body.
+          schema:
+            $ref: '#/definitions/itemUpdateRequest'
+          required: true
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: 购物车修改服务项目成功.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error' 
+    delete:
+      summary: 删除服务项目API.
+      description: 删除服务项目API.
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          description: uuid.
+          required: true
+          format: uuid
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: Oauth token code.
+          required: true
+          type: string
+          format: double
+      tags:
+        - 购物车服务
+      responses:
+        '200':
+          description: pet deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:        
+  addCarts:
+    properties:
+        ownerId:
+          type: string
+          description: ownerId.
+  cartDetails:
+    properties:
+        uuid:
+            type: string
+            description: uuid.
+        ownerId:
+            type: string
+            description: 所有者ID（由客户端决定） 如：imei,tel,userId.
+        serviceTime:
+          type: string
+          description: 服务时间.
+        serviceAddress:
+          type: string
+          description: 服务地址.
+        total:
+          type: number
+          description: 下单价格.
+        comment:
+          type: string
+          description: 描述.
+        detail:
+          type: object
+          description: 详情.
+        operator:
+            properties:
+              href:
+                type: string
+                description: 操作员链接.
+  carts:    
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+          cartsResponse:
+            type: array
+            items:
+              $ref: '#/definitions/getCarts'
+      page:
+        properties:
+          size:
+            type: integer
+            description: page size
+          totalElements:
+            type: integer
+            description: data total
+          totalPages:
+            type: integer
+            description: page total
+          number:
+            type: integer
+            description: current page    
+  getCarts:
+    properties:
+        uuid:
+            type: string
+            description: uuid.
+        ownerId:
+            type: string
+            description: 所有者ID（由客户端决定） 如：imei,tel,userId.
+        serviceTime:
+          type: string
+          description: 服务时间.
+        serviceAddress:
+          type: string
+          description: 服务地址.
+        total:
+          type: number
+          description: 下单价格.
+        comment:
+          type: string
+          description: 描述.
+        detail:
+          type: object
+          description: 详情.
+        _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: self. 
+          operator:
+            properties:
+              href:
+                type: string
+                description: 操作员链接.
+  cartRequest:
+    properties:
+        ownerId:
+            type: string
+            description: 所有者ID（由客户端决定） 如：imei,tel,userId.
+        serviceTime:
+          type: string
+          description: 服务时间.
+        serviceAddress:
+          type: string
+          description: 服务地址.
+        total:
+          type: number
+          description: 下单价格.
+        comment:
+          type: string
+          description: 描述.
+        detail:
+          type: object
+          description: 详情.
+  cartUpdateRequest:
+    properties:
+        serviceTime:
+          type: string
+          description: 服务时间.
+        serviceAddress:
+          type: string
+          description: 服务地址.
+        comment:
+          type: string
+          description: 描述.
+  itemRequest:
+    properties:
+        productPriceUuid:
+            type: string
+            description: 产品价格ID.
+        amount:
+          type: integer
+          description: 数量.
+  itemUpdateRequest:
+    properties:
+        amount:
+          type: integer
+          description: 数量.
+          
+  items:
+    properties:
+      _links:
+        properties:
+          next:
+            properties:
+              href:
+                type: string
+                description: query next page url.
+          self:
+            properties:
+              href:
+                type: string
+                description: query self page url.
+          prev:
+            properties:
+              href:
+                type: string
+                description: query previous page url.
+      _embedded:
+        properties:
+          itemResponses:
+            type: array
+            items:
+              $ref: '#/definitions/getItem'
+      page:
+        properties:
+          size:
+            type: integer
+            description: page size
+          totalElements:
+            type: integer
+            description: data total
+          totalPages:
+            type: integer
+            description: page total
+          number:
+            type: integer
+            description: current page 
+  getItem:
+    properties:
+        uuid:
+          type: string
+          description: uuid.
+        productPriceUuid:
+            type: string
+            description: 产品价格ID.
+        name:
+            type: string
+            description: 名称.
+        price:
+          type: number
+          description: 单价.
+        unit:
+          type: string
+          description: 单位.
+        amount:
+          type: integer
+          description: 数量. 
+        subtotal:
+          type: number
+          description: 小计. 
+        _links:
+          properties:
+            self:
+              properties:
+                href:
+                  type: string
+                  description: self. 
+  itemDetails:
+    properties:
+        productPriceUuid:
+            type: string
+            description: 产品价格ID.
+        name:
+            type: string
+            description: 名称.
+        price:
+          type: number
+          description: 单价.
+        unit:
+          type: string
+          description: 单位.
+        amount:
+          type: integer
+          description: 数量. 
+        subtotal:
+          type: number
+          description: 小计. 
+          
+          
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
