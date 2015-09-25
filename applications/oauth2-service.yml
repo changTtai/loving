@@ -20,16 +20,16 @@ cassandra:
 
 code:
   endpoint:
-    http://172.28.4.220:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
+    http://10.9.42.203:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
 token:
   endpoint:
-    http://172.28.4.220:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
+    http://10.9.42.203:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
 checkToken:
   endpoint:
-    http://172.28.4.220:8087/security/oauth/check_token?token=%s
+    http://10.9.42.203:8087/security/oauth/check_token?token=%s
 register:
   guanhutong:
-    http://172.28.4.220:8087/guanhutong3g/register#/register
+    http://10.9.42.203:8087/guanhutong3g/register#/register
 
 quickAccessToken:
   auth:
