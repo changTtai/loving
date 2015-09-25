@@ -60,7 +60,7 @@ oauth2ServerByToken:
   address: http://172.28.24.32:19301/security/oauth/accesstoken
 userLocationRestServer:
   address: http://172.28.24.32:19219/userlocationserver
-loginName: cch
+loginName: lcg
 password: 111111
 
 
