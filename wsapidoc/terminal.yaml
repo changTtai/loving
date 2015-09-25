@@ -1,7 +1,7 @@
-swagger: '2.0'
+﻿swagger: '2.0'
 info:
   title: terminal
-  description:  终端管理  
+  description:  终端管理 
   version: 1.0.0
 host: '103.245.128.220:8087'
 schemes:

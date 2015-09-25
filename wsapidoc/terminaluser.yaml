@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Terminal User
-  description: 用户管理 
+  description: 用户管理
   version: 1.0.0
 host: '103.245.128.220:8087'
 schemes:
