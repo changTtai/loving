@@ -81,7 +81,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+        defaultZone: http://172.28.24.32:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -92,12 +92,12 @@ server:
   context-path: /userlocationserver
 
 cassandra:
-  contactpoints: 10.9.42.203
+  contactpoints: 172.28.24.32
   port: 9042
   keyspace: pois_qa
 #endpoints
 checkToken:
-  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
 #health
 endpoints:
   health:
@@ -108,19 +108,19 @@ endpoints:
 
 #otherServerAddress
 oauth2Server:
-  address: http://10.9.42.203:8087/security/users
+  address: http://172.28.24.32:19301/security/users
 oauth2ServerByMyInfo:
-  address: http://10.9.42.203:8087/security/users/myInfo
+  address: http://172.28.24.32:19301/security/users/myInfo
 oauth2ServerByUser:
-  address: http://10.9.42.203:8087/security/users
+  address: http://172.28.24.32:19301/security/users
 oauth2ServerByLoginName:
-  address: http://10.9.42.203:8087/security/users/userInfo
+  address: http://172.28.24.32:19301/security/users/userInfo
 oauth2ServerByToken:
-  address: http://10.9.42.203:8087/security/oauth/accesstoken
+  address: http://172.28.24.32:19301/security/oauth/accesstoken
 #elasticsearch
 elasticsearch:
   clusterName: changhongit_qa
-  host: 10.9.42.203
+  host: 172.28.24.32
   port: 9301
   sniff: true
   ignore_cluster_name: false
@@ -128,7 +128,7 @@ elasticsearch:
   nodes_sampler_interval: 20s
 
 zookeeper: 
-  connect: 10.9.42.203:2181
+  connect: 172.28.24.32:2181
   session: 
     timeout: 
       ms: 14000
