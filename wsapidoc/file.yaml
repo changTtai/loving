@@ -8,7 +8,7 @@ info:
   title: File
   description: Move your app forward with the file API 
   version: 1.0.0
-host: '103.245.128.220:8087'
+host: '103.245.129.20:8087'
 schemes:
   - http
   - https

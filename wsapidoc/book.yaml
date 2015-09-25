@@ -3,7 +3,7 @@ info:
   title: Book
   description: Move your app forward with the book API
   version: 1.0.0
-host: '10.9.42.203:8087'
+host: '103.245.129.20:8087'
 schemes:
   - http
 produces:

@@ -3,7 +3,7 @@ info:
   title: notification
   description: loing-user-location-service application API 
   version: 1.0.0
-host: 'localhost:8080'
+host: '103.245.129.20:8087'
 schemes:
   - http
 basePath: /

@@ -6,7 +6,7 @@ info:
   description: Move your app forward with the ChongHongIt Guanhutong user-health-service API
   version: "1.0.0"
 # the domain of the service
-host: 172.28.4.220:8086
+host: 103.245.129.20:8087
 # array of all schemes that your API supports
 schemes:
   - http
