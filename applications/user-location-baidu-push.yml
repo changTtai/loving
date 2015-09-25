@@ -53,13 +53,13 @@ apiKey: 4dWe6R0KzlfHZZdqjUzz6urV
 secretKey: B99dOXbY8nDWrqIyKYg72u677jckIPcc
 #auto test
 oauth2ServerByMyInfo:
-  address: http://172.28.24.32:8087/security/users/myInfo
+  address: http://172.28.24.32:19301/security/users/myInfo
 oauth2ServerByUser:
-  address: http://172.28.24.32:8087/security/users
+  address: http://172.28.24.32:19301/security/users
 oauth2ServerByToken:
-  address: http://172.28.24.32:8087/security/oauth/accesstoken
+  address: http://172.28.24.32:19301/security/oauth/accesstoken
 userLocationRestServer:
-  address: http://172.28.24.32:8087/userlocationserver
+  address: http://172.28.24.32:19219/userlocationserver
 loginName: cch
 password: 111111
 
