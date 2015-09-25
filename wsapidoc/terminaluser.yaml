@@ -1,9 +1,9 @@
 swagger: '2.0'
 info:
-  title: user rest
+  title: Terminal User
   description: 用户管理 
   version: 1.0.0
-host: '103.245.129.20:8087'
+host: '103.245.128.220:8087'
 schemes:
   - http
 produces:
