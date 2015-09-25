@@ -5,19 +5,19 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://10.9.42.203:8087/discovery/eureka/
+     defaultZone: http://172.28.24.32:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.oauth2.service
+      virtual-host-name: loving.baidupush.service
 server:
   port: 19220
 cassandra:
-  contactpoints: 10.9.42.203
+  contactpoints: 172.28.24.32
   port: 9042
   keyspace: pois_qa
 checkToken:
-  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
+  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
 
 endpoints:
   health:
@@ -28,7 +28,7 @@ endpoints:
 group:
   id: changhongit-group
 zookeeper: 
-  connect: 10.9.42.203:2181
+  connect:172.28.24.32:2181
   session: 
     timeout: 
       ms: 14000
@@ -43,7 +43,7 @@ topic: user-location-updater
 numThreads: 8
 metadata:
   broker:
-    list: 10.9.42.203:9092
+    list: 172.28.24.32:9092
 request:
   required:
     acks: 0
@@ -53,13 +53,13 @@ apiKey: 4dWe6R0KzlfHZZdqjUzz6urV
 secretKey: B99dOXbY8nDWrqIyKYg72u677jckIPcc
 #auto test
 oauth2ServerByMyInfo:
-  address: http://10.9.42.203:8087/security/users/myInfo
+  address: http://172.28.24.32:8087/security/users/myInfo
 oauth2ServerByUser:
-  address: http://10.9.42.203:8087/security/users
+  address: http://172.28.24.32:8087/security/users
 oauth2ServerByToken:
-  address: http://10.9.42.203:8087/security/oauth/accesstoken
+  address: http://172.28.24.32:8087/security/oauth/accesstoken
 userLocationRestServer:
-  address: http://10.9.42.203:8087/userlocationserver
+  address: http://172.28.24.32:8087/userlocationserver
 loginName: cch
 password: 111111
 
