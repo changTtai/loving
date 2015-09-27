@@ -36,9 +36,9 @@ elasticsearch:
 #kafka
 kafka:
   topic: PRODUCTPRICE-INFO
-  productprice
+  productprice:
     topic: productprice-productprice-info-dev-203
-  companywithproductprice
+  companywithproductprice:
     topic: company-companywithproductprice-info-dev-203
 metadata:
     broker:
@@ -87,9 +87,9 @@ cassandra:
 #kafka
 kafka:
   topic: PRODUCTPRICE-INFO
-  productprice
+  productprice:
     topic: productprice-productprice-info-qa-32
-  companywithproductprice
+  companywithproductprice:
     topic: company-companywithproductprice-info-qa-32
 metadata:
   broker:
