@@ -28,7 +28,7 @@ endpoints:
 group:
   id: changhongit-group
 zookeeper: 
-  connect:172.28.24.32:2181
+  connect: 172.28.24.32:2181
   session: 
     timeout: 
       ms: 14000
