@@ -4,7 +4,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.4.220:8761/eureka/
+      defaultZone: http://10.9.42.203:8087/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -14,14 +14,24 @@ server:
   port: 29267
 
 cassandra:
-  contactpoints: 172.28.4.220
+  contactpoints: 10.9.42.203
   port: 9042
   keyspace: pois_dev
+#kafka
+metadata:
+  broker:
+    list: 10.9.42.203:9092
+kafka:
+  companywithproduct:
+    topic: company-companywithproduct-info-dev-203
+request:
+  required:
+    acks: 0
 
 checkToken:
-  endpoint: http://172.28.4.220:8086/security/oauth/check_token?token=%s
+  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
 companydetail:
-  points: http://172.28.4.220:8086/companies/{uuid}
+  points: http://10.9.42.203:8087/companies/{uuid}
 
 endpoints:
   health:
@@ -37,7 +47,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.4.220:8761/eureka/
+      defaultZone: http://172.28.24.32:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -47,14 +57,24 @@ server:
   port: 19224
 
 cassandra:
-  contactpoints: 172.28.4.220
+  contactpoints: 172.28.24.32
   port: 9042
-  keyspace: pois_qa
+  keyspace: pois_dev
+#kafka
+metadata:
+  broker:
+    list: 172.28.24.32:9092
+kafka:
+  companywithproduct:
+    topic: company-companywithproduct-info-qa-32
+request:
+  required:
+    acks: 0
 
 checkToken:
-  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
 companydetail:
-  points: http://172.28.4.220:8087/companies/{uuid}
+  points: http://172.28.24.32:29263/companies/{uuid}
 
 endpoints:
   health:

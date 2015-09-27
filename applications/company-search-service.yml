@@ -8,15 +8,10 @@ eureka:
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.company.service
+      virtual-host-name: loving.company.search.service
 
 server:
-  port: 29263
-
-cassandra:
-  contactpoints: 10.9.42.203
-  port: 9042
-  keyspace: pois_dev
+  port: 29363
 
 endpoints:
   health:
@@ -44,7 +39,7 @@ zookeeper:
       ms: 200
 
 group:
-  id: changhongit-company-es-group-dev
+  id: changhongit-company-es-group-dev-203
 
 auto:
   commit:
@@ -54,16 +49,15 @@ auto:
     reset: smallest
 
 kafka:
-  topic: COMPANY-INFO
-metadata:
-  broker:
-    list:10.9.42.203:9092
-kafka:
   companyinfo:
-    topic:company-company-info-dev-203
-request:
-  required:
-    acks:0
+    topic: company-company-info-dev-203
+  companywithproduct
+    topic: company-companywithproduct-info-dev-203
+  companywithproductprice:
+    topic: company-companywithproductprice-info-dev-203
+  consumer:
+    thread:
+      num: 5
 
 checkToken:
   endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
@@ -94,12 +88,7 @@ eureka:
       virtual-host-name: loving.company.service
 
 server:
-  port: 19216
-
-cassandra:
-  contactpoints: 172.28.24.32
-  port: 9042
-  keyspace: pois_qa
+  port: 19316
 
 endpoints:
   health:
@@ -108,9 +97,9 @@ endpoints:
     enabled: true
 
 elasticsearch:
-  clusterName: changhongit-qa
+  clusterName: changhongit-dev
   host: 172.28.24.32
-  port: 9301
+  port: 9300
   sniff: true
   ignore_cluster_name: false
   ping_timeout: 20s
@@ -127,7 +116,7 @@ zookeeper:
       ms: 200
 
 group:
-  id: changhongit-company-es-group-qa
+  id: changhongit-company-es-group-qa-32
 
 auto:
   commit:
@@ -137,15 +126,15 @@ auto:
     reset: smallest
 
 kafka:
-  topic: COMPANY-INFO
   companyinfo:
     topic: company-company-info-qa-32
-metadata:
-  broker:
-    list: 172.28.24.32:9092
-request:
-  required:
-    acks: 0
+  companywithproduct
+    topic: company-companywithproduct-info-qa-32
+  companywithproductprice:
+    topic: company-companywithproductprice-info-qa-32
+  consumer:
+    thread:
+      num: 5
 
 checkToken:
   endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
