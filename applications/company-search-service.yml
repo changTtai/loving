@@ -97,7 +97,7 @@ endpoints:
     enabled: true
 
 elasticsearch:
-  clusterName: changhongit-dev
+  clusterName: changhongit-qa
   host: 172.28.24.32
   port: 9300
   sniff: true
