@@ -55,12 +55,11 @@ auto:
 
 kafka:
   topic: COMPANY-INFO
+  companyinfo:
+    topic:company-company-info-dev-203
 metadata:
   broker:
     list:10.9.42.203:9092
-kafka:
-  companyinfo:
-    topic:company-company-info-dev-203
 request:
   required:
     acks:0
@@ -218,12 +217,11 @@ auto:
 
 kafka:
   topic: COMPANY-INFO
+  companyinfo:
+    topic:company-company-info-dev-203
 metadata:
   broker:
     list:10.9.42.203:9092
-kafka:
-  companyinfo:
-    topic:company-company-info-dev-203
 request:
   required:
     acks:0
