@@ -130,7 +130,7 @@ group:
 
 auto:
   commit:
-    nterval:
+    interval:
       ms: 1000
   offset:
     reset: smallest
@@ -210,7 +210,7 @@ group:
 
 auto:
   commit:
-    nterval:
+    interval:
       ms: 1000
   offset:
     reset: smallest
