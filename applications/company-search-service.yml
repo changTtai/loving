@@ -51,7 +51,7 @@ auto:
 kafka:
   companyinfo:
     topic: company-company-info-dev-203
-  companywithproduct
+  companywithproduct:
     topic: company-companywithproduct-info-dev-203
   companywithproductprice:
     topic: company-companywithproductprice-info-dev-203
@@ -128,7 +128,7 @@ auto:
 kafka:
   companyinfo:
     topic: company-company-info-qa-32
-  companywithproduct
+  companywithproduct:
     topic: company-companywithproduct-info-qa-32
   companywithproductprice:
     topic: company-companywithproductprice-info-qa-32
@@ -203,7 +203,7 @@ auto:
 kafka:
   companyinfo:
     topic: company-company-info-qa-32
-  companywithproduct
+  companywithproduct:
     topic: company-companywithproduct-info-qa-32
   companywithproductprice:
     topic: company-companywithproductprice-info-qa-32
