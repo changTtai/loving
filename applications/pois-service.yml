@@ -89,7 +89,6 @@ mail:
   transport:
     protocol: smtp  
 
-
 ---
 
 spring:
@@ -100,7 +99,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://172.28.4.220:8087/discovery/eureka/
+      defaultZone: http://172.28.24.32:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -117,15 +116,15 @@ endpoints:
 
 
 cassandra:
-  contactpoints: 172.28.4.220
+  contactpoints: 172.28.24.32
   port: 9042
   keyspace: pois_qa
 
 
 elasticsearch:
-  clusterName: changhongit_qa
-  host: 172.28.4.220
-  port: 9301
+  clusterName: changhongit-qa
+  host: 172.28.24.32
+  port: 9300
   sniff: true
   ignore_cluster_name: false
   ping_timeout: 20s
@@ -133,7 +132,7 @@ elasticsearch:
 
 #kafka
 zookeeper:
-  connect: 172.28.4.220:2181
+  connect: 172.28.24.32:2181
   session:
     timeout:
       ms: 14000
@@ -155,23 +154,23 @@ kafka:
   topic: POIS-INFO
 
 checkToken:
-  endpoint: http://172.28.4.220:8087/security/oauth/check_token?token=%s
+  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
 
 userRegister:
-  endpoint: http://172.28.4.220:8087/security/guanhutong3g/register
+  endpoint: http://172.28.24.32:19301/security/guanhutong3g/register
   
 loginOauth2:
-  endpoint: http://172.28.4.220:8087/security/oauth/accesstoken
+  endpoint: http://172.28.24.32:19301/security/oauth/accesstoken
   
 
 companyServer:
-  address: http://172.28.4.220:8087/companies
+  address: http://172.28.24.32:19301/companies
   
 employeeServer:
-  address: http://172.28.4.220:8087/employees/byloginid
+  address: http://172.28.24.32:19301/employees/byloginid
 
 chitpois:
-  address: http://172.28.4.220:8087/chitpois/poi
+  address: http://172.28.24.32:19301/chitpois/poi
 
 mail:
   from: 3245335402@qq.com  
