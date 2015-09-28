@@ -93,7 +93,7 @@ kafka:
     topic: company-companywithproductprice-info-qa-32
 metadata:
   broker:
-    list: 172.28.24.32.9092
+    list: 172.28.24.32:9092
 request:
   required:
     acks: 0
