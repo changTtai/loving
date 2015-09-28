@@ -53,15 +53,20 @@ getToken:
   endpoint: http://10.9.42.203:8087/security/oauth/accesstoken
  
 companyServer:
-  address: http://10.9.42.203:8087/companies/{uuid}
+  address: http://localhost:29263/companies/{uuid}
   add:
-    address: http://10.9.42.203:8087/companies
+    address: http://localhost:29263/companies
 
 productServer:
   address: http://172.28.4.220:8086/products/{uuid}
   add:
     address: http://172.28.4.220:8086/products
 
+categoryServer:
+  address: http://localhost:29263/catalogs/categories/{uuid}
+  path: http://localhost:29263/catalogs/categories/{uuid}/path
+productPrice:
+  catalogId: 0c937bed-3b90-45db-92f8-c06d4a21344d
 ---
 
 spring:
