@@ -114,14 +114,14 @@ getToken:
   endpoint: http://172.28.24.32:19301/security/oauth/accesstoken
  
 companyServer:
-  address: http://172.28.24.32:19216/companies/{uuid}
+  address: http://172.28.24.34:19216/companies/{uuid}
   add:
-    address: http://172.28.24.32:19216/companies
+    address: http://172.28.24.34:19216/companies
 
 productServer:
-  address: http://172.28.24.32:19224/products/{uuid}
+  address: http://172.28.24.34:19224/products/{uuid}
   add:
-    address: http://172.28.24.32:19224/products
+    address: http://172.28.24.34:19224/products
 
 endpoints:
   health:
