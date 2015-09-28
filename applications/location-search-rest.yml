@@ -119,7 +119,7 @@ oauth2ServerByToken:
   address: http://172.28.24.32:19301/security/oauth/accesstoken
 #elasticsearch
 elasticsearch:
-  clusterName: changhongit_qa
+  clusterName: changhongit-qa
   host: 172.28.24.32
   port: 9301
   sniff: true
