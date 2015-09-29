@@ -31,7 +31,7 @@ request:
 checkToken:
   endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
 companydetail:
-  points: http://10.9.42.203:8087/companies/{uuid}
+  points: http://localhost:29263/companies/{uuid}
 
 endpoints:
   health:

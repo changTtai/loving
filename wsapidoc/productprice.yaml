@@ -57,7 +57,7 @@ paths:
       tags:
         - productprices
       responses:
-        '201':
+        '200':
           description: 查询成功.
           schema:
             type: string
@@ -111,7 +111,7 @@ paths:
       tags:
         - productprices
       responses:
-        '201':
+        '200':
           description: 查询成功.
           schema:
             type: string
@@ -305,8 +305,6 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     delete:
-      consumes:
-        - application/vnd.jiahua.commands.deleteProductPrice+json
       summary: 删除产品价格
       description: 删除产品价格
       parameters:

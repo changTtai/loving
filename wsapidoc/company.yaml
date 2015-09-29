@@ -112,9 +112,7 @@ paths:
         '200':
           description: 返回服务商详细信息
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/CompanyDetail'
+            $ref: '#/definitions/CompanyDetail'
         '401':
           description:  没有权限访问.
         default:
@@ -205,9 +203,7 @@ paths:
         '200':
           description: 成功后 返回服务商详细信息.
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/CompanyDetail'
+            $ref: '#/definitions/CompanyDetail'
         '401':
           description:  没有权限访问.
         default:
@@ -253,9 +249,7 @@ paths:
         '200':
           description: 成功后 返回服务商详细信息.
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/productpriceResponse'
+            $ref: '#/definitions/productpriceResponse'
         '401':
           description:  没有权限访问.
         default:
@@ -524,9 +518,7 @@ paths:
         '200':
           description: 成功后返回员工详情信息.
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/EmployeeDetail'
+            $ref: '#/definitions/EmployeeDetail'
         '401':
           description:  没有权限访问.
         default:
@@ -699,9 +691,7 @@ paths:
         '200':
           description: 成功后返回员工详情.
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/EmployeeDetail'
+            $ref: '#/definitions/EmployeeDetail'
         '401':
           description:  没有权限访问.
         default:
