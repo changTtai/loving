@@ -8,7 +8,7 @@ schemes:
   - http
 basePath: /
 produces:
-  - application/json
+  - application/hal+json
 paths:
   /productprices/search:
     get:
@@ -37,7 +37,7 @@ paths:
           type: string
         - name: bevel
           in: query
-          default: 5
+          default: '5'
           description: 位置直径(单位为公里,默认是5公里).
           required: false
           type: string
@@ -61,13 +61,16 @@ paths:
           description: 查询成功.
           schema:
             type: string
-           
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 查询失败
           schema:
             $ref: '#/definitions/Error'
   /productprices/search/products:
-    post:
+    get:
       summary: 查询产品服务价格并根据产品分组.
       description: 查询产品服务价格并根据产品分组.
       parameters:
@@ -88,7 +91,7 @@ paths:
           type: string
         - name: bevel
           in: query
-          default: 5
+          default: '5'
           description: 位置直径(单位为公里,默认是5公里).
           required: false
           type: string
@@ -112,7 +115,10 @@ paths:
           description: 查询成功.
           schema:
             type: string
-           
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 查询失败
           schema:
@@ -120,6 +126,8 @@ paths:
             
   /productprices:
     post:
+      consumes:
+        - application/vnd.jiahua.commands.copyproduct+json
       summary: 增加一个产品价格服务
       description: 新增产品价格服务
       parameters:
@@ -140,6 +148,16 @@ paths:
       responses:
         '200':
           description: 添加成功
+          schema:
+            type: string
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
+        default:
+          description: 添加失败
+          schema:
+            $ref: '#/definitions/Error'
     get:
       summary: 查询产品服务列表
       description: 查询产品服务列表.
@@ -177,8 +195,46 @@ paths:
             type: array
             items:
               $ref: '#/definitions/productprices'
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 查询失败
+          schema:
+            $ref: '#/definitions/Error'
+  /productprices/selfdefine:
+    post:
+      consumes:
+        - application/vnd.jiahua.commands.selfdefine+json
+      summary: 增加一个自定义的产品价格服务
+      description: 新增自定义的产品价格服务
+      parameters:
+        - name: addproductprice
+          in: body
+          description: The productPrice JSON you want to post
+          schema:
+            $ref: '#/definitions/addSelfProductPrice'
+          required: true
+        - name: X-Token
+          in: header
+          default: '{X-Token}'
+          description: X-Token is a request header and is required.
+          required: true
+          type: string
+      tags:
+        - productprices
+      responses:
+        '200':
+          description: 添加成功
+          schema:
+            type: string
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
+        default:
+          description: 添加失败
           schema:
             $ref: '#/definitions/Error'
   '/productprices/{id}':
@@ -201,11 +257,17 @@ paths:
             type: array
             items:
               $ref: '#/definitions/productpriceByIdResponse'
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 查询失败
           schema:
-            $ref: '#/definitions/Error'      
+            $ref: '#/definitions/Error'
     patch:
+      consumes:
+        - application/vnd.jiahua.commands.updateProductPrice+json
       summary: 修改产品服务
       description: 修改产品服务
       parameters:
@@ -232,11 +294,19 @@ paths:
       responses:
         '200':
           description: 修改成功
+          schema:
+            type: string
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 修改失败
           schema:
-            $ref: '#/definitions/Error'  
+            $ref: '#/definitions/Error'
     delete:
+      consumes:
+        - application/vnd.jiahua.commands.deleteProductPrice+json
       summary: 删除产品价格
       description: 删除产品价格
       parameters:
@@ -257,254 +327,16 @@ paths:
       responses:
         '200':
           description: 删除成功
+          schema:
+            type: string
+        '401':
+          description: 没有访问权限.
+          schema:
+            type: string
         default:
           description: 删除失败
           schema:
             $ref: '#/definitions/Error'
-  /ppcategories:
-    post:
-      summary: 新增产品价格类别
-      description: 新增产品价格类别
-      parameters:
-        - name: CategoryAddRequest
-          in: body
-          description: 价格类别属性
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: 登录认证
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: 添加成功
-        default:
-          description: 添加失败
-          schema:
-            $ref: '#/definitions/Error'    
-    get:
-      summary: 查询分类列表
-      description: 查询分类列表
-      parameters:
-        - name: size
-          in: query
-          default: 20
-          description: 每页数量(默认20)
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: 当前页
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: 下一页ID
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: 上一页ID
-          required: false
-          type: string
-      tags:
-        - categories
-      responses:
-        '200':
-          description: 查询成功
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
-        default:
-          description: 查询失败
-          schema:
-            $ref: '#/definitions/Error'
-  /ppcategories/{id}/path:
-    get:
-      summary: 某一分类的父层级
-      description: 某一分类的父层级
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description:  查询成功
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-        default:
-          description: 查询失败
-          schema:
-            $ref: '#/definitions/Error'      
-  /ppcategories/{id}:
-    post:
-      summary: 添加某分类的子分类
-      description: 添加某分类的子分类
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-        - name: CategoryAddRequest
-          in: body
-          description: 分类属性
-          schema:
-            $ref: '#/definitions/categoryAddRequest'
-          required: true
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: 登录认证
-          required: true  
-          type: string  
-      tags:
-        - categories    
-      responses:
-        '201':
-          description: 添加成功
-        default:
-          description: 添加失败
-          schema:
-            $ref: '#/definitions/Error'  
-    get:
-      summary: 查询分类
-      description: 查询分类
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-      tags:
-        - categories    
-      responses: 
-        '200':
-          description:  查询成功
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categoryResponse'
-        default:
-          description: 查询失败
-          schema:
-            $ref: '#/definitions/Error'      
-
-    patch:
-      summary: 修改某分类
-      description: 修改某分类
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: 登录认证
-          required: true  
-          type: string   
-        - name: categoryUpdateRequest
-          in: body
-          description: 可修改属性
-          schema:
-            $ref: '#/definitions/categoryUpdateRequest'
-          required: true
-      tags:
-        - categories    
-      responses:
-        '200':
-          description: 修改成功
-        default:
-          description: 修改失败
-          schema:
-            $ref: '#/definitions/Error'  
-    delete:
-      summary: 删除某分类
-      description: 删除某分类
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-        - name: X-Token
-          in: header
-          default: '{X-Token}'
-          description: 登录认证
-          required: true  
-          type: string
-      tags:
-        - categories    
-      responses:
-        '200':
-          description: 删除成功
-        default:
-          description: 删除失败
-          schema:
-            $ref: '#/definitions/Error'
-  /ppcategories/{id}/children:
-    get:
-      summary: 查询某分类的子分类
-      description: 查询某分类的子分类
-      parameters:
-        - name: id
-          in: path
-          type: string
-          description: 分类ID
-          required: true
-          format: uuid
-        - name: size
-          in: query
-          description: 每页个数(默认20)
-          required: true
-          type: number
-        - name: page
-          in: query
-          description: 当前页
-          required: false
-          type: number
-        - name: nextId
-          in: query
-          description: 下一页ID
-          required: false
-          type: string
-        - name: previousId
-          in: query
-          description: 上一页ID
-          required: false
-          type: string
-      tags:
-        - categories
-      responses:
-        '200':
-          description: 查询成功
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/categories'
-        default:
-          description: 查询失败
-          schema:
-            $ref: '#/definitions/Error'          
 definitions:
   productprices:
     properties:
@@ -535,207 +367,178 @@ definitions:
         properties:
           size:
             type: string
-            description: page size
+            description: 分页大小
           totalElements:
             type: string
-            description: data total
+            description: 数据总条数
           totalPages:
             type: string
-            description: page total
+            description: 总分页大小
           number:
             type: string
-            description: page total
+            description: 当前页值
   productpriceResponse:
     properties:
-      id:
+      uuid:
         type: string
-        description: id of productPrice.
+        description: 产品价格ID
       productid:
         type: string
-        description: productid of productPrice.
+        description: 产品ID
       productname:
         type: string
-        description: productname of productPrice.
+        description: 产品名称
       price:
         type: string
-        description: price of productPrice.
+        description: 价格
       companyid:
         type: string
-        description: companyid of productPrice.
+        description: 公司ID
       companyname:
         type: string
-        description: companyname of productPrice.
+        description: 公司名称
       categroyid:
         type: string
-        description: categroyid of productPrice.
+        description: 分类ID
       categroyname:
         type: string
-        description: categroyname of productPrice.
+        description:  分类名称
+      icon:
+        type: string
+        description:  图片ID
+      description:
+        type: string
+        description:  价格描述
+      status:
+        type: string
+        description:  状态
       _links:
         properties:
           self:
             properties:
               href:
                 type: string
-                description: The current page.
+                description: 当前页链接
   productpriceByIdResponse:
     properties:
-      id:
+      uuid:
         type: string
-        description: id of productPrice.
-      productid:
+        description: 产品价格ID
+      productId:
         type: string
-        description: productid of productPrice.
+        description: 产品ID
       productname:
         type: string
-        description: productname of productPrice.
+        description: 产品名称
       price:
         type: string
-        description: price of productPrice.
-      companyid:
+        description: 价格
+      companyId:
         type: string
-        description: companyid of productPrice.
+        description: 公司ID
       companyname:
         type: string
-        description: companyname of productPrice.
-      categroyid:
+        description: 公司名称
+      categroyId:
         type: string
-        description: categroyid of productPrice.
+        description: 分类ID
       categroyname:
         type: string
-        description: categroyname of productPrice.
+        description:  分类名称
+      unit:
+        type: string
+        description:  单位
+      icon:
+        type: string
+        description:  图片ID
+      description:
+        type: string
+        description:  价格描述
+      status:
+        type: string
+        description:  状态
+      location:
+        properties:
+          lon:
+            type: string
+            description: 经度
+          lat:
+            type: string
+            description: 纬度
+      createdTime:
+        type: string
+        description:  创建时间
+      createdBy:
+        type: string
+        description:  创建人
+      modifiedTime:
+        type: string
+        description:  修改时间
+      modifiedBy:
+        type: string
+        description:  修改人
+      _links:
+        properties:
+          self:
+            properties:
+              href:
+                type: string
+                description: 当前页链接
   addproductprice:
     properties:
       productId:
         type: string
-        description: productId of productPrice.
+        description: 产品ID
       price:
         type: string
-        description: price of productPrice.
+        description: 产品价格
+      unit:
+        type: string
+        description: 单位.
       companyId:
         type: string
-        description: companyid of productPrice.
+        description: 公司ID
       categroyId:
         type: string
-        description: categroyid of productPrice.
-  updateproductprice:
+        description: 分类ID（默认分类为全部，非必填）
+  addSelfProductPrice:
     properties:
+      productName:
+        type: string
+        description: 产品名称
       price:
         type: string
-        description: price of productPrice.
-  categories:
-    properties:
-      _links:
-        properties:
-          next:
-            properties:
-              href:
-                type: string
-                description: next page url.
-          self:
-            properties:
-              href:
-                type: string
-                description: current page url.
-          prev:
-            properties:
-              href:
-                type: string
-                description: previous page url.
-      _embedded:
-        properties:
-          categoryResponses:
-            type: array
-            items:
-              $ref: '#/definitions/category'
-      page:
-        properties:
-          size:
-            type: string
-            description: page size
-          totalElements:
-            type: string
-            description: data totalElements
-          totalPages:
-            type: string
-            description: page totalPages
-          number:
-            type: string
-            description: page number
-  categoryResponse:
-    properties:
-      id:
+        description: 产品价格
+      unit:
         type: string
-        description: id of product.
-      name:
-        type: string
-        description: name of product.
-      createTime:
-        type: string
-        description: createTime of category.
+        description: 单位.
       companyId:
         type: string
-        description: companyId of category.
-      description:
+        description: 公司ID
+      categroyId:
         type: string
-        description: description of category.
-      _links:
-        properties:
-          self:
-            properties:
-              href:
-                type: string
-                description: current detail url.
-          parent:
-           properties:
-              href:
-                type: string
-                description: Category parent detail url.
-          children:
-           properties:
-              href:
-                type: string
-                description: Category children detail url.
-  category:
+        description: 分类ID（默认分类为全部，非必填）
+  updateproductprice:
     properties:
-      id:
+      categroyId:
         type: string
-        description: id of category.
-      name:
+        description: 产品分类ID（默认分类为全部，非必填）
+      price:
         type: string
-        description: name of category.
-      createTime:
+        description: 产品价格
+      status:
         type: string
-        description: createTime of category.
+        description: 产品上下架状态
       description:
         type: string
-        description: description of category.
-      _links:
-        properties:
-          self:
-           properties:
-              href:
-                type: string
-                description: current detail url.
-  categoryAddRequest:
-    properties:
-      name:
+        description: 产品价格描述
+      lat:
         type: string
-        description: name of category.
-      companyId:
+        description: 产品位置信息（纬度）
+      lon:
         type: string
-        description: companyId of category.
-      description:
-        type: string
-        description: description of category.
-  categoryUpdateRequest:
-    properties:
-      name:
-        type: string
-        description: name of category.
-      description:
-        type: string
-        description: description of category.      
+        description: 产品位置信息（经度）
+
   Error:
     properties:
       code:
