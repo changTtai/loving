@@ -1,42 +1,4 @@
 spring:
-  profiles: dev
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://10.9.42.203:8087/discovery/eureka/
-  instance:
-    metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.oauth2.service
-
-server:
-  port: 29301
-
-cassandra:
-  contactpoints: 10.9.42.203
-  port: 9042
-  keyspace: oauth2
-
-code:
-  endpoint:
-    http://10.9.42.203:8087/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
-token:
-  endpoint:
-    http://10.9.42.203:8087/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
-checkToken:
-  endpoint:
-    http://10.9.42.203:8087/security/oauth/check_token?token=%s
-register:
-  guanhutong:
-    http://10.9.42.203:8087/guanhutong3g/register#/register
-
-quickAccessToken:
-  auth:
-    Basic YW5kcm9pZEFwcDphbmRyb2lkQXBw
-
----
-spring:
   profiles: qa
   thymeleaf:
     cache: false
@@ -44,7 +6,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.24.32:8761/discovery/eureka/
+      defaultZone: http://localhost:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -53,49 +15,9 @@ server:
   port: 19301
   context-path: /security
 cassandra:
-  contactpoints: 172.28.24.32
+  contactpoints: 192.168.191.50
   port: 9042
-  keyspace: oauth2
-
-code:
-  endpoint:
-    http://172.28.24.32:19301/security/oauth/authorize?response_type=code&client_id=androidApp&redirect_uri=code
-token:
-  endpoint:
-    http://172.28.24.32:19301/security/oauth/token?code=%s&grant_type=authorization_code&redirect_uri=code
-checkToken:
-  endpoint:
-    http://172.28.24.32:19301/security/oauth/check_token?token=%s
-register:
-  guanhutong:
-    http://172.28.24.32:19301/guanhutong3g/register#/register
-
-quickAccessToken:
-  auth:
-    Basic YW5kcm9pZEFwcDphbmRyb2lkQXBw
-
-
----
-spring:
-  profiles: test
-  thymeleaf:
-    cache: false
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://172.28.24.32:8761/discovery/eureka/
-  instance:
-    metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.oauth2.service
-server:
-  port: 19301
-  context-path: /security
-cassandra:
-  contactpoints: 172.28.24.32
-  port: 9042
-  keyspace: oauth2
+  keyspace: pois
 
 code:
   endpoint:

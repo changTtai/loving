@@ -5,20 +5,28 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.28.24.32:8761/discovery/eureka/
+      defaultZone: http://localhost:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.updater.service
+      virtual-host-name: loving.locationupdater.service
 server:
   port: 19219
+  
 cassandra:
-  contactpoints: 172.28.24.32
+  contactpoints: localhost
   port: 9042
-  keyspace: pois_qa
-#endpoints
-checkToken:
-  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
+  keyspace: pois
+    
+elasticsearch:
+  clusterName: changhongit
+  host: localhost
+  port: 9300
+  sniff: true
+  ignore_cluster_name: false
+  ping_timeout: 20s
+  nodes_sampler_interval: 20s
+
 #health
 endpoints:
   health:
@@ -26,23 +34,45 @@ endpoints:
     sensitive: false
     enabled: true
 
+checkToken:
+  endpoint: http://localhost:19301/security/oauth/check_token?token=%s
 oauth2ServerByMyInfo:
-  address: http://172.28.24.32:19301/security/users/myInfo
+  address: http://localhost:19301/security/users/myInfo
 oauth2ServerByUser:
-  address: http://172.28.24.32:19301/security/users
+  address: http://localhost:19301/security/users
 oauth2ServerByToken:
-  address: http://172.28.24.32:19301/security/oauth/accesstoken
+  address: http://localhost:19301/security/oauth/accesstoken
+
+#kafka
+zookeeper:
+  connect: localhost:2181
+  session:
+    timeout:
+      ms: 14000
+  sync:
+    time:
+      ms: 200
+
+auto: 
+  commit: 
+    interval: 
+      ms: 1000
+
+topic: user-location-updater
+ 
 metadata:
   broker:
-    list: 172.28.24.32:9092
+    list: localhost:9092
 request:
   required:
     acks: 0
-topic: user-location-updater
 num:
   partitions: 8
 log:
   retention:
     hours: 1
-loginName: lcg
-password: 111111
+
+
+schemaFile: /profiles/qa/userLocationSchema.avsc
+loginName: sys
+password: sys

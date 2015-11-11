@@ -1,87 +1,11 @@
 spring:
-  profiles: dev
-  thymeleaf:
-    cache: false
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://10.9.42.203:8087/discovery/eureka/
-  instance:
-    metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
-      virtual-host-name: loving.userlocationsearch.service
-#tomcat
-server:
-  port: 29275
-  context-path: /userlocationserver
-
-cassandra:
-  contactpoints: 10.9.42.203
-  port: 9042
-  keyspace: pois_dev
-#endpoints
-checkToken:
-  endpoint: http://10.9.42.203:8087/security/oauth/check_token?token=%s
-#health
-endpoints:
-  health:
-    id: health
-    sensitive: false
-    enabled: true
-
-
-#otherServerAddress
-oauth2Server:
-  address: http://10.9.42.203:8087/security/users
-oauth2ServerByMyInfo:
-  address: http://10.9.42.203:8087/security/users/myInfo
-oauth2ServerByUser:
-  address: http://10.9.42.203:8087/security/users
-oauth2ServerByLoginName:
-  address: http://10.9.42.203:8087/security/users/userInfo
-oauth2ServerByToken:
-  address: http://10.9.42.203:8087/security/oauth/accesstoken
-  
-
-elasticsearch:
-  clusterName: changhongit-dev
-  host: 10.9.42.203
-  port: 9300
-  sniff: true
-  ignore_cluster_name: false
-  ping_timeout: 20s
-  nodes_sampler_interval: 20s
-
-zookeeper: 
-  connect: 10.9.42.203:2181
-  session: 
-    timeout: 
-      ms: 14000
-  sync: 
-    time: 
-      ms: 200
-auto: 
-  commit: 
-    interval: 
-      ms: 1000
-group:
-  id: changhongit-es-group-dev
-topic: user-location-updater
-numThreads: 8
-
-loginName: lcg
-password: 111111
-
-
----
-spring:
   profiles: qa
   thymeleaf:
     cache: false
 eureka:
   client:
     serviceUrl:
-        defaultZone: http://172.28.24.32:8761/discovery/eureka/
+        defaultZone: http://localhost:8761/discovery/eureka/
   instance:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
@@ -92,12 +16,12 @@ server:
   context-path: /userlocationserver
 
 cassandra:
-  contactpoints: 172.28.24.32
+  contactpoints: localhost
   port: 9042
-  keyspace: pois_qa
+  keyspace: pois
 #endpoints
 checkToken:
-  endpoint: http://172.28.24.32:19301/security/oauth/check_token?token=%s
+  endpoint: http://localhost:19301/security/oauth/check_token?token=%s
 #health
 endpoints:
   health:
@@ -108,19 +32,19 @@ endpoints:
 
 #otherServerAddress
 oauth2Server:
-  address: http://172.28.24.32:19301/security/users
+  address: http://localhost:19301/security/users
 oauth2ServerByMyInfo:
-  address: http://172.28.24.32:19301/security/users/myInfo
+  address: http://localhost:19301/security/users/myInfo
 oauth2ServerByUser:
-  address: http://172.28.24.32:19301/security/users
+  address: http://localhost:19301/security/users
 oauth2ServerByLoginName:
-  address: http://172.28.24.32:19301/security/users/userInfo
+  address: http://localhost:19301/security/users/userInfo
 oauth2ServerByToken:
-  address: http://172.28.24.32:19301/security/oauth/accesstoken
+  address: http://localhost:19301/security/oauth/accesstoken
 #elasticsearch
 elasticsearch:
-  clusterName: changhongit-qa
-  host: 172.28.24.32
+  clusterName: changhongit
+  host: 192.168.191.50
   port: 9301
   sniff: true
   ignore_cluster_name: false
@@ -128,7 +52,7 @@ elasticsearch:
   nodes_sampler_interval: 20s
 
 zookeeper: 
-  connect: 172.28.24.32:2181
+  connect: localhost:2181
   session: 
     timeout: 
       ms: 14000
@@ -140,9 +64,9 @@ auto:
     interval: 
       ms: 1000
 group:
-  id: changhongit-es-group-qa
+  id: changhongit-es-group
 topic: user-location-updater
 numThreads: 8
 
-loginName: lcg
-password: 111111
+loginName: sys
+password: sys
