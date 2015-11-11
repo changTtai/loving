@@ -45,7 +45,7 @@ oauth2ServerByToken:
 elasticsearch:
   clusterName: changhongit
   host: 192.168.191.50
-  port: 9301
+  port: 9300
   sniff: true
   ignore_cluster_name: false
   ping_timeout: 20s
