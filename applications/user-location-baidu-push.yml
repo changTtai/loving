@@ -12,7 +12,7 @@ eureka:
       virtual-host-name: loving.baidupush.service
 
 server:
-  port: 29220
+  port: 19220
   
 cassandra:
   contactpoints: 192.168.191.50
