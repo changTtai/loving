@@ -14,13 +14,13 @@ server:
   port: 19219
   
 cassandra:
-  contactpoints: localhost
+  contactpoints: 192.168.191.50
   port: 9042
   keyspace: pois
     
 elasticsearch:
   clusterName: changhongit
-  host: localhost
+  host: 192.168.191.50
   port: 9300
   sniff: true
   ignore_cluster_name: false
@@ -45,7 +45,7 @@ oauth2ServerByToken:
 
 #kafka
 zookeeper:
-  connect: localhost:2181
+  connect: 192.168.191.50:2181
   session:
     timeout:
       ms: 14000
@@ -62,7 +62,7 @@ topic: user-location-updater
  
 metadata:
   broker:
-    list: localhost:9092
+    list: 192.168.191.50:9092
 request:
   required:
     acks: 0
