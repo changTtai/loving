@@ -82,7 +82,7 @@ oauth2ServerByUser:
 oauth2ServerByToken:
   address: http://localhost:19301/security/oauth/accesstoken
 userLocationRestServer:
-  address: http://localhost:19301/userlocationserver
+  address: http://localhost:19223/userlocationserver
 
 
 loginName: sys
