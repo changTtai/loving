@@ -1,5 +1,5 @@
 spring:
-  profiles: qa
+  profiles: product
   thymeleaf:
     cache: false
 
