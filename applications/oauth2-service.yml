@@ -1,7 +1,5 @@
 spring:
   profiles: product
-  thymeleaf:
-    cache: false
 
 eureka:
   client:
@@ -11,9 +9,10 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
       virtual-host-name: loving.oauth2.service
+
 server:
   port: 19301
-  context-path: /security
+
 cassandra:
   contactpoints: 192.168.191.50
   port: 9042
